@@ -1,0 +1,6 @@
+<div class="preloader-area">
+    <div class="lds-hourglass"></div>
+</div>
+<app-header *ngIf="(location == '/')"></app-header>
+    <router-outlet></router-outlet>
+<app-footer *ngIf="(location == '/')"></app-footer>
