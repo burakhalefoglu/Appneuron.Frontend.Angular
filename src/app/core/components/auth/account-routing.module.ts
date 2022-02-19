@@ -10,31 +10,31 @@ import { UpdatePasswordComponent } from '@auth/update-password/update-password.c
 
 const routes: Routes = [
   {
-    path: 'account/login',
+    path: 'login',
     component: LoginComponent,
   },
   {
-    path: 'account',
+    path: '',
     component: LoginComponent,
   },
   {
-    path: 'account/forgot',
+    path: 'forgot',
     component: ForgotComponent,
   },
   {
-    path: 'account/reset',
+    path: 'reset',
     component: ResetComponent,
   },
   {
-    path: 'account/register',
+    path: 'register',
     component: RegisterComponent,
   },
   {
-    path: 'account/logout',
+    path: 'logout',
     component: LogoutComponent,
   },
   {
-    path: 'account/updatepassword',
+    path: 'updatepassword',
     component: UpdatePasswordComponent,
     canActivate: [AuthGuard],
   },

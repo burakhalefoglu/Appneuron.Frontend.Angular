@@ -1,0 +1,294 @@
+<div class="app-container">
+    <div class="app-header">
+        <div class="app-header-left">
+            <span class="app-icon"></span>
+            <a href="/dashboard/project-managment">
+                <p class="app-name">Project Managment Page</p>
+            </a>
+            <div class="search-wrapper">
+                <input class="search-input" type="text" placeholder="Search"
+                       (input)="searchFilterByText($event.target.value)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search"
+                     viewBox="0 0 24 24">
+                    <defs></defs>
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="M21 21l-4.35-4.35"></path>
+                </svg>
+            </div>
+        </div>
+
+        <div class="app-header-right">
+
+            <a class="tap-space" title="send feedback">
+                <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                     fill="currentColor">
+                    <path
+                        d="M6.455 19L2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455zM4 18.385L5.763 17H20V5H4v13.385zM11 13h2v2h-2v-2zm0-6h2v5h-2V7z"/>
+                </svg>
+            </a>
+
+            <a class="tap-space" title="add project" href="javascript:void(0)">
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     width="32px" height="32px" viewBox="0 0 316.513 316.513"
+                     style="enable-background:new 0 0 316.513 316.513;"
+                     xml:space="preserve" fill="currentColor">
+                <g>
+                    <path d="M158.253,0C71,0,0.012,71.001,0.012,158.263c0,87.256,70.989,158.25,158.241,158.25
+                        c87.259,0,158.248-70.994,158.248-158.25C316.501,71.001,245.518,0,158.253,0z M230.891,177.982h-57.748v52.914
+                        c0,7.428-4.864,13.438-12.301,13.438c-7.422,0-12.298-6.017-12.298-13.438v-52.914H85.634c-7.44,0-13.454-4.864-13.454-12.298
+                        s6.014-12.301,13.454-12.301h62.909V85.616c0-7.434,4.876-13.453,12.298-13.453c7.437,0,12.301,6.02,12.301,13.453v67.768h57.748
+                        c7.439,0,13.456,4.867,13.456,12.301S238.33,177.982,230.891,177.982z"/>
+                </g>
+                </svg>
+            </a>
+
+            <a class="tap-space" title="exit" href="/">
+                <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8m4-9-4-4m4 4-4 4m4-4H9"/>
+                </svg>
+            </a>
+            <div class="profile-btn">
+                <img src="../../../assets/project-management/img/{{profilePicture}}"/>
+                <span>{{profileName}}</span>
+            </div>
+        </div>
+        <button class="messages-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="feather feather-message-circle">
+                <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+        </button>
+    </div>
+    <div class="app-content">
+        <div class="app-sidebar">
+            <p class="app-sidebar-link"></p>
+        </div>
+
+        <div class="projects-section">
+            <div class="projects-section-header">
+                <p>Projects</p>
+                <p class="time">{{coreService.getMonthNameOfWeek()}}, {{coreService.getDay()}}</p>
+            </div>
+            <div class="projects-section-line ">
+                <div class="projects-status">
+                    <a class="item-status" (click)="setFilterProjectByTag('total')" href="javascript:void(0)">
+                        <span [ngStyle]="{'color': this.filterTag === 'total'? '#fd7e14' : '#1f1c2e'}"
+                              class="status-number">{{activeProjectCount + terminatedProjectCount}}</span>
+                        <span [ngStyle]="{'color': this.filterTag === 'total'? '#fd7e14' : '#1f1c2e'}"
+                              class="status-type">Total</span>
+                    </a>
+                    <a class="item-status" (click)="setFilterProjectByTag('active')" href="javascript:void(0)">
+                        <span [ngStyle]="{'color': this.filterTag === 'active'? '#fd7e14' : '#1f1c2e'}"
+                              class="status-number">{{activeProjectCount}}</span>
+                        <span [ngStyle]="{'color': this.filterTag === 'active'? '#fd7e14' : '#1f1c2e'}"
+                              class="status-type">Active</span>
+                    </a>
+                    <a class="item-status" (click)="setFilterProjectByTag('passive')" href="javascript:void(0)">
+                        <span [ngStyle]="{'color': this.filterTag === 'passive'? '#fd7e14' : '#1f1c2e'}"
+                              class="status-number">{{terminatedProjectCount}}</span>
+                        <span [ngStyle]="{'color': this.filterTag === 'passive'? '#fd7e14' : '#1f1c2e'}"
+                              class="status-type">Terminated</span>
+                    </a>
+                </div>
+            </div>
+            <!--Project box started-->
+
+            <div *ngIf="FilteredProjectModelList.length <= 0" class="empty-icon-container">
+                <div class="animation-container">
+                    <div class="bounce"></div>
+                    <div class="pebble1"></div>
+                    <div class="pebble2"></div>
+                    <div class="pebble3"></div>
+                </div>
+                    <h2>No Project Yet...</h2>
+                    <p>Click <a style="color: dodgerblue" href="javascript:void(0)">here</a> to create a project.</p>
+            </div>
+
+            <div class="project-boxes jsGridView">
+                <!-- Project box started-->
+
+                <div *ngFor="let project of FilteredProjectModelList; index as i;" class="project-box-wrapper">
+                    <div class="project-box" [ngStyle]="{'background-color': project.status? '#c8f7dc' : '#ffd3e2'}">
+                        <div class="project-box-header">
+                            <span>{{coreService.getMonthNameOfWeek(project.createdAt)}} {{project.createdAt.getDate()}}
+                                , {{project.createdAt.getFullYear()}}</span>
+                            <div class="more-wrapper">
+                                <div ngbDropdown>
+                                    <button id="dropdownBasic1" class="project-btn-more" ngbDropdownToggle>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                             viewBox="0 0 24 24"
+                                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                             stroke-linejoin="round" class="feather feather-more-vertical">
+                                            <circle cx="12" cy="12" r="1"/>
+                                            <circle cx="12" cy="5" r="1"/>
+                                            <circle cx="12" cy="19" r="1"/>
+                                        </svg>
+                                    </button>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                        <button ngbDropdownItem (click)="showDeletePopUp(content, project.id)">
+                                            Terminate
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-box-content-header">
+                            <p class="box-content-header">{{project.projectName}}</p>
+                            <p class="box-content-subheader">{{project.projectBody}}</p>
+                        </div>
+                        <div class="project-box-footer">
+                            <div class="participants">
+                                <img
+                                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
+                                    alt="participant">
+                                <button class="add-participant" style="color: #ff942e;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-plus">
+                                        <path d="M12 5v14M5 12h14"/>
+                                    </svg>
+                                </button>
+                                <br>
+                            </div>
+                            <div *ngIf="project.status" class="days-left" style="color: #34c471;">
+                                active for {{ coreService.getLeftDay(project.createdAt) }} days
+                            </div>
+                            <div *ngIf="!project.status" class="days-left" style="color: #df3670;">
+                                terminated
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project box ended-->
+            </div>
+            <!--Project box started-->
+        </div>
+        <!-- <div class="messages-section">
+          <button class="messages-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="15" y1="9" x2="9" y2="15" />
+              <line x1="9" y1="9" x2="15" y2="15" /></svg>
+          </button>
+          <div class="projects-section-header">
+            <p>Client Messages</p>
+          </div>
+          <div class="messages">
+            <div class="message-box">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="profile image">
+              <div class="message-content">
+                <div class="message-header">
+                  <div class="name">Stephanie</div>
+                  <div class="star-checkbox">
+                    <input type="checkbox" id="star-1">
+                    <label for="star-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                    </label>
+                  </div>
+                </div>
+                <p class="message-line">
+                  I got your first assignment. It was quite good. 🥳 We can continue with the next assignment.
+                </p>
+                <p class="message-line time">
+                  Dec, 12
+                </p>
+              </div>
+            </div>
+            <div class="message-box">
+              <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="profile image">
+              <div class="message-content">
+                <div class="message-header">
+                  <div class="name">Mark</div>
+                  <div class="star-checkbox">
+                    <input type="checkbox" id="star-2">
+                    <label for="star-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                    </label>
+                  </div>
+                </div>
+                <p class="message-line">
+                  Hey, can tell me about progress of project? I'm waiting for your response.
+                </p>
+                <p class="message-line time">
+                  Dec, 12
+                </p>
+              </div>
+            </div>
+            <div class="message-box">
+              <img src="https://images.unsplash.com/photo-1543965170-4c01a586684e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDZ8fG1hbnxlbnwwfDB8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="profile image">
+              <div class="message-content">
+                <div class="message-header">
+                  <div class="name">David</div>
+                  <div class="star-checkbox">
+                    <input type="checkbox" id="star-3">
+                    <label for="star-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                    </label>
+                  </div>
+                </div>
+                <p class="message-line">
+                  Awesome! 🤩 I like it. We can schedule a meeting for the next one.
+                </p>
+                <p class="message-line time">
+                  Dec, 12
+                </p>
+              </div>
+            </div>
+            <div class="message-box">
+              <img src="https://images.unsplash.com/photo-1533993192821-2cce3a8267d1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTl8fHdvbWFuJTIwbW9kZXJufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="profile image">
+              <div class="message-content">
+                <div class="message-header">
+                  <div class="name">Jessica</div>
+                  <div class="star-checkbox">
+                    <input type="checkbox" id="star-4">
+                    <label for="star-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                    </label>
+                  </div>
+                </div>
+                <p class="message-line">
+                  I am really impressed! Can't wait to see the final result.
+                </p>
+                <p class="message-line time">
+                  Dec, 11
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        -->
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Are you sure</h4>
+        <button type="button" class="btn-close" aria-label="Close"
+                (click)="modal.dismiss('Cross click');"></button>
+    </div>
+    <div class="modal-body">
+    <form>
+        <div class="mb-3">
+            <label >please write <i>delete</i> to remove project</label>
+            <div class="input-group">
+                <input type="text" id="name" placeholder="delete" (input)="setDeleteInputConditionText($event.target.value)">
+            </div>
+        </div>
+    </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="button" [disabled]="!(deleteInputConditionText === 'delete') " (click)="modal.close('Save click'); deleteProject()">delete
+        </button>
+    </div>
+</ng-template>

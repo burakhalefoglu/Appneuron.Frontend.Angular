@@ -42,7 +42,7 @@
                 "node_modules/bootstrap/dist/js/bootstrap.min.js",
                 "node_modules/wowjs/dist/wow.js",
                 "node_modules/magnific-popup/dist/jquery.magnific-popup.min.js",
-                "src/assets/landing-page/js/custom.js"
+                "src/assets/landing-page/js/custom.js",
             ],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -69,13 +69,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "7mb"
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "10mb",
+                  "maximumError": "12mb"
                 }
               ]
             }
