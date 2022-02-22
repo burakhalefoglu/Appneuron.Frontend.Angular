@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
   Router,
 } from '@angular/router';
-import { AuthService } from '@app/core/components/auth/services/auth.service';
+import { CoreService } from '../services/core.service';
 import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable({
@@ -13,7 +13,7 @@ import { LocalStorageService } from '../services/local-storage.service';
 })
 export class AuthGuard implements CanActivate {
   constructor(
-    private authService: AuthService,
+    private coreService: CoreService,
     private router: Router,
     private storageService: LocalStorageService
   ) {}
@@ -22,10 +22,10 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (!this.authService.loggedIn()) {
+    if (!this.coreService.loggedIn()) {
       this.storageService.removeItem('token');
       this.storageService.removeItem('lang');
-      this.router.navigate(['/account/login']);
+      this.router.navigate(['/login']);
       return false;
     } else {
       return true;

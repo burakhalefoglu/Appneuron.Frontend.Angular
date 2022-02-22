@@ -1,52 +1,24 @@
-<div class="filter custom-dropdown-icon">
-  <button
-    class="dropdown-toggle btn"
-    href="#"
-    role="button"
-    id="filterDropdown"
-    data-toggle="dropdown"
-    aria-haspopup="true"
-    aria-expanded="false"
-  >
-    <span style="font-size: 0.9rem" class="text">{{ selectedMessage }}</span>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="feather feather-chevron-down"
-    >
-      <polyline points="6 9 12 15 18 9"></polyline>
-    </svg>
-  </button>
-  <div
-    class="dropdown-menu dropdown-menu-right"
-    aria-labelledby="filterDropdown"
-  >
-    <button
-      href="javascript:void(0);"
-      class="dropdown-item"
-      value="1"
-      (click)="selectTimer($event)"
-    >
-      1 minute
-    </button>
+<div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+    <button class="button" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">{{this.selectedMessage}}</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownManual">
+        <button
+            ngbDropdownItem
+            value="1"
+            (click)="selectTimer($event)"
+        >
+            1 minute
+        </button>
 
-    <button class="dropdown-item" value="5" (click)="selectTimer($event)">
-      5 minutes
-    </button>
+        <button ngbDropdownItem value="5" (click)="selectTimer($event)">
+            5 minutes
+        </button>
 
-    <button class="dropdown-item" value="10" (click)="selectTimer($event)">
-      10 minutes
-    </button>
+        <button ngbDropdownItem value="10" (click)="selectTimer($event)">
+            10 minutes
+        </button>
 
-    <button class="dropdown-item" value="30" (click)="selectTimer($event)">
-      30 minutes
-    </button>
-  </div>
+        <button ngbDropdownItem value="30" (click)="selectTimer($event)">
+            30 minutes
+        </button>
+    </div>
 </div>

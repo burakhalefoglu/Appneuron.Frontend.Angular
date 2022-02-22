@@ -176,7 +176,7 @@ code {
 .layout-px-spacing {
   padding: 0 39px !important; }
 
-/* 
+/*
 =====================
     Navigation Bar
 =====================
@@ -217,6 +217,11 @@ code {
   padding-top: 0.0rem;
   padding-bottom: 0.0rem;
   margin-right: 0.0rem; }
+
+.navbar-expand-sm {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
 
 .navbar-expand-sm .navbar-item .nav-link {
   padding: 0.39rem 0.6rem;
@@ -271,6 +276,10 @@ code {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none; }
+
+.search-log{
+    padding-right: 800px;
+}
 
 .header-container .navbar .navbar-item .nav-item.dropdown .dropdown-menu {
   top: 108%;
@@ -892,7 +901,7 @@ code {
 /*
     ====================
         More Dropdown
-    ====================    
+    ====================
 */
 /*
     Footer

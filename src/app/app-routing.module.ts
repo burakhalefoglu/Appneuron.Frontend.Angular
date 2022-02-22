@@ -5,6 +5,10 @@ import { BlogComponent } from './landing-pages/pages/blog/blog.component';
 import { BlogDetailsComponent } from './landing-pages/pages/blog-details/blog-details.component';
 import { ComingSoonComponent } from './landing-pages/pages/coming-soon/coming-soon.component';
 import { NotFoundComponent } from './landing-pages/pages/not-found/not-found.component';
+import { LoginComponent } from './auth/login/login.component';
+import { ForgotComponent } from './auth/forgot/forgot.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { ResetComponent } from './auth/reset/reset.component';
 
 
 const routes: Routes = [
@@ -15,20 +19,11 @@ const routes: Routes = [
     { path: 'blog-details', component: BlogDetailsComponent },
     { path: 'coming-soon', component: ComingSoonComponent },
     { path: '404', component: NotFoundComponent },
-    {
-      path: 'account',
-      loadChildren: () =>
-        import('./core/Components/Auth/account.module').then(
-          (m) => m.AccountModule
-        ),
-    },
-    {
-      path: 'dashboard',
-      loadChildren: () =>
-        import('./dashboard/dashboard.module').then(
-          (m) => m.DashboardModule
-        ),
-    },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'reset', component: ResetComponent },
+    { path: 'forgot', component: ForgotComponent },
+
     { path: '**', redirectTo: '/404' },
  ];
 

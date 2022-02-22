@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@core/guard/auth.guard';
 import { ProjectManagementComponent } from './project-managment/project-management.component';
+import {ProjectDetailDashboardComponent} from '@app/dashboard/project-detail-dashboard/project-detail-dashboard.component';
 
 const routes: Routes = [
   {
@@ -9,14 +9,10 @@ const routes: Routes = [
     component: ProjectManagementComponent,
     //  canActivate: [AuthGuard],
   },
-  { path: '', redirectTo: 'project-managment', pathMatch: 'full' },
   {
     path: 'project-details',
-    loadChildren: () =>
-      import('./project-detail-dashboard/project-detail-dashboard.module').then(
-        (m) => m.ProjectDetailDashboardModule
-      ),
-    //  canActivate: [AuthGuard],
+      component: ProjectDetailDashboardComponent,
+      //  canActivate: [AuthGuard],
   },
 ];
 

@@ -3,11 +3,14 @@ import {CoreService} from '@core/services/core.service';
 import {LocalStorageService} from '@core/services/local-storage.service';
 import {ProjectModel} from '@app/dashboard/models/project-model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {CustomerInformationService} from '@core/services/customer-information.service';
+import {AuthService} from '@app/auth/services/auth.service';
 
 @Component({
     selector: 'app-project-managment',
     templateUrl: './project-management.component.html',
-    styleUrls: ['./project-management.component.scss']
+    styleUrls: ['./project-management.component.scss'],
 })
 export class ProjectManagementComponent implements OnInit {
 
@@ -16,28 +19,42 @@ export class ProjectManagementComponent implements OnInit {
     profileName: string;
     profilePicture: string;
     filterTag: string;
-    ProjectModelList: Array<ProjectModel> = [];
-    FilteredProjectModelList: Array<ProjectModel> = [];
     DeleteProjectId: bigint;
     deleteInputConditionText: string;
+    rate: number;
+
+    projectModelList: Array<ProjectModel> = [];
+    filteredProjectModelList: Array<ProjectModel> = [];
+    createProjectForm: FormGroup = new FormGroup({});
+    feedbackForm: FormGroup = new FormGroup({});
+    projectPage: string;
 
     constructor(public coreService: CoreService,
                 private localStorageService: LocalStorageService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private formBuilder: FormBuilder,
+                public authService: AuthService,
+                private customerInformationService: CustomerInformationService) {
     }
 
     ngOnInit(): void {
+
+        this.projectPage = '/project-details?projectId=';
         this.activeProjectCount = 0;
         this.terminatedProjectCount = 0;
         this.DeleteProjectId = BigInt(0);
+        this.rate = 4;
 
         this.profileName = 'burak16305825';
         this.filterTag = 'total';
-        this.ProjectModelList = new Array<ProjectModel>();
-        this.FilteredProjectModelList = new Array<ProjectModel>();
+        this.projectModelList = new Array<ProjectModel>();
+        this.filteredProjectModelList = new Array<ProjectModel>();
+
         this.profilePicture = this.getProfilePictureName() + '.png';
-      //  this.getProjects();
+        this.getProjects();
         this.setFilterProjectByTag(this.filterTag);
+        this.createProjectFormEvent();
+        this.createFeedbackFormEvent();
     }
 
     public getProfilePictureName() {
@@ -50,94 +67,122 @@ export class ProjectManagementComponent implements OnInit {
     }
 
     public setFilterProjectByTag(tag: string) {
-        this.FilteredProjectModelList = new Array<ProjectModel>();
+        this.filteredProjectModelList = new Array<ProjectModel>();
         this.filterTag = tag;
         if (tag === 'total') {
-            this.FilteredProjectModelList = this.ProjectModelList;
+            this.filteredProjectModelList = this.projectModelList;
         } else if (tag === 'active') {
-            this.ProjectModelList.forEach(x => {
+            this.projectModelList.forEach(x => {
                 if (x.status) {
-                    this.FilteredProjectModelList.push(x);
+                    this.filteredProjectModelList.push(x);
                 }
             });
         } else if (tag === 'passive') {
-            this.ProjectModelList.forEach(x => {
+            this.projectModelList.forEach(x => {
                 if (!x.status) {
-                    this.FilteredProjectModelList.push(x);
+                    this.filteredProjectModelList.push(x);
                 }
             });
         }
     }
 
     public searchFilterByText(text: string) {
-        this.FilteredProjectModelList = new Array<ProjectModel>();
+        this.filteredProjectModelList = new Array<ProjectModel>();
         if (this.filterTag === 'total') {
-            this.ProjectModelList.forEach(x => {
+            this.projectModelList.forEach(x => {
                 if (x.projectName.toLowerCase().includes(text.toLowerCase())) {
-                    this.FilteredProjectModelList.push(x);
+                    this.filteredProjectModelList.push(x);
                 }
             });
         } else if (this.filterTag === 'active') {
-            this.ProjectModelList.forEach(x => {
+            this.projectModelList.forEach(x => {
                 if (x.projectName.toLowerCase().includes(text.toLowerCase()) && x.status) {
-                    this.FilteredProjectModelList.push(x);
+                    this.filteredProjectModelList.push(x);
                 }
             });
         } else if (this.filterTag === 'passive') {
-            this.ProjectModelList.forEach(x => {
+            this.projectModelList.forEach(x => {
                 if (x.projectName.toLowerCase().includes(text.toLowerCase()) && !x.status) {
-                    this.FilteredProjectModelList.push(x);
+                    this.filteredProjectModelList.push(x);
                 }
             });
         }
     }
 
     public getProjects() {
-        const projectModel = new ProjectModel();
-        projectModel.id = BigInt(1);
-        projectModel.createdAt = new Date('2021-01-25');
-        projectModel.projectName = 'Project';
-        projectModel.projectBody = 'This is project created by burak halefoglu';
-        projectModel.status = false;
-
-        const projectModel2 = new ProjectModel();
-        projectModel2.id = BigInt(2);
-        projectModel2.createdAt = new Date('2022-01-25');
-        projectModel2.projectName = 'Test Project2';
-        projectModel2.projectBody = 'This is project created by burak halefoglu';
-        projectModel2.status = true;
-
-        this.ProjectModelList.push(projectModel);
-        this.ProjectModelList.push(projectModel2);
-
-        this.ProjectModelList.forEach(x => {
+        const project = new ProjectModel();
+        project.id = BigInt(1);
+        project.projectName = 'First project';
+        project.projectBody = 'First project description';
+        project.status = true;
+        project.createdAt = new Date();
+        this.projectModelList.push(project);
+        this.projectModelList.forEach(x => {
             x.status ? this.activeProjectCount += 1 : this.terminatedProjectCount += 1;
-        });
-    }
-
-    public showDeletePopUp(content, id: bigint) {
-        this.DeleteProjectId = id;
-        this.modalService.open(content, {centered: true})
-            .result.then((result) => {
-        }, (reason) => {
-            this.DeleteProjectId = BigInt(0);
         });
     }
 
     public deleteProject() {
         this.activeProjectCount = 0;
         this.terminatedProjectCount = 0;
-        const projectModelIndex = this.ProjectModelList.map(x => {
+        const projectModelIndex = this.projectModelList.map(x => {
             return x.id;
         }).indexOf(this.DeleteProjectId);
-        this.ProjectModelList.splice(projectModelIndex, 1);
+        this.projectModelList.splice(projectModelIndex, 1);
         this.setFilterProjectByTag(this.filterTag);
-        this.ProjectModelList.forEach(x => {
+        this.projectModelList.forEach(x => {
             x.status ? this.activeProjectCount += 1 : this.terminatedProjectCount += 1;
         });
     }
 
     setDeleteInputConditionText(value: any) {
         this.deleteInputConditionText = value;
+    }
+
+    private createProjectFormEvent(): void {
+        this.createProjectForm = this.formBuilder.group({
+            ProjectName: new FormControl('', [
+                Validators.required,
+                Validators.minLength(3),
+                Validators.maxLength(30),
+            ]),
+            ProjectBody: new FormControl('', [
+                Validators.required,
+                Validators.minLength(3),
+            ]),
+        });
+    }
+    private createFeedbackFormEvent(): void {
+        this.feedbackForm = this.formBuilder.group({
+            feedback: new FormControl(''),
+        });
+    }
+
+    public createProject() {
+        const projectModel = Object.assign({}, this.createProjectForm.value);
+        console.log(projectModel);
+    }
+
+    public setFeedbackRate(rate: number){
+        this.rate = rate;
+    }
+
+    public sendFeedback(){
+        const feedback = Object.assign({}, this.feedbackForm.value);
+        console.log(feedback);
+        console.log(this.rate);
+    }
+
+    public showPopup(Content: any): void {
+        this.modalService.open(Content);
+    }
+
+    public showDeletePopUp(Content: any, id: bigint) {
+        this.DeleteProjectId = id;
+        this.modalService.open(Content, {centered: true})
+            .result.then((result) => {
+        }, (reason) => {
+            this.DeleteProjectId = BigInt(0);
+        });
     }
 }

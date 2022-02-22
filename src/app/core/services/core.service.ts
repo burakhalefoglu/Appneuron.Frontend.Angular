@@ -1,12 +1,18 @@
 import {Injectable} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import * as moment from 'moment';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CoreService {
-    constructor(private sanitizer: DomSanitizer) {
+
+    jwtHelper: JwtHelperService = new JwtHelperService();
+    
+    constructor(private sanitizer: DomSanitizer,
+         private localStorageService: LocalStorageService) {
     }
 
     formatDateFromNumberDate(numbDate: number): string {
@@ -105,4 +111,11 @@ export class CoreService {
         const diffDays = Math.abs((date.getTime() - createdAt.getTime()) / (oneDay));
         return  Math.floor( diffDays );
     }
+
+    loggedIn(): boolean {
+        const isExpired = this.jwtHelper.isTokenExpired(
+          this.localStorageService.getItem('token')?.toString()
+        );
+        return !isExpired;
+      }
 }

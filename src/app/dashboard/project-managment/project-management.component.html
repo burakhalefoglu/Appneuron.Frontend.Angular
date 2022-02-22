@@ -19,36 +19,61 @@
         </div>
 
         <div class="app-header-right">
+            <div class="rating">
+                <input (click)="setFeedbackRate(5)" type="radio" name="rating" id="rating-5">
+                <label for="rating-5"></label>
+                <input (click)="setFeedbackRate(4)" checked="checked" type="radio" name="rating" id="rating-4">
+                <label for="rating-4"></label>
+                <input (click)="setFeedbackRate(3)" type="radio" name="rating" id="rating-3">
+                <label for="rating-3"></label>
+                <input (click)="setFeedbackRate(2)" type="radio" name="rating" id="rating-2">
+                <label for="rating-2"></label>
+                <input (click)="setFeedbackRate(1)" type="radio" name="rating" id="rating-1">
+                <label for="rating-1"></label>
 
-            <a class="tap-space" title="send feedback">
-                <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                     fill="currentColor">
-                    <path
-                        d="M6.455 19L2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455zM4 18.385L5.763 17H20V5H4v13.385zM11 13h2v2h-2v-2zm0-6h2v5h-2V7z"/>
+            </div>
+            <a class="tap-space" title="send feedback detail" (click)="showPopup(feedback)">
+                <svg width="24px" height="24px" viewBox="0 0 48 48" version="1" xmlns="http://www.w3.org/2000/svg"
+                     enable-background="new 0 0 48 48">
+                    <path fill="#78909C"
+                          d="M40,41H8c-2.2,0-4-1.8-4-4l0-20.9c0-1.3,0.6-2.5,1.7-3.3L24,0l18.3,12.8c1.1,0.7,1.7,2,1.7,3.3V37 C44,39.2,42.2,41,40,41z"/>
+                    <rect x="12" y="11" fill="#fff" width="24" height="22"/>
+                    <polygon fill="#9C27B0" points="24,13.6 18,21.4 30,21.4"/>
+                    <path fill="#CFD8DC" d="M40,41H8c-2.2,0-4-1.8-4-4l0-20l20,13l20-13v20C44,39.2,42.2,41,40,41z"/>
+                    <polygon fill="#9C27B0" points="24,28 26,26.7 26,20 22,20 22,26.7"/>
+                </svg>
+
+            </a>
+
+            <a class="tap-space" title="add project" (click)="showPopup(createproject)"
+               href="javascript:void(0)">
+                <svg width="32px" height="32px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                    <circle style="fill:#43B05C;" cx="25" cy="25" r="25"/>
+                    <line
+                        style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"
+                        x1="25" y1="13" x2="25" y2="38"/>
+                    <line
+                        style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"
+                        x1="37.5" y1="25" x2="12.5" y2="25"/>
                 </svg>
             </a>
 
-            <a class="tap-space" title="add project" href="javascript:void(0)">
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+            <a class="tap-space" title="logout" (click)="authService.logOut()" href="javascript:void(0)">
+                <svg width="24px" height="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                     width="32px" height="32px" viewBox="0 0 316.513 316.513"
-                     style="enable-background:new 0 0 316.513 316.513;"
-                     xml:space="preserve" fill="currentColor">
-                <g>
-                    <path d="M158.253,0C71,0,0.012,71.001,0.012,158.263c0,87.256,70.989,158.25,158.241,158.25
-                        c87.259,0,158.248-70.994,158.248-158.25C316.501,71.001,245.518,0,158.253,0z M230.891,177.982h-57.748v52.914
-                        c0,7.428-4.864,13.438-12.301,13.438c-7.422,0-12.298-6.017-12.298-13.438v-52.914H85.634c-7.44,0-13.454-4.864-13.454-12.298
-                        s6.014-12.301,13.454-12.301h62.909V85.616c0-7.434,4.876-13.453,12.298-13.453c7.437,0,12.301,6.02,12.301,13.453v67.768h57.748
-                        c7.439,0,13.456,4.867,13.456,12.301S238.33,177.982,230.891,177.982z"/>
+                     viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                <polygon style="fill:#3897FF;" points="411.826,222.609 233.903,222.609 233.903,289.391 411.826,289.391 411.826,356.174 512,256
+                    411.826,155.826 "/>
+                                    <polygon style="fill:#446080;" points="66.783,139.13 256,139.13 278.261,105.739 256,72.348 0,72.348 0,439.652 256,439.652
+                    278.261,406.261 256,372.87 66.783,372.87 "/>
+                                    <g>
+                    <rect x="256" y="372.87" style="fill:#324860;" width="77.913" height="66.783"/>
+                                        <rect x="256" y="72.348" style="fill:#324860;" width="77.913" height="66.783"/>
                 </g>
                 </svg>
-            </a>
 
-            <a class="tap-space" title="exit" href="/">
-                <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M15 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8m4-9-4-4m4 4-4 4m4-4H9"/>
-                </svg>
             </a>
             <div class="profile-btn">
                 <img src="../../../assets/project-management/img/{{profilePicture}}"/>
@@ -96,29 +121,31 @@
                     </a>
                 </div>
             </div>
-            <!--Project box started-->
 
-            <div *ngIf="FilteredProjectModelList.length <= 0" class="empty-icon-container">
+            <div *ngIf="filteredProjectModelList.length <= 0" class="empty-icon-container">
                 <div class="animation-container">
-                    <div class="bounce"></div>
+                    <div class="bounce-anim"></div>
                     <div class="pebble1"></div>
                     <div class="pebble2"></div>
                     <div class="pebble3"></div>
                 </div>
-                    <h2>No Project Yet...</h2>
-                    <p>Click <a style="color: dodgerblue" href="javascript:void(0)">here</a> to create a project.</p>
+                <h2 *ngIf="projectModelList.length >0">Not found...</h2>
+                <h2 *ngIf="projectModelList.length<= 0">No Project Yet...</h2>
+                <p *ngIf="projectModelList.length<= 0">Click <a style="color: dodgerblue"
+                                                                (click)="showPopup(createproject)"
+                                                                href="javascript:void(0)">here</a> to create a new
+                    project.</p>
             </div>
 
             <div class="project-boxes jsGridView">
                 <!-- Project box started-->
-
-                <div *ngFor="let project of FilteredProjectModelList; index as i;" class="project-box-wrapper">
+                <div *ngFor="let project of filteredProjectModelList; index as i;" class="project-box-wrapper">
                     <div class="project-box" [ngStyle]="{'background-color': project.status? '#c8f7dc' : '#ffd3e2'}">
                         <div class="project-box-header">
                             <span>{{coreService.getMonthNameOfWeek(project.createdAt)}} {{project.createdAt.getDate()}}
                                 , {{project.createdAt.getFullYear()}}</span>
                             <div class="more-wrapper">
-                                <div ngbDropdown>
+                                <div *ngIf="project.status" ngbDropdown>
                                     <button id="dropdownBasic1" class="project-btn-more" ngbDropdownToggle>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                              viewBox="0 0 24 24"
@@ -130,7 +157,7 @@
                                         </svg>
                                     </button>
                                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                        <button ngbDropdownItem (click)="showDeletePopUp(content, project.id)">
+                                        <button ngbDropdownItem (click)="showDeletePopUp(areyousure, project.id)">
                                             Terminate
                                         </button>
                                     </div>
@@ -142,19 +169,52 @@
                             <p class="box-content-subheader">{{project.projectBody}}</p>
                         </div>
                         <div class="project-box-footer">
+                            <a *ngIf="project.status" [href]="projectPage + project.id">
+                                <svg width="24" height="24" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                     viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
+                                <g>
+                                    <rect x="32" y="7" style="fill:#14A085;" width="10" height="45"/>
+                                    <rect x="17" y="38" style="fill:#F29C1F;" width="10" height="14"/>
+                                    <rect x="2" y="29" style="fill:#E57E25;" width="10" height="23"/>
+                                    <rect x="47" y="15" style="fill:#71C285;" width="10" height="37"/>
+                                    <path style="fill:#556080;"
+                                          d="M59,53H1c-0.552,0-1-0.447-1-1s0.448-1,1-1h58c0.552,0,1,0.447,1,1S59.552,53,59,53z"/>
+                                </g>
+                                </svg>
+                            </a>
+                            <a *ngIf="project.status" href="javascript:void(0)">
+                                <svg width="24" height="24" version="1.1" id="Layer_1"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                     viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;"
+                                     xml:space="preserve">
+                                <path style="fill:#507C5C;" d="M357.781,140.7c-9.061,0-16.407-7.345-16.407-16.407v-91.04c0-9.061,7.345-16.407,16.407-16.407
+                                    s16.407,7.345,16.407,16.407v91.04C374.187,133.355,366.842,140.7,357.781,140.7z"/>
+                                    <path style="fill:#CFF09E;" d="M256.002,323.673l106.075-109.017h117.45c14.272,0,21.448,17.23,11.394,27.36l-234.92,236.731
+                                    L21.08,242.016c-10.052-10.131-2.878-27.36,11.394-27.36h117.45L256.002,323.673z"/>
+                                    <g>
+                                    <path style="fill:#507C5C;" d="M509.491,218.229c-5.055-12.136-16.817-19.98-29.965-19.98h-117.45c-4.43,0-8.669,1.79-11.759,4.965
+                                        L256,300.146l-85.372-87.739V33.253c0-9.061-7.345-16.407-16.407-16.407s-16.407,7.345-16.407,16.407v164.997H32.475
+                                        c-13.148,0-24.91,7.842-29.965,19.98c-5.055,12.138-2.338,26.011,6.924,35.345l234.922,236.731c3.08,3.104,7.273,4.85,11.645,4.85
+                                        s8.566-1.746,11.645-4.85l234.922-236.731C511.829,244.24,514.547,230.367,509.491,218.229z M256.002,455.454L33.33,231.063
+                                        h109.668l101.245,104.051c3.088,3.175,7.329,4.965,11.759,4.965s8.671-1.79,11.759-4.965l101.244-104.051l109.67,0.003
+                                        L256.002,455.454z"/>
+                                        <path style="fill:#507C5C;" d="M256.002,241.51c-9.061,0-16.407-7.345-16.407-16.407V68.822c0-9.061,7.345-16.407,16.407-16.407
+                                        s16.407,7.345,16.407,16.407v156.281C272.409,234.165,265.063,241.51,256.002,241.51z"/>
+                                </g>
+                                </svg>
+                            </a>
                             <div class="participants">
-                                <img
-                                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
-                                    alt="participant">
-                                <button class="add-participant" style="color: #ff942e;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-plus">
-                                        <path d="M12 5v14M5 12h14"/>
-                                    </svg>
-                                </button>
-                                <br>
+                                <!--                                <button class="add-participant" style="color: #ff942e;">-->
+                                <!--                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"-->
+                                <!--                                         fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"-->
+                                <!--                                         stroke-linejoin="round" class="feather feather-plus">-->
+                                <!--                                        <path d="M12 5v14M5 12h14"/>-->
+                                <!--                                    </svg>-->
+                                <!--                                </button>-->
                             </div>
+                            <br>
                             <div *ngIf="project.status" class="days-left" style="color: #34c471;">
                                 active for {{ coreService.getLeftDay(project.createdAt) }} days
                             </div>
@@ -166,7 +226,6 @@
                 </div>
                 <!-- Project box ended-->
             </div>
-            <!--Project box started-->
         </div>
         <!-- <div class="messages-section">
           <button class="messages-close">
@@ -200,69 +259,6 @@
                 </p>
               </div>
             </div>
-            <div class="message-box">
-              <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="profile image">
-              <div class="message-content">
-                <div class="message-header">
-                  <div class="name">Mark</div>
-                  <div class="star-checkbox">
-                    <input type="checkbox" id="star-2">
-                    <label for="star-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                    </label>
-                  </div>
-                </div>
-                <p class="message-line">
-                  Hey, can tell me about progress of project? I'm waiting for your response.
-                </p>
-                <p class="message-line time">
-                  Dec, 12
-                </p>
-              </div>
-            </div>
-            <div class="message-box">
-              <img src="https://images.unsplash.com/photo-1543965170-4c01a586684e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDZ8fG1hbnxlbnwwfDB8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="profile image">
-              <div class="message-content">
-                <div class="message-header">
-                  <div class="name">David</div>
-                  <div class="star-checkbox">
-                    <input type="checkbox" id="star-3">
-                    <label for="star-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                    </label>
-                  </div>
-                </div>
-                <p class="message-line">
-                  Awesome! 🤩 I like it. We can schedule a meeting for the next one.
-                </p>
-                <p class="message-line time">
-                  Dec, 12
-                </p>
-              </div>
-            </div>
-            <div class="message-box">
-              <img src="https://images.unsplash.com/photo-1533993192821-2cce3a8267d1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTl8fHdvbWFuJTIwbW9kZXJufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="profile image">
-              <div class="message-content">
-                <div class="message-header">
-                  <div class="name">Jessica</div>
-                  <div class="star-checkbox">
-                    <input type="checkbox" id="star-4">
-                    <label for="star-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                    </label>
-                  </div>
-                </div>
-                <p class="message-line">
-                  I am really impressed! Can't wait to see the final result.
-                </p>
-                <p class="message-line time">
-                  Dec, 11
-                </p>
-              </div>
-            </div>
           </div>
         </div>
         -->
@@ -270,25 +266,165 @@
 </div>
 
 
-<ng-template #content let-modal>
+<ng-template #areyousure let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Are you sure</h4>
         <button type="button" class="btn-close" aria-label="Close"
                 (click)="modal.dismiss('Cross click');"></button>
     </div>
     <div class="modal-body">
-    <form>
-        <div class="mb-3">
-            <label >please write <i>delete</i> to remove project</label>
-            <div class="input-group">
-                <input type="text" id="name" placeholder="delete" (input)="setDeleteInputConditionText($event.target.value)">
+        <form>
+            <div class="mb-3">
+                <p style="color: red"> you can't access any data and charts</p>
+                <label>please write <i>delete</i> to remove project</label>
+                <div class="input-group">
+                    <input type="text" id="name" placeholder="delete"
+                           (input)="setDeleteInputConditionText($event.target.value)">
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="button" [disabled]="!(deleteInputConditionText === 'delete') " (click)="modal.close('Save click'); deleteProject()">delete
+        <button type="submit" class="btn btn-outline-dark" [disabled]="!(deleteInputConditionText === 'delete') "
+                (click)="modal.close('Save click'); deleteProject()">delete
         </button>
     </div>
 </ng-template>
+
+
+<ng-template #createproject let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Create a project</h4>
+        <button type="button" class="btn-close" aria-label="Close"
+                (click)="modal.dismiss('Cross click');"></button>
+    </div>
+    <div class="modal-body">
+        <form
+            style="background-color: white"
+            class="text-left"
+            [formGroup]="createProjectForm"
+            (ngSubmit)="createProject()"
+        >
+            <div class="modal-body">
+                <div class="form-style-2">
+                    <label style="color: red">*<input
+                        type="text"
+                        class="input-field"
+                        name="field1"
+                        value=""
+                        id="forName"
+                        formControlName="ProjectName"
+                        placeholder="Project Name"
+                    /> </label>
+                    <div
+                        class="alert alert-danger"
+                        *ngIf="
+              !createProjectForm.controls.ProjectName?.valid &&
+              (createProjectForm.controls.ProjectName?.dirty ||
+                createProjectForm.controls.ProjectName?.touched)
+            "
+                    >
+                        <div
+                            *ngIf="createProjectForm.controls.ProjectName.errors?.required"
+                        >
+                            Name is required.
+                        </div>
+
+                        <div
+                            *ngIf="createProjectForm.controls.ProjectName.errors?.minlength"
+                        >
+                            Name must be at least 3 characters
+                        </div>
+
+                        <div
+                            *ngIf="createProjectForm.controls.ProjectName.errors?.maxlength"
+                        >
+                            Name must be a maximum 30 characters
+                        </div>
+                    </div>
+                    <label style="color: red">*<textarea
+                        formControlName="ProjectBody"
+                        name="field5"
+                        class="textarea-field"
+                        id="forProjectBody"
+                        placeholder="ProjectBody"
+                    ></textarea></label>
+                    <div
+                        class="alert alert-danger"
+                        *ngIf="
+              !createProjectForm.controls.ProjectBody?.valid &&
+              (createProjectForm.controls.ProjectBody?.dirty ||
+                createProjectForm.controls.ProjectBody?.touched)
+            "
+                    >
+                        <div
+                            *ngIf="createProjectForm.controls.ProjectBody.errors?.required"
+                        >
+                            Project body is required.
+                        </div>
+
+                        <div
+                            *ngIf="createProjectForm.controls.ProjectBody.errors?.minlength"
+                        >
+                            Project body must be at least 3 characters
+                        </div>
+
+                        <div
+                            *ngIf="createProjectForm.controls.ProjectBody.errors?.maxlength"
+                        >
+                            ProjectBody must be a maximum 30 characters
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit"
+                [disabled]="!createProjectForm.valid"
+                class="btn btn-outline-dark"
+                (click)="createProject(); modal.close('Save click');">Create
+        </button>
+    </div>
+</ng-template>
+
+
+<ng-template #feedback let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title-feedback">Feedback</h4>
+        <button type="button" class="btn-close" aria-label="Close"
+                (click)="modal.dismiss('Cross click');"></button>
+    </div>
+    <div class="modal-body">
+        <form
+            style="background-color: white"
+            class="text-left"
+            [formGroup]="feedbackForm"
+            (ngSubmit)="sendFeedback()"
+        >
+            <div class="modal-body">
+                <div class="form-style-2">
+                    <label><textarea
+                        formControlName="ProjectBody"
+                        name="field5"
+                        class="textarea-field"
+                        id="feedback-detail"
+                        placeholder="feedback detail"
+                    ></textarea></label>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit"
+                class="btn btn-outline-dark"
+                (click)="sendFeedback(); modal.close('Save click');">Send
+        </button>
+    </div>
+</ng-template>
+
+
+
