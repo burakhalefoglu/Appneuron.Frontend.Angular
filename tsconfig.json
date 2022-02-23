@@ -21,12 +21,9 @@
         "src/app/core/*"
       ],
       "@auth/*": [
-        "src/app/core/components/auth/*"
-      ],
-      "@customer-dashboard/*": [
-        "src/app/customer-dashboard/*"
+        "src/app/auth/*"
       ]
-    },
+        },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

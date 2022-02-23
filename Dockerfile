@@ -12,6 +12,6 @@ RUN ng build --configuration production  --optimization true --build-optimizer t
 ### STAGE 2: Run ###
 FROM nginx:stable-alpine
 COPY nginx.conf nginx.conf
-COPY --from=build ./usr/src/app/dist/appneuron-dashboard/* /usr/share/nginx/html
+COPY --from=build ./usr/src/app/dist/Appneuron.Frontend.Landingpage/* /usr/share/nginx/html
 EXPOSE 80
 

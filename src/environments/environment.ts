@@ -6,10 +6,6 @@ export const environment = {
   production: false,
   getUrl: 'localhost',
   getAuthApiUrl: 'http://localhost:52039/api',
-  getProjectApiUrl: 'https://localhost:44301/WebAPI/api',
-  getClientApiUrl: 'https://localhost:44370/WebAPI/api',
-  getRemoteApiUrl: 'https://localhost:44371/WebAPI/api',
-  websocketConn: 'ws://localhost:8080',
   getDropDownSetting: {
     singleSelection: false,
     idField: 'id',

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "appneuron-dashboard": {
+    "Appneuron.Frontend.Landingpage": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/appneuron-dashboard",
+            "outputPath": "dist/Appneuron.Frontend.Landingpage",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -86,18 +86,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "appneuron-dashboard:build"
+            "browserTarget": "Appneuron.Frontend.Landingpage:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "appneuron-dashboard:build:production"
+              "browserTarget": "Appneuron.Frontend.Landingpage:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "appneuron-dashboard:build"
+            "browserTarget": "Appneuron.Frontend.Landingpage:build"
           }
         },
         "test": {
@@ -122,15 +122,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "appneuron-dashboard:serve"
+            "devServerTarget": "Appneuron.Frontend.Landingpage:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "appneuron-dashboard:serve:production"
+              "devServerTarget": "Appneuron.Frontend.Landingpage:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "appneuron-dashboard"
+  "defaultProject": "Appneuron.Frontend.Landingpage"
 }
