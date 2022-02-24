@@ -9,8 +9,7 @@ import {LoginComponent} from '@auth/login/login.component';
 import {ForgotComponent} from '@auth/forgot/forgot.component';
 import {RegisterComponent} from '@auth/register/register.component';
 import {ResetComponent} from '@auth/reset/reset.component';
-import {ProjectManagementComponent} from './dashboard/pages/project-management/project-management.component';
-import {ProjectDetailComponent} from './dashboard/pages/project-detail/project-detail.component';
+import {AuthGuard} from '@core/guard/auth.guard';
 
 
 const routes: Routes = [
@@ -26,8 +25,12 @@ const routes: Routes = [
     {path: 'reset', component: ResetComponent},
     {path: 'forgot', component: ForgotComponent},
 
-    {path: 'dashboard/project-managment', component: ProjectManagementComponent},
-    {path: 'dashboard/project-details', component: ProjectDetailComponent},
+    {
+        path: 'dashboard',
+        loadChildren: () => import('./dashboard/dashboard.module')
+            .then(m => m.DashboardModule),
+        // canActivate: [AuthGuard]
+    },
 
     {path: '**', redirectTo: '/404'},
 ];

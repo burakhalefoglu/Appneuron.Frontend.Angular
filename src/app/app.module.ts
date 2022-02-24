@@ -17,7 +17,7 @@ import {ProgressBarModule} from '@app/core/components/progress-bar/progress-bar.
 import {TimerModule} from '@core/components/timer/timer.module';
 import {EventsModule} from '@core/services/angular-event-service/angular-events.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './auth/services/auth.service';
+import { AuthService } from '@auth/services/auth.service';
 import { PasswordStrengthBarModule } from '@core/components/password-strength-bar/password-strength-bar.module';
 import {ComingSoonComponent} from '@landing-pages/pages/coming-soon/coming-soon.component';
 import {NotFoundComponent} from '@landing-pages/pages/not-found/not-found.component';
@@ -36,7 +36,9 @@ import {ResetComponent} from '@app/auth/reset/reset.component';
 import {ForgotComponent} from '@app/auth/forgot/forgot.component';
 import {DatepickerModule} from '@core/components/datepicker/datepicker.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardModule } from './dashboard/dashboard.module';
+import {ProjectManagementComponent} from '@app/dashboard/pages/project-management/project-management.component';
+import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {DashboardModule} from '@app/dashboard/dashboard.module';
 
 @NgModule({
     declarations: [
@@ -54,7 +56,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
         LoginComponent,
         RegisterComponent,
         ResetComponent,
-        ForgotComponent
+        ForgotComponent,
     ],
     imports: [
         FormsModule,
@@ -72,7 +74,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
         ToastrModule.forRoot({
             positionClass: 'toast-bottom-right'
         }),
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        NgbDropdownModule
     ],
     providers: [
         WebsocketService,

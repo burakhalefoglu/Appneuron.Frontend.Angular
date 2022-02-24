@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {faBarChart, faGears, faBook} from '@fortawesome/free-solid-svg-icons';
+import {faBarChart, faGears, faBook, faRightFromBracket, faHome} from '@fortawesome/free-solid-svg-icons';
+import {AuthService} from '@auth/services/auth.service';
 
 @Component({
     selector: 'app-dashboard-navbar',
@@ -10,7 +11,11 @@ export class DashboardNavbarComponent implements OnInit {
     faBarChart = faBarChart;
     faGears = faGears;
     faBook = faBook;
-    constructor() {
+    faRightFromBracket = faRightFromBracket;
+    faHome = faHome;
+
+    constructor(public authService: AuthService,
+    ) {
     }
 
     ngOnInit() {

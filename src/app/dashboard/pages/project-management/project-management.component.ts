@@ -39,7 +39,7 @@ export class ProjectManagementComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.projectPage = '/project-details?projectId=';
+        this.projectPage = 'dashboard/products?projectId=';
         this.activeProjectCount = 0;
         this.terminatedProjectCount = 0;
         this.DeleteProjectId = BigInt(0);
@@ -159,6 +159,7 @@ export class ProjectManagementComponent implements OnInit {
             ]),
         });
     }
+
     private createFeedbackFormEvent(): void {
         this.feedbackForm = this.formBuilder.group({
             feedback: new FormControl(''),
@@ -170,11 +171,11 @@ export class ProjectManagementComponent implements OnInit {
         console.log(projectModel);
     }
 
-    public setFeedbackRate(rate: number){
+    public setFeedbackRate(rate: number) {
         this.rate = rate;
     }
 
-    public sendFeedback(){
+    public sendFeedback() {
         const feedback = Object.assign({}, this.feedbackForm.value);
         console.log(feedback);
         console.log(this.rate);

@@ -193,7 +193,7 @@ export class AuthService {
     this.storageService.removeItem('token');
     this.storageService.removeItem('lang');
     this.claims = [];
-    this.router.navigate(['/account/login']);
+    this.router.navigate(['/login']);
   }
 
   getCurrentUserId(): void {
