@@ -34,9 +34,9 @@ import {LoginComponent} from '@app/auth/login/login.component';
 import {RegisterComponent} from '@app/auth/register/register.component';
 import {ResetComponent} from '@app/auth/reset/reset.component';
 import {ForgotComponent} from '@app/auth/forgot/forgot.component';
-import {DashboardModule} from '@app/dashboard/dashboard.module';
 import {DatepickerModule} from '@core/components/datepicker/datepicker.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
     declarations: [
@@ -58,7 +58,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ],
     imports: [
         FormsModule,
-        DashboardModule,
         ReactiveFormsModule,
         HttpClientModule,
         BrowserModule,
@@ -69,6 +68,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         TimerModule,
         EventsModule,
         DatepickerModule,
+        DashboardModule,
         ToastrModule.forRoot({
             positionClass: 'toast-bottom-right'
         }),
@@ -95,7 +95,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     exports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HeaderComponent
     ],
     bootstrap: [AppComponent]
 })

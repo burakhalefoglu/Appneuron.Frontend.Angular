@@ -1,0 +1,240 @@
+<div
+  class="widget"
+  style="margin: auto; margin-bottom: 20px; width: 90%; display: block"
+>
+  <h4 style="padding: 1%">Adv Strategy</h4>
+
+  <div
+    *ngIf="
+      !AdvStrategyFormGroup.controls.Name?.valid &&
+      (AdvStrategyFormGroup.controls.Name?.dirty ||
+        AdvStrategyFormGroup.controls.Name?.touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="AdvStrategyFormGroup.controls.Name.errors?.required">
+      Name is required.
+    </div>
+  </div>
+  <div
+    *ngIf="
+      !AdvStrategyFormGroup.controls.Version?.valid &&
+      (AdvStrategyFormGroup.controls.Version?.dirty ||
+        AdvStrategyFormGroup.controls.Version?.touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="AdvStrategyFormGroup.controls.Version.errors?.required">
+      Version is required.
+    </div>
+    <div *ngIf="AdvStrategyFormGroup.controls.Version.errors?.min">
+      The version must be a minimum of 0!
+    </div>
+  </div>
+
+  <form
+    (ngSubmit)="sendAdvStrategyToServer()"
+    [formGroup]="AdvStrategyFormGroup"
+    class="text-left"
+  >
+    <div style="padding: 2%; margin-bottom: -20px; margin-left: 5px">
+      <p
+        *ngIf="!AdvStrategyFormGroup.controls.Name?.valid"
+        style="color: #dd2c00; float: left; margin-right: 3px"
+      >
+        *
+      </p>
+      <p
+        *ngIf="AdvStrategyFormGroup.controls.Name?.valid"
+        style="color: #88dd00; float: left; margin-right: 3px"
+      >
+        *
+      </p>
+      <input
+        [value]="name"
+        aria-label="Name"
+        class="form-control"
+        formControlName="Name"
+        placeholder="Name"
+        style="width: 15%; float: left"
+        type="text"
+      />
+      <p
+        *ngIf="!AdvStrategyFormGroup.controls.Version?.valid"
+        style="
+          color: #dd2c00;
+          float: left;
+          margin-left: 10px;
+          margin-right: 3px;
+        "
+      >
+        *
+      </p>
+      <p
+        *ngIf="AdvStrategyFormGroup.controls.Version?.valid"
+        style="
+          color: #88dd00;
+          float: left;
+          margin-left: 10px;
+          margin-right: 3px;
+        "
+      >
+        *
+      </p>
+      <input
+        [value]="version"
+        aria-label="Version"
+        class="form-control"
+        formControlName="Version"
+        placeholder="Version"
+        style="width: 15%; float: left"
+        type="number"
+      />
+    </div>
+
+    <div style="padding: 5%; margin: 20px; margin-left: 5px">
+      <input
+        [value]="strategyName"
+        aria-label="Strategy Name"
+        class="form-control"
+        formControlName="StrategyName"
+        placeholder="Strategy Name"
+        style="width: 50%; margin-left: 5px; float: left"
+        type="text"
+      />
+      <input
+        [value]="count"
+        aria-label="Count"
+        class="form-control"
+        formControlName="Count"
+        placeholder="Count"
+        style="width: 20%; margin-left: 20px; float: left"
+        type="number"
+      />
+      <button
+        (click)="addStrategyOnLocalStorage()"
+        class="btn btn-success mb-2"
+        style="width: 7%; margin-top: 3px; margin-left: 20px; float: left"
+        type="button"
+      >
+        <b> + </b>
+      </button>
+    </div>
+
+    <div
+      class="table-responsive"
+      style="margin-top: 10px; padding-left: 5%; padding-right: 5%"
+    >
+      <table *ngIf="strategyMap.size > 0" class="table table-bordered mb-4">
+        <thead>
+        <tr>
+          <th class="text-center">Strategy Name</th>
+          <th class="text-center">Count</th>
+          <th class="text-center"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let element of strategyMap | keyvalue">
+          <td class="text-center">{{ element.key }}</td>
+          <td class="text-center">{{ element.value }}</td>
+          <td class="text-center">
+            <button
+              (click)="removeStrategyFromForm(element.key)"
+              class="btn btn-danger mb-2"
+              style="margin-left: 10px"
+              type="button"
+            >
+              Remove
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="padding: 5%; margin-top: -50px">
+      <button
+        [disabled]="!this.AdvStrategyFormGroup.valid"
+        class="btn btn-info mb-2"
+        style="margin-right: 10px; float: right"
+        type="submit"
+      >
+        Send Server
+      </button>
+    </div>
+  </form>
+</div>
+
+<div
+  *ngFor="let interstielAdModel of interstitialAdModelList; let i = index"
+  class="widget"
+  style="margin: auto; width: 90%; margin-bottom: 20px; display: block"
+>
+  <p style="margin-top: 10px; padding: 1%; float: left; margin-left: 10px">
+    Name: {{ interstielAdModel.Name }}
+  </p>
+  <p style="margin-top: 10px; padding: 1%; float: left; margin-left: 10px">
+    Version: {{ interstielAdModel.Version }}
+  </p>
+
+  <input
+    (keyup)="percentOnChange($event, i)"
+    *ngIf="isActiveStrategyList[i]"
+    [value]="playerPercentList[i]"
+    aria-label="Client Percent"
+    class="form-control"
+    placeholder="% {{ playerPercentList[i] }}"
+    style="
+      width: 10%;
+      margin-top: 10px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      float: right;
+    "
+    type="number"
+  />
+  <table
+    class="table table-bordered mb-4"
+    style="margin: auto; padding: 5%; width: 90%"
+  >
+    <thead>
+    <tr>
+      <th class="text-center">Strategy Name</th>
+      <th class="text-center">Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let element of interstielAdModel.AdvStrategies">
+      <td class="text-center">{{ element.Name }}</td>
+      <td class="text-center">{{ element.Count }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!isActiveStrategyList[i]" style="padding: 5%; margin-top: -50px">
+    <button
+      (click)="changeStrategyStatuse(i, true)"
+      class="btn btn-success mb-2"
+      style="float: right; margin-left: 5px"
+    >
+      Activate
+    </button>
+    <button
+      (click)="removeStrategy(i)"
+      class="btn btn-danger mb-2"
+      style="float: right; margin-left: 5px"
+    >
+      Remove
+    </button>
+  </div>
+
+  <div *ngIf="isActiveStrategyList[i]" style="padding: 5%; margin-top: -50px">
+    <button
+      (click)="changeStrategyStatuse(i, false)"
+      class="btn btn-danger mb-2"
+      style="float: right; margin-left: 5px"
+    >
+      Deactivate
+    </button>
+  </div>
+</div>

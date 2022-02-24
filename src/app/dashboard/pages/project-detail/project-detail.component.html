@@ -1,0 +1,12 @@
+<app-dashboard-header></app-dashboard-header>
+<div class="main-container" id="container">
+    <div id="content" class="main-content">
+        <app-dashboard-navbar></app-dashboard-navbar>
+        <app-cp-graph *ngIf="(location == 'dashboard/project-details#graph') || (location == 'dashboard/project-details/')"></app-cp-graph>
+        <app-cp-remote *ngIf="(location == 'dashboard/project-details#remote')"></app-cp-remote>
+        <app-dashboard-footer></app-dashboard-footer>
+
+    </div>
+</div>
+
+<!-- 'dashboard/project-details' -->

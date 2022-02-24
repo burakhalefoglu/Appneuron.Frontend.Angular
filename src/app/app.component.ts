@@ -7,7 +7,7 @@ declare let $: any;
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
+    styleUrls: ['./app.component.scss'], 
     providers: [
         Location, {
             provide: LocationStrategy,

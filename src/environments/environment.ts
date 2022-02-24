@@ -3,22 +3,26 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  getUrl: 'localhost',
-  getAuthApiUrl: 'http://localhost:52039/api',
-  getDropDownSetting: {
-    singleSelection: false,
-    idField: 'id',
-    textField: 'label',
-    selectAllText: 'Select All',
-    unSelectAllText: 'UnSelect All',
-    itemsShowLimit: 3,
-    allowSearchFilter: true,
-  },
-  getDatatableSettings: {
-    pagingType: 'full_numbers',
-    pageLength: 2,
-  },
+    production: false,
+    getUrl: 'localhost',
+    getAuthApiUrl: 'http://localhost:52039/api',
+    getProjectApiUrl: 'https://localhost:44301/WebAPI/api',
+    getClientApiUrl: 'https://localhost:44370/WebAPI/api',
+    getRemoteApiUrl: 'https://localhost:44371/WebAPI/api',
+    websocketConn: 'ws://localhost:8080',
+    getDropDownSetting: {
+        singleSelection: false,
+        idField: 'id',
+        textField: 'label',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        itemsShowLimit: 3,
+        allowSearchFilter: true,
+    },
+    getDatatableSettings: {
+        pagingType: 'full_numbers',
+        pageLength: 2,
+    }
 };
 
 /*
