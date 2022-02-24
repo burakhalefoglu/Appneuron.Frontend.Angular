@@ -1,0 +1,486 @@
+<div
+  style="margin: auto; margin-bottom: 20px; width: 90%; display: block"
+  class="widget"
+>
+  <h4 style="padding: 1%">Offer Strategy</h4>
+
+  <div
+    class="alert alert-danger"
+    *ngIf="
+      !OfferStrategyFormGroup.controls.Name?.valid &&
+      (OfferStrategyFormGroup.controls.Name?.dirty ||
+        OfferStrategyFormGroup.controls.Name?.touched)
+    "
+  >
+    <div *ngIf="OfferStrategyFormGroup.controls.Name.errors?.required">
+      Name is required.
+    </div>
+  </div>
+
+  <div
+    class="alert alert-danger"
+    *ngIf="
+      !OfferStrategyFormGroup.controls.Version?.valid &&
+      (OfferStrategyFormGroup.controls.Version?.dirty ||
+        OfferStrategyFormGroup.controls.Version?.touched)
+    "
+  >
+    <div *ngIf="OfferStrategyFormGroup.controls.Version.errors?.required">
+      Version is required.
+    </div>
+    <div *ngIf="OfferStrategyFormGroup.controls.Version.errors?.min">
+      The version must be a minimum of 0!
+    </div>
+  </div>
+
+  <div
+    class="alert alert-danger"
+    *ngIf="
+      !OfferStrategyFormGroup.controls.FirstPrice?.valid &&
+      (OfferStrategyFormGroup.controls.FirstPrice?.dirty ||
+        OfferStrategyFormGroup.controls.FirstPrice?.touched)
+    "
+  >
+    <div *ngIf="OfferStrategyFormGroup.controls.FirstPrice.errors?.required">
+      First price is required.
+    </div>
+    <div *ngIf="OfferStrategyFormGroup.controls.FirstPrice.errors?.min">
+      The First price must be a minimum of 0!
+    </div>
+  </div>
+
+  <div
+    class="alert alert-danger"
+    *ngIf="
+      !OfferStrategyFormGroup.controls.LastPrice?.valid &&
+      (OfferStrategyFormGroup.controls.LastPrice?.dirty ||
+        OfferStrategyFormGroup.controls.LastPrice?.touched)
+    "
+  >
+    <div *ngIf="OfferStrategyFormGroup.controls.LastPrice.errors?.required">
+      Last price is required.
+    </div>
+    <div *ngIf="OfferStrategyFormGroup.controls.LastPrice.errors?.min">
+      The Last price must be a minimum of 0!
+    </div>
+  </div>
+
+  <div
+    class="alert alert-danger"
+    *ngIf="
+      !OfferStrategyFormGroup.controls.ValidityPeriod?.valid &&
+      (OfferStrategyFormGroup.controls.ValidityPeriod?.dirty ||
+        OfferStrategyFormGroup.controls.ValidityPeriod?.touched)
+    "
+  >
+    <div
+      *ngIf="OfferStrategyFormGroup.controls.ValidityPeriod.errors?.required"
+    >
+      Validity period price is required.
+    </div>
+    <div *ngIf="OfferStrategyFormGroup.controls.ValidityPeriod.errors?.min">
+      The Validity period price must be a minimum of 0.1 hour!
+    </div>
+  </div>
+
+  <form
+    [formGroup]="OfferStrategyFormGroup"
+    (ngSubmit)="sendOfferStrategyToServer()"
+  >
+    <div style="padding: 2%; margin-bottom: -20px; margin-left: 5px">
+      <p
+        *ngIf="!OfferStrategyFormGroup.controls.Name?.valid"
+        style="
+          color: #dd2c00;
+          float: left;
+          margin-left: 10px;
+          margin-right: 3px;
+          margin-top: -10px;
+        "
+      >
+        *
+      </p>
+      <p
+        *ngIf="OfferStrategyFormGroup.controls.Name?.valid"
+        style="
+          color: #88dd00;
+          float: left;
+          margin-left: 10px;
+          margin-right: 3px;
+          margin-top: -10px;
+        "
+      >
+        *
+      </p>
+      <input
+        style="width: 15%; float: left"
+        type="text"
+        class="form-control"
+        placeholder="Name"
+        aria-label="Name"
+        formControlName="Name"
+        [value]="name"
+      />
+      <p
+        *ngIf="!OfferStrategyFormGroup.controls.Version?.valid"
+        style="
+          color: #dd2c00;
+          float: left;
+          margin-left: 12px;
+          margin-top: -10px;
+        "
+      >
+        *
+      </p>
+      <p
+        *ngIf="OfferStrategyFormGroup.controls.Version?.valid"
+        style="
+          color: #88dd00;
+          float: left;
+          margin-left: 12px;
+          margin-top: -10px;
+        "
+      >
+        *
+      </p>
+      <input
+        style="width: 15%; float: left"
+        type="number"
+        class="form-control"
+        placeholder="Version"
+        aria-label="Version"
+        formControlName="Version"
+        [value]="version"
+      />
+    </div>
+
+    <div style="padding: 5%; margin: 20px; margin-left: 5px">
+      <p
+        *ngIf="!OfferStrategyFormGroup.controls.FirstPrice?.valid"
+        style="color: #dd2c00; float: left; margin-left: 12px; margin-top: -8px"
+      >
+        *
+      </p>
+      <p
+        *ngIf="OfferStrategyFormGroup.controls.FirstPrice?.valid"
+        style="color: #88dd00; float: left; margin-left: 12px; margin-top: -8px"
+      >
+        *
+      </p>
+      <input
+        style="width: 15%; margin-left: 5px; float: left"
+        type="number"
+        step="0.01"
+        class="form-control"
+        placeholder="First Price"
+        aria-label="First Price"
+        formControlName="FirstPrice"
+        [value]="firstPrice"
+      />
+      <p
+        *ngIf="!OfferStrategyFormGroup.controls.LastPrice?.valid"
+        style="color: #dd2c00; float: left; margin-left: 12px; margin-top: -8px"
+      >
+        *
+      </p>
+      <p
+        *ngIf="OfferStrategyFormGroup.controls.LastPrice?.valid"
+        style="color: #88dd00; float: left; margin-left: 12px; margin-top: -8px"
+      >
+        *
+      </p>
+      <input
+        style="width: 15%; margin-left: 5px; float: left"
+        type="number"
+        step="0.01"
+        class="form-control"
+        placeholder="Last Price"
+        aria-label="Last Price"
+        formControlName="LastPrice"
+        [value]="lastPrice"
+      />
+      <p
+        *ngIf="!OfferStrategyFormGroup.controls.ValidityPeriod?.valid"
+        style="color: #dd2c00; float: left; margin-left: 12px; margin-top: -8px"
+      >
+        *
+      </p>
+      <p
+        *ngIf="OfferStrategyFormGroup.controls.ValidityPeriod?.valid"
+        style="color: #88dd00; float: left; margin-left: 12px; margin-top: -8px"
+      >
+        *
+      </p>
+
+      <input
+        style="width: 25%; margin-left: 5px; float: left"
+        type="number"
+        class="form-control"
+        placeholder="Validity period (hours)"
+        aria-label="Validity period (hours)"
+        formControlName="ValidityPeriod"
+        [value]="validityPeriod"
+      />
+
+      <span
+        style="width: 12%; margin-left: 5px; float: left"
+        class="form-control"
+      >
+        Is Gift
+
+        <input
+          style="float: right; margin-top: 5px; margin-right: 10px"
+          type="checkbox"
+          class="new-control-input"
+          formControlName="IsGift"
+          (change)="isGiftHandler($event.target.checked ? true : false)"
+        />
+      </span>
+
+      <div *ngIf="isGift" class="row it">
+        <div id="uploader">
+          <div class="row uploadDoc">
+            <div class="col-sm-12">
+              <div class="fileUpload btn btn-orange">
+                <img [src]="GiftImageSrc" class="icon" />
+                <span class="upl" id="upload"> {{ GiftimageName }}</span>
+                <input
+                  type="file"
+                  class="upload up"
+                  id="up"
+                  (change)="giftImageHandle($event.target.files)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding: 5%; margin-bottom: -20px; margin-left: 50px">
+        <input
+          style="width: 25%; margin-left: 5px; float: left"
+          type="text"
+          class="form-control"
+          placeholder="Product Name"
+          aria-label="Product Name"
+          [value]="productName"
+          formControlName="ProductName"
+        />
+        <input
+          style="width: 25%; margin-left: 5px; float: left"
+          type="number"
+          step="0.01"
+          class="form-control"
+          placeholder="count"
+          aria-label="Count"
+          [value]="productCount"
+          formControlName="ProductCount"
+        />
+
+        <div style="float: left; margin-left: 5px" class="row it">
+          <div id="uploader">
+            <div class="row uploadDoc">
+              <div class="col-sm-12">
+                <div class="fileUpload btn btn-orange">
+                  <img [src]="PoductImageSrc" class="icon" />
+                  <span class="upl" id="upload"> {{ PoductImageName }}</span>
+                  <input
+                    type="file"
+                    class="upload up"
+                    id="up"
+                    [value]="productImage"
+                    (change)="productImageHandle($event.target.files)"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          style="width: 7%; margin-top: 3px; margin-left: 70px; float: left"
+          class="btn btn-success mb-2"
+          (click)="addProduct()"
+          type="button"
+        >
+          <b> + </b>
+        </button>
+      </div>
+    </div>
+
+    <div
+      style="margin-top: 10px; padding-left: 5%; padding-right: 5%"
+      class="table-responsive"
+    >
+      <table
+        *ngIf="offerProductList.length > 0"
+        class="table table-bordered mb-4"
+      >
+        <thead>
+          <tr>
+            <th class="text-center">id</th>
+            <th class="text-center">Product Name</th>
+            <th class="text-center">Product Count</th>
+            <th class="text-center">Image Name</th>
+            <th class="text-center">Image</th>
+            <th class="text-center"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let element of offerProductList; let i = index">
+            <td class="text-center">{{ i }}</td>
+            <td class="text-center">{{ element.Name }}</td>
+            <td class="text-center">{{ element.Count }}</td>
+            <td class="text-center">{{ element.ImageName }}</td>
+            <td class="text-center">
+              <img
+                style="width: 50px; height: 50px"
+                [src]="offerImageLinkList[i]"
+              />
+            </td>
+            <td class="text-center">
+              <button
+                (click)="removeProduct(i)"
+                style="margin-left: 10px"
+                class="btn btn-danger mb-2"
+                type="button"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="padding: 5%; margin-top: -50px">
+      <button
+        style="margin-right: 10px; float: right"
+        class="btn btn-info mb-2"
+        type="submit"
+        [disabled]="!this.OfferStrategyFormGroup.valid"
+      >
+        Send Server
+      </button>
+    </div>
+  </form>
+</div>
+
+<div
+  *ngFor="let offerModel of offerModelList; let offerModelIndex = index"
+  style="margin: auto; width: 90%; margin-bottom: 20px; display: block"
+  class="widget"
+>
+  <p style="padding: 1%; float: left; margin-left: 10px">
+    <b>Name: </b> {{ offerModel.name }}
+  </p>
+  <p style="padding: 1%; float: left; margin-left: 10px">
+    <b>Version: </b>{{ offerModel.version }}
+  </p>
+  <p style="padding: 1%; float: left; margin-left: 10px">
+    <b>First Price: </b>{{ offerModel.firstPrice }}
+  </p>
+  <p style="padding: 1%; float: left; margin-left: 10px">
+    <b>Last Price: </b>{{ offerModel.lastPrice }}
+  </p>
+  <p style="padding: 1%; float: left; margin-left: 10px">
+    <b>Validity period (hours): </b> {{ offerModel.validityPeriod }}
+  </p>
+  <p style="padding: 1%; float: left; margin-left: 10px">
+    <b>Discount(%): </b>
+    {{
+      coreService.calculatePercentTowNumber(
+        offerModel.firstPrice,
+        offerModel.lastPrice
+      )
+    }}
+  </p>
+  <p
+    *ngIf="offerModel.isGift"
+    style="padding: 1%; float: left; margin-left: 10px"
+  >
+    <b> Its Gift: </b>
+  </p>
+  <img
+    *ngIf="offerModel.isGift"
+    style="
+      width: 50px;
+      height: 50px;
+      float: left;
+      margin-left: 10px;
+      margin-top: 30px;
+    "
+    [src]="coreService.str2img(offerModel.giftTexture)"
+  />
+  <input
+    *ngIf="isActiveOfferList[offerModelIndex]"
+    style="width: 10%; margin-top: 30px; margin-right: 20px; float: right"
+    type="number"
+    class="form-control"
+    placeholder="% {{ playerPercentList[offerModelIndex] }}"
+    aria-label="Client Percent"
+    (keyup)="percentOnChange($event, offerModelIndex)"
+    [value]="playerPercentList[offerModelIndex]"
+  />
+
+  <table
+    style="margin: auto; padding: 5%; width: 90%"
+    class="table table-bordered mb-4"
+  >
+    <thead>
+      <tr>
+        <th class="text-center">id</th>
+        <th class="text-center">Product Name</th>
+        <th class="text-center">Product Count</th>
+        <th class="text-center">Image Name</th>
+        <th class="text-center">Image</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of offerModel.productList; let i = index">
+        <td class="text-center">{{ i }}</td>
+        <td class="text-center">{{ product.name }}</td>
+        <td class="text-center">{{ product.count }}</td>
+        <td class="text-center">{{ product.imageName }}</td>
+        <td class="text-center">
+          <img
+            style="width: 50px; height: 50px"
+            [src]="coreService.str2img(product.image)"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    *ngIf="!isActiveOfferList[offerModelIndex]"
+    style="padding: 5%; margin-top: -50px"
+  >
+    <button
+      (click)="changeStrategyStatuse(offerModelIndex, true)"
+      style="float: right; margin-left: 5px"
+      class="btn btn-success mb-2"
+    >
+      Activate
+    </button>
+    <button
+      (click)="removeStrategy(offerModelIndex)"
+      style="float: right; margin-left: 5px"
+      class="btn btn-danger mb-2"
+    >
+      Remove
+    </button>
+  </div>
+
+  <div
+    *ngIf="isActiveOfferList[offerModelIndex]"
+    style="padding: 5%; margin-top: -50px"
+  >
+    <button
+      (click)="changeStrategyStatuse(offerModelIndex, false)"
+      style="float: right; margin-left: 5px"
+      class="btn btn-danger mb-2"
+    >
+      Deactivate
+    </button>
+  </div>
+</div>

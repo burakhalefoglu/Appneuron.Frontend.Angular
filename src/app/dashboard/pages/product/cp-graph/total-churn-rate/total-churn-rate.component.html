@@ -1,0 +1,65 @@
+<div class="dropdown-custom-container">
+  <div class="dropdown-custom-item-left filter custom-dropdown-icon">
+    <button
+      class="dropdown-toggle btn"
+      href="#"
+      role="button"
+      id="filterDropdown"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <span style="font-size: 0.65rem" class="text"
+        ><span>Graph: </span> {{ type }}</span
+      >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-chevron-down"
+      >
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+    <div
+      class="dropdown-menu dropdown-menu-right"
+      aria-labelledby="filterDropdown"
+    >
+      <button
+        href="javascript:void(0);"
+        class="dropdown-item"
+        value="line"
+      >
+        line
+      </button>
+
+      <button
+        class="dropdown-item"
+        value="areaspline"
+      >
+        areaspline
+      </button>
+      <button
+        class="dropdown-item"
+        value="column"
+      >
+        column
+      </button>
+
+      <button
+        class="dropdown-item"
+        value="scatter"
+      >
+        scatter
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- grafik buraya gelecek. -->
