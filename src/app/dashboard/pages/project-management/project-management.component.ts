@@ -6,6 +6,9 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomerInformationService} from '@core/services/customer-information.service';
 import {AuthService} from '@app/auth/services/auth.service';
+import {Feedback} from '@app/dashboard/pages/project-management/Models/Feedback';
+import {ProjectManagementService} from '@app/dashboard/Services/project-management.service';
+import {Rate} from '@app/dashboard/pages/project-management/Models/Rate';
 
 @Component({
     selector: 'app-project-managment',
@@ -34,7 +37,8 @@ export class ProjectManagementComponent implements OnInit {
                 private modalService: NgbModal,
                 private formBuilder: FormBuilder,
                 public authService: AuthService,
-                private customerInformationService: CustomerInformationService) {
+                private customerInformationService: CustomerInformationService,
+                private projectManagementService: ProjectManagementService ) {
     }
 
     ngOnInit(): void {
@@ -162,7 +166,7 @@ export class ProjectManagementComponent implements OnInit {
 
     private createFeedbackFormEvent(): void {
         this.feedbackForm = this.formBuilder.group({
-            feedback: new FormControl(''),
+            Message: new FormControl(''),
         });
     }
 
@@ -171,14 +175,16 @@ export class ProjectManagementComponent implements OnInit {
         console.log(projectModel);
     }
 
-    public setFeedbackRate(rate: number) {
-        this.rate = rate;
+    public setFeedbackRate(r: number) {
+        const rate = new Rate();
+        rate.Value = r;
+        this.projectManagementService.sendRate(rate);
     }
 
     public sendFeedback() {
-        const feedback = Object.assign({}, this.feedbackForm.value);
-        console.log(feedback);
-        console.log(this.rate);
+        let feedback: Feedback;
+        feedback = Object.assign({}, this.feedbackForm.value);
+        this.projectManagementService.sendFeedbackDetailed(feedback);
     }
 
     public showPopup(Content: any): void {

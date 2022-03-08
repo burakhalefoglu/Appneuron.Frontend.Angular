@@ -1,0 +1,134 @@
+<form
+    class="text-left"
+    [formGroup]="registerAddForm"
+    (ngSubmit)="add()"
+>
+
+    <div class="form-row mb-4">
+        <div class="form-group col-md-12">
+            <label for="inputEmail">Email </label>
+            <label
+                *ngIf="!registerAddForm.controls.Email?.valid"
+                style="color: #dd2c00"
+            >*</label
+            >
+            <label
+                *ngIf="registerAddForm.controls.Email?.valid"
+                style="color: #aeea00"
+            >*</label
+            >
+            <input
+                type="email"
+                class="form-control"
+                id="inputEmail"
+                placeholder="Email"
+                formControlName="Email"
+            />
+            <div
+                class="alert alert-danger"
+                *ngIf="
+                    !registerAddForm.controls.Email?.valid &&
+                    (registerAddForm.controls.Email?.dirty ||
+                      registerAddForm.controls.Email?.touched)
+                  "
+            >
+                <div *ngIf="registerAddForm.controls.Email.errors?.required">
+                    Email is required.
+                </div>
+
+                <div *ngIf="registerAddForm.controls.Email.errors?.email">
+                    Email is not valid.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="inputPassword">Password</label>
+
+            <label
+                *ngIf="!registerAddForm.controls.Password?.valid"
+                style="color: #dd2c00"
+            >*</label
+            >
+            <label
+                *ngIf="registerAddForm.controls.Password?.valid"
+                style="color: #aeea00"
+            >*</label
+            >
+            <input
+                type="password"
+                class="form-control"
+                id="inputPassword"
+                placeholder="Password"
+                formControlName="Password"
+            />
+
+            <password-strength-bar
+                [passwordToCheck]="registerAddForm.controls.Password?.value"
+            ></password-strength-bar>
+
+            <div
+                class="alert alert-danger"
+                *ngIf="
+                    !registerAddForm.controls.Password?.valid &&
+                    (registerAddForm.controls.Password?.dirty ||
+                      registerAddForm.controls.Password?.touched)
+                  "
+            >
+                <div
+                    *ngIf="registerAddForm.controls.Password.errors?.required"
+                >
+                    Password is required.
+                </div>
+
+                <div
+                    *ngIf="registerAddForm.controls.Password.errors?.minlength"
+                >
+                    Password must be at least 8 characters
+                </div>
+
+                <div
+                    *ngIf="
+                      registerAddForm.controls.Password.errors
+                        ?.lowercaserequired
+                    "
+                >
+                    Password must contain lowercase letters
+                </div>
+                <div
+                    *ngIf="
+                      registerAddForm.controls.Password.errors
+                        ?.uppercaserequired
+                    "
+                >
+                    Password must contain uppercase letters
+                </div>
+                <div
+                    *ngIf="
+                      registerAddForm.controls.Password.errors?.numberrequired
+                    "
+                >
+                    Password must contain number letters
+                </div>
+            </div>
+        </div>
+        <div>
+            By using our site, you accept our <a href="javascript:void(0)">service</a> agreement.
+            <br>
+            <p><a href="/forgot">forgot password?</a></p>
+        </div>
+        <br>
+        <div class="d-sm-flex justify-content-between">
+            <div class="field-wrapper">
+                <button
+                    [disabled]="!this.registerAddForm.valid"
+                    type="submit"
+                    class="btn btn-primary"
+                    value=""
+                >
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

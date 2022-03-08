@@ -40,7 +40,7 @@ export class AuthService {
 
     this.httpClient
       .post<TokenDataModel>(
-        environment.getAuthApiUrl + '/Auth/register',
+        environment.getAuthApiUrl + '/Auth/loginorregister',
         registerModel
       )
       .subscribe((data) => {
@@ -62,7 +62,7 @@ export class AuthService {
             x.endsWith('/name')
           )[0];
           this.userName = decode[propUserName];
-          this.router.navigateByUrl('/customerdashboard');
+          this.router.navigateByUrl('/dashboard');
           return;
         }
         this.customerInformationService.showError(data.message);
@@ -193,7 +193,7 @@ export class AuthService {
     this.storageService.removeItem('token');
     this.storageService.removeItem('lang');
     this.claims = [];
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   getCurrentUserId(): void {

@@ -30,15 +30,14 @@ import {FooterComponent} from '@landing-pages/layout/footer/footer.component';
 import {BlogComponent} from '@landing-pages/pages/blog/blog.component';
 import {BlogDetailsComponent} from '@landing-pages/pages/blog-details/blog-details.component';
 import {GenerateRandomService} from '@core/services/generate-random.service';
-import {LoginComponent} from '@app/auth/login/login.component';
-import {RegisterComponent} from '@app/auth/register/register.component';
+import {LoginOrRegisterComponent} from '@auth/login-or-register/login-or-register.component';
 import {ResetComponent} from '@app/auth/reset/reset.component';
 import {ForgotComponent} from '@app/auth/forgot/forgot.component';
 import {DatepickerModule} from '@core/components/datepicker/datepicker.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {ProjectManagementComponent} from '@app/dashboard/pages/project-management/project-management.component';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {DashboardModule} from '@app/dashboard/dashboard.module';
+import { AuthComponent } from './auth/login-or-register/auth/auth.component';
 
 @NgModule({
     declarations: [
@@ -53,10 +52,10 @@ import {DashboardModule} from '@app/dashboard/dashboard.module';
         BlogDetailsComponent,
         ComingSoonComponent,
         NotFoundComponent,
-        LoginComponent,
-        RegisterComponent,
+        LoginOrRegisterComponent,
         ResetComponent,
         ForgotComponent,
+        AuthComponent,
     ],
     imports: [
         FormsModule,

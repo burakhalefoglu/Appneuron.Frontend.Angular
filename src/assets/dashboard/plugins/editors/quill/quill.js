@@ -178,7 +178,7 @@ function create(input, value) {
         throw new ParchmentError("Unable to create " + input + " blot");
     }
     var BlotClass = match;
-    var node = 
+    var node =
     // @ts-ignore
     input instanceof Node || input['nodeType'] === Node.TEXT_NODE ? input : BlotClass.create(value);
     return new BlotClass(node, value);
@@ -246,7 +246,7 @@ function register() {
         throw new ParchmentError('Invalid definition');
     }
     else if (Definition.blotName === 'abstract') {
-        throw new ParchmentError('Cannot register abstract class');
+        throw new ParchmentError('Cannot login-or-register abstract class');
     }
     types[Definition.blotName || Definition.attrName] = Definition;
     if (typeof Definition.keyName === 'string') {
@@ -1055,7 +1055,7 @@ var Quill = function () {
       if (typeof path !== 'string') {
         var name = path.attrName || path.blotName;
         if (typeof name === 'string') {
-          // register(Blot | Attributor, overwrite)
+          // login-or-register(Blot | Attributor, overwrite)
           this.register('formats/' + name, path, target);
         } else {
           Object.keys(path).forEach(function (key) {
@@ -1556,7 +1556,7 @@ function expandConfig(container, userConfig) {
   } else {
     userConfig.theme = Quill.import('themes/' + userConfig.theme);
     if (userConfig.theme == null) {
-      throw new Error('Invalid theme ' + userConfig.theme + '. Did you register it?');
+      throw new Error('Invalid theme ' + userConfig.theme + '. Did you login-or-register it?');
     }
   }
   var themeConfig = (0, _extend2.default)(true, {}, userConfig.theme.DEFAULTS);

@@ -5,10 +5,10 @@
 export const environment = {
     production: false,
     getUrl: 'localhost',
-    getAuthApiUrl: 'http://localhost:52039/api',
-    getProjectApiUrl: 'https://localhost:44301/WebAPI/api',
-    getClientApiUrl: 'https://localhost:44370/WebAPI/api',
-    getRemoteApiUrl: 'https://localhost:44371/WebAPI/api',
+    getAuthApiUrl: 'http://localhost:5000/api',
+    getProjectApiUrl: 'http://localhost:5001/api',
+    getClientApiUrl: 'http://localhost:5002/api',
+    getRemoteApiUrl: 'http://localhost:5003/api',
     websocketConn: 'ws://localhost:8080',
     getDropDownSetting: {
         singleSelection: false,

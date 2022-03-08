@@ -2631,7 +2631,7 @@
 
     var $target = $(target).one(EVENT_SHOW$2, function (showEvent) {
       if (showEvent.isDefaultPrevented()) {
-        // Only register focus restorer if modal will actually get shown
+        // Only login-or-register focus restorer if modal will actually get shown
         return;
       }
 
