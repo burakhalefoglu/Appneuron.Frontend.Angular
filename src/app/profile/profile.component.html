@@ -1,0 +1,44 @@
+<div class="container">
+    <div id="logo"><h1 class="logo">logo</h1>
+        <div class="CTA">
+            <h1>free for now</h1>
+        </div>
+    </div>
+    <div class="leftbox">
+        <nav>
+
+            <a id="profile"  (click)="setSection(1)" class="active">
+                <fa-icon size="sm" [styles]="{'stroke': 'rgba(172, 176, 195, 0.04)', 'color': '#e3e4eb'}"
+                         [icon]="faUser"></fa-icon>
+            </a>
+            <a id="payment" (click)="setSection(2)">
+                <fa-icon size="sm" [styles]="{'stroke': 'rgba(172, 176, 195, 0.04)', 'color': '#e3e4eb'}"
+                         [icon]="faCreditCard"></fa-icon>
+            </a>
+            <a id="subscription" (click)="setSection(3)">
+                <fa-icon size="sm" [styles]="{'stroke': 'rgba(172, 176, 195, 0.04)', 'color': '#e3e4eb'}"
+                         [icon]="faTv"></fa-icon>
+            </a>
+            <a id="privacy" (click)="setSection(4)">
+                <fa-icon size="sm" [styles]="{'stroke': 'rgba(172, 176, 195, 0.04)', 'color': '#e3e4eb'}"
+                         [icon]="faTasks"></fa-icon>
+            </a>
+            <a id="settings" (click)="setSection(5)">
+                <fa-icon size="sm" [styles]="{'stroke': 'rgba(172, 176, 195, 0.04)', 'color': '#e3e4eb'}"
+                         [icon]="faCog"></fa-icon>
+            </a>
+
+            <a id="settings" href="dashboard">
+                <fa-icon size="sm" [styles]="{'stroke': 'rgba(172, 176, 195, 0.04)', 'color': '#e3e4eb'}"
+                         [icon]="faChartPie"></fa-icon>
+            </a>
+        </nav>
+    </div>
+    <div class="rightbox">
+        <app-personal-info *ngIf="selector == 1" ></app-personal-info>
+        <app-payment-info *ngIf="selector == 2"></app-payment-info>
+        <app-subscription-info *ngIf="selector == 3"></app-subscription-info>
+        <app-privacy-info *ngIf="selector == 4"></app-privacy-info>
+        <app-settings-info *ngIf="selector == 5"></app-settings-info>
+    </div>
+</div>

@@ -9,6 +9,7 @@ import {ForgotComponent} from '@auth/forgot/forgot.component';
 import {LoginOrRegisterComponent} from '@auth/login-or-register/login-or-register.component';
 import {ResetComponent} from '@auth/reset/reset.component';
 import {AuthGuard} from '@core/guard/auth.guard';
+import {ProfileComponent} from '@app/profile/profile.component';
 
 
 const routes: Routes = [
@@ -21,13 +22,15 @@ const routes: Routes = [
     {path: '404', component: NotFoundComponent},
     {path: 'auth', component: LoginOrRegisterComponent},
     {path: 'reset', component: ResetComponent},
-    {path: 'forgot', component: ForgotComponent},
 
+    {path: 'profile', component: ProfileComponent,
+        // canActivate: [AuthGuard]
+    },
     {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module')
             .then(m => m.DashboardModule),
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
     },
 
     {path: '**', redirectTo: '/404'},

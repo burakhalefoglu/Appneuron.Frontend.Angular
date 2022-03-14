@@ -38,6 +38,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {DashboardModule} from '@app/dashboard/dashboard.module';
 import { AuthComponent } from './auth/login-or-register/auth/auth.component';
+import { ProfileComponent } from './profile/profile.component';
+import { PersonalInfoComponent } from './profile/personal-info/personal-info.component';
+import { PaymentInfoComponent } from './profile/payment-info/payment-info.component';
+import { SubscriptionInfoComponent } from './profile/subscription-info/subscription-info.component';
+import { PrivacyInfoComponent } from './profile/privacy-info/privacy-info.component';
+import { SettingsInfoComponent } from './profile/settings-info/settings-info.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     declarations: [
@@ -56,6 +63,12 @@ import { AuthComponent } from './auth/login-or-register/auth/auth.component';
         ResetComponent,
         ForgotComponent,
         AuthComponent,
+        ProfileComponent,
+        PersonalInfoComponent,
+        PaymentInfoComponent,
+        SubscriptionInfoComponent,
+        PrivacyInfoComponent,
+        SettingsInfoComponent,
     ],
     imports: [
         FormsModule,
@@ -74,7 +87,8 @@ import { AuthComponent } from './auth/login-or-register/auth/auth.component';
             positionClass: 'toast-bottom-right'
         }),
         BrowserAnimationsModule,
-        NgbDropdownModule
+        NgbDropdownModule,
+        FontAwesomeModule
     ],
     providers: [
         WebsocketService,
