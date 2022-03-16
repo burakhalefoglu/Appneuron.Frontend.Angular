@@ -1,9 +1,6 @@
 
-export class RegisterModel {
+export class AuthModel {
 
   Email!: string;
   Password!: string;
-  PasswordAgain!: string;
-  Check!: boolean;
-
 }

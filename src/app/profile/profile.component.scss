@@ -146,6 +146,7 @@ span {
     font-size: 10px;
     border: none;
     color: $aqua;
+
 }
 
 .btn:hover {
@@ -153,11 +154,16 @@ span {
     font-weight: 900;
 }
 
-input {
-    border: 1px solid lighten($gray,40%);
-    font-family: $body;
-    padding: 2px;
-    margin: 0;
+input::placeholder, input{
+    border-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(to right, $aqua, rgba($green,.5)) 1 0%;
+    border-top: 0;
+    width: 80%;
+    font-family: $heading;
+    font-size: 12px;
+    padding: 7px 0;
+    color: $black;
 }
 
 .privacy h2{
@@ -166,4 +172,8 @@ input {
 
 .settings h2{
     margin-top: 25px;
+}
+.form-control{
+    height: 30px;
+    width: 240px;
 }

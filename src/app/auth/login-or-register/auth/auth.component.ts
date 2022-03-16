@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {RegisterModel} from '@auth/models/register-model';
+import {AuthModel} from '@auth/models/register-model';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '@auth/services/auth.service';
@@ -14,8 +14,9 @@ import {CustomValidators} from '@auth/Helpers/CustomValidator';
 })
 export class AuthComponent implements OnInit {
 
-    registerModel: RegisterModel = new RegisterModel();
+    authModel: AuthModel = new AuthModel();
     registerAddForm: FormGroup;
+
 
     constructor(
         private router: Router,
@@ -54,9 +55,8 @@ export class AuthComponent implements OnInit {
     }
 
     add(): void {
-        this.registerModel = Object.assign({}, this.registerAddForm.value);
-        console.log(this.registerModel);
-        this.authService.register(this.registerModel);
+        this.authModel = Object.assign({}, this.registerAddForm.value);
+        this.authService.loginOrRegister(this.authModel);
     }
 
 }
