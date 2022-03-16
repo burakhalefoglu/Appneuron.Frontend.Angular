@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CoreService} from '@core/services/core.service';
 import {LocalStorageService} from '@core/services/local-storage.service';
-import {ProjectModel} from '@app/dashboard/models/project-model';
+import {DeleteProjectModel, ProjectModel} from '@app/dashboard/models/project-model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomerInformationService} from '@core/services/customer-information.service';
@@ -38,7 +38,7 @@ export class ProjectManagementComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 public authService: AuthService,
                 private customerInformationService: CustomerInformationService,
-                private projectManagementService: ProjectManagementService ) {
+                private projectManagementService: ProjectManagementService) {
     }
 
     ngOnInit(): void {
@@ -94,19 +94,19 @@ export class ProjectManagementComponent implements OnInit {
         this.filteredProjectModelList = new Array<ProjectModel>();
         if (this.filterTag === 'total') {
             this.projectModelList.forEach(x => {
-                if (x.projectName.toLowerCase().includes(text.toLowerCase())) {
+                if (x.name.toLowerCase().includes(text.toLowerCase())) {
                     this.filteredProjectModelList.push(x);
                 }
             });
         } else if (this.filterTag === 'active') {
             this.projectModelList.forEach(x => {
-                if (x.projectName.toLowerCase().includes(text.toLowerCase()) && x.status) {
+                if (x.name.toLowerCase().includes(text.toLowerCase()) && x.status) {
                     this.filteredProjectModelList.push(x);
                 }
             });
         } else if (this.filterTag === 'passive') {
             this.projectModelList.forEach(x => {
-                if (x.projectName.toLowerCase().includes(text.toLowerCase()) && !x.status) {
+                if (x.name.toLowerCase().includes(text.toLowerCase()) && !x.status) {
                     this.filteredProjectModelList.push(x);
                 }
             });
@@ -114,35 +114,35 @@ export class ProjectManagementComponent implements OnInit {
     }
 
     public getProjects() {
-        const project = new ProjectModel();
-        project.id = BigInt(1);
-        project.projectName = 'First project';
-        project.projectBody = 'First project description';
-        project.status = true;
-        project.createdAt = new Date('2021-03-25');
-        const project2 = new ProjectModel();
-        project2.id = BigInt(2);
-        project2.projectName = 'test';
-        project2.projectBody = 'First project description';
-        project2.status = false;
-        project2.createdAt = new Date();
-        this.projectModelList.push(project);
-        this.projectModelList.push(project2);
-        this.projectModelList.forEach(x => {
-            x.status ? this.activeProjectCount += 1 : this.terminatedProjectCount += 1;
+        this.projectManagementService.getProjects().subscribe((data) => {
+            if (data.success) {
+                this.customerInformationService.showSuccess(data.message);
+                this.projectModelList = new Array<ProjectModel>();
+                data.data.forEach(model => {
+                    this.projectModelList.push(model);
+                    this.projectModelList.forEach(x => {
+                        x.status ? this.activeProjectCount += 1 : this.terminatedProjectCount += 1;
+                    });
+                });
+                return;
+            }
+            this.customerInformationService.showError(data.message);
         });
     }
 
     public deleteProject() {
         this.activeProjectCount = 0;
         this.terminatedProjectCount = 0;
-        const projectModelIndex = this.projectModelList.map(x => {
-            return x.id;
-        }).indexOf(this.DeleteProjectId);
-        this.projectModelList.splice(projectModelIndex, 1);
-        this.setFilterProjectByTag(this.filterTag);
-        this.projectModelList.forEach(x => {
-            x.status ? this.activeProjectCount += 1 : this.terminatedProjectCount += 1;
+        const project = this.projectModelList.find(x => x.id === this.DeleteProjectId);
+        const deleteProjectModel = new DeleteProjectModel();
+        deleteProjectModel.name = project.name;
+        this.projectManagementService.deleteProject(deleteProjectModel).subscribe((data) => {
+            if (data.success) {
+                this.customerInformationService.showSuccess(data.message);
+                this.getProjects();
+                return;
+            }
+            this.customerInformationService.showError(data.message);
         });
     }
 
@@ -172,7 +172,14 @@ export class ProjectManagementComponent implements OnInit {
 
     public createProject() {
         const projectModel = Object.assign({}, this.createProjectForm.value);
-        console.log(projectModel);
+        this.projectManagementService.createProject(projectModel).subscribe((data) => {
+            if (data.success) {
+                this.customerInformationService.showSuccess(data.message);
+                this.getProjects();
+                return;
+            }
+            this.customerInformationService.showError(data.message);
+        });
     }
 
     public setFeedbackRate(r: number) {

@@ -11,7 +11,6 @@ import {MessageModel, TokenDataModel} from '../models/response-model';
 import {ForgotModel} from '../models/forgot-model';
 import {UpdatePasswordModel} from '../models/update-password-model';
 import {ResetModel} from '../models/reset-model';
-import {LoginModel} from '@app/auth/models/login-model';
 import {AuthModel} from '@auth/models/register-model';
 import {User} from '@app/profile/models/user';
 import {UpdatePassword} from '@app/profile/models/update-password';
@@ -22,7 +21,6 @@ import {UpdatePassword} from '@app/profile/models/update-password';
 export class AuthService {
     isLoggin = false;
     decodedToken: any;
-    userToken!: string;
     jwtHelper: JwtHelperService = new JwtHelperService();
     claims: string[] = [];
 
