@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CustomerInformationService} from '@app/core/services/customer-information.service';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import { ChurnDateModel } from '@app/dashboard/models/churn-date-model';
@@ -24,7 +23,6 @@ export class CpRemoteComponent implements OnInit {
     constructor(
         private churnPredictionApiService: ChurnPredictionApiService,
         private route: ActivatedRoute,
-        private spinner: NgxSpinnerService,
         private customerInformationService: CustomerInformationService
     ) {
     }
@@ -78,7 +76,6 @@ export class CpRemoteComponent implements OnInit {
     }
 
     churnOnChangeHandler(event: any): void {
-        this.spinner.show();
         const value = event.target.value;
         const churnDate = new ChurnDateModel();
         churnDate.ProjectId = this.projectId;
@@ -92,7 +89,6 @@ export class CpRemoteComponent implements OnInit {
         this.churnPredictionApiService
             .updateChurnDate(churnDate)
             .subscribe((data) => {
-                this.spinner.hide();
                 if (data.success) {
                     this.customerInformationService.showSuccess(data.message);
                 }

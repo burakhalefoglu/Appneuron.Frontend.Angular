@@ -1,12 +1,10 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {CustomerInformationService} from '@core/services/customer-information.service';
 import {LocalStorageService} from '@core/services/local-storage.service';
 import {environment} from '@environments/environment';
-import {EventsService} from '@app/core/services/angular-event-service/angular-events.service';
 import {MessageModel, TokenDataModel} from '../models/response-model';
 import {ForgotModel} from '../models/forgot-model';
 import {UpdatePasswordModel} from '../models/update-password-model';
@@ -14,62 +12,57 @@ import {ResetModel} from '../models/reset-model';
 import {AuthModel} from '@auth/models/register-model';
 import {User} from '@app/profile/models/user';
 import {UpdatePassword} from '@app/profile/models/update-password';
+import {SpinnerService} from '@core/services/spinner.service';
+import {finalize, tap} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
-    isLoggin = false;
     decodedToken: any;
     jwtHelper: JwtHelperService = new JwtHelperService();
     claims: string[] = [];
 
     constructor(
-        private events: EventsService,
         private httpClient: HttpClient,
         private router: Router,
         private customerInformationService: CustomerInformationService,
-        private spinner: NgxSpinnerService,
-        private storageService: LocalStorageService
+        private storageService: LocalStorageService,
+        private spinnerService: SpinnerService
     ) {
     }
 
     loginOrRegister(authModel: AuthModel): void {
-        this.spinner.show();
-        this.events.publish('SpinnerMessage', 'Membership begins...');
-
+        this.spinnerService.showSpinner();
         this.httpClient
             .post<TokenDataModel>(
                 environment.getAuthApiUrl + '/Auth/loginorregister',
                 authModel
-            )
-            .subscribe((data) => {
-                this.spinner.hide();
-                if (data.success) {
-                    console.log(data);
-                    this.customerInformationService.showSuccess(data.message);
+            ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        ).subscribe((data) => {
 
-                    this.tokenFieldWork(data);
+            if (data.success) {
+                this.customerInformationService.showSuccess(data.message);
+                this.tokenFieldWork(data);
 
-                    this.router.navigateByUrl('/dashboard');
-                    return;
-                }
-                this.customerInformationService.showError(data.message);
-                this.spinner.hide();
-            });
+                this.router.navigateByUrl('/dashboard');
+                return;
+            }
+            this.customerInformationService.showError(data.message);
+        });
     }
 
     changeUsernameOrEmail(user: User): void {
-        this.spinner.show();
-        this.events.publish('SpinnerMessage', 'Membership begins...');
-
+        this.spinnerService.showSpinner();
         this.httpClient
             .post<TokenDataModel>(
                 environment.getAuthApiUrl + '/Users',
                 user
-            )
+            ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        )
             .subscribe((data) => {
-                this.spinner.hide();
                 if (data.success) {
                     console.log(data);
                     this.customerInformationService.showSuccess(data.message);
@@ -78,21 +71,19 @@ export class AuthService {
                     return;
                 }
                 this.customerInformationService.showError(data.message);
-                this.spinner.hide();
             });
     }
 
     changePassword(updatePassword: UpdatePassword): void {
-        this.spinner.show();
-        this.events.publish('SpinnerMessage', 'Membership begins...');
-
+        this.spinnerService.showSpinner();
         this.httpClient
             .post<TokenDataModel>(
                 environment.getAuthApiUrl + '/Auth/changeuserpassword',
                 updatePassword
-            )
+            ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        )
             .subscribe((data) => {
-                this.spinner.hide();
                 if (data.success) {
                     console.log(data);
                     this.customerInformationService.showSuccess(data.message);
@@ -101,12 +92,11 @@ export class AuthService {
                     return;
                 }
                 this.customerInformationService.showError(data.message);
-                this.spinner.hide();
             });
     }
 
 
-    private tokenFieldWork(data: TokenDataModel) {
+    private tokenFieldWork(data: TokenDataModel): void {
         this.storageService.setItem('token', data.data.token);
         this.claims = data.data.claims;
         const token = data.data.token;
@@ -129,62 +119,58 @@ export class AuthService {
     }
 
     forgot(forgotModel: ForgotModel): void {
-        this.spinner.show();
-        this.events.publish('SpinnerMessage', 'Sending reset link...');
-
+        this.spinnerService.showSpinner();
         this.httpClient
             .put<MessageModel>(
                 environment.getAuthApiUrl + '/Auth/forgotpassword',
                 forgotModel
-            )
+            ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        )
             .subscribe((data) => {
-                this.spinner.hide();
 
                 if (data.success) {
                     this.customerInformationService.showSuccess(data.message);
                 } else {
                     this.customerInformationService.showError(data.message);
-                    this.spinner.hide();
                 }
             });
     }
 
     update(updatePasswordModel: UpdatePasswordModel): void {
-        this.spinner.show();
-        this.events.publish('SpinnerMessage', 'Profile updating...');
+        this.spinnerService.showSpinner();
         this.httpClient
             .put<MessageModel>(
                 environment.getAuthApiUrl + '/Auth/changeuserpassword',
                 updatePasswordModel
-            )
+            ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        )
             .subscribe((data) => {
-                this.spinner.hide();
                 if (data.success) {
                     this.customerInformationService.showSuccess(data.message);
                 } else {
                     this.customerInformationService.showError(data.message);
-                    this.spinner.hide();
                 }
             });
     }
 
     reset(resetModel: ResetModel, token: string): void {
-        this.spinner.show();
-        this.events.publish('SpinnerMessage', 'Password reset...');
+        this.spinnerService.showSpinner();
         this.httpClient
             .post<TokenDataModel>(
                 environment.getAuthApiUrl + '/Auth/resetpassword?token=' + token,
                 resetModel
-            )
+            ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        )
             .subscribe((data) => {
-                this.spinner.hide();
                 if (data.success) {
                     this.customerInformationService.showSuccess(data.message);
                     return;
                 }
 
                 this.customerInformationService.showError(data.message);
-                this.spinner.hide();
             });
     }
 

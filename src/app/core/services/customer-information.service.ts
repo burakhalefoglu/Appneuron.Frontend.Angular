@@ -1,36 +1,29 @@
-import { Injectable } from '@angular/core';
-import { IndividualConfig, ToastrService } from 'ngx-toastr';
+import {Injectable} from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class CustomerInformationService {
-  constructor(private toastr: ToastrService) {}
 
-  options: Partial<IndividualConfig> = {
-    disableTimeOut: 'extendedTimeOut',
-    timeOut: 2000,
-    closeButton: true,
-    newestOnTop: true,
-    progressBar: true,
-    positionClass: 'toast-top-right',
-    progressAnimation: 'decreasing',
-    easeTime: 100,
-  };
+    constructor(private toaster: ToastrService) {
+    }
 
-  showSuccess(message: string): void {
-    this.toastr.success(message, 'Success', this.options);
-  }
+    showSuccess(message: string): void {
+        this.toaster.success(message);
 
-  showWarning(message: string): void {
-    this.toastr.warning(message, 'Warning', this.options);
-  }
+    }
 
-  showInfo(message: string): void {
-    this.toastr.info(message, 'Info', this.options);
-  }
+    showWarning(message: string): void {
+        this.toaster.warning(message);
+    }
 
-  showError(message: string): void {
-    this.toastr.error(message, 'Error', this.options);
-  }
+    showInfo(message: string): void {
+        this.toaster.info(message);
+
+    }
+
+    showError(message: string): void {
+        this.toaster.error(message);
+    }
 }

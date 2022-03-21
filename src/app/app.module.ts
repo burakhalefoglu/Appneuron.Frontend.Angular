@@ -3,8 +3,6 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {ToastrModule, ToastrService} from 'ngx-toastr';
 import {AuthGuard} from '@core/guard/auth.guard';
 import {CoreInterceptorService} from '@core/interceptors/core-interceptor.service';
 import {ConfigService} from '@core/services/config.service';
@@ -37,7 +35,7 @@ import {DatepickerModule} from '@core/components/datepicker/datepicker.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {DashboardModule} from '@app/dashboard/dashboard.module';
-import { AuthComponent } from './auth/login-or-register/auth/auth.component';
+import { AuthComponent } from '@auth/login-or-register/auth/auth.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PersonalInfoComponent } from './profile/personal-info/personal-info.component';
 import { PaymentInfoComponent } from './profile/payment-info/payment-info.component';
@@ -45,6 +43,8 @@ import { SubscriptionInfoComponent } from './profile/subscription-info/subscript
 import { PrivacyInfoComponent } from './profile/privacy-info/privacy-info.component';
 import { SettingsInfoComponent } from './profile/settings-info/settings-info.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {SpinnerComponent} from '@core/components/spinner/spinner.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [
@@ -69,6 +69,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
         SubscriptionInfoComponent,
         PrivacyInfoComponent,
         SettingsInfoComponent,
+        SpinnerComponent,
+
     ],
     imports: [
         FormsModule,
@@ -83,12 +85,10 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
         EventsModule,
         DatepickerModule,
         DashboardModule,
-        ToastrModule.forRoot({
-            positionClass: 'toast-bottom-right'
-        }),
         BrowserAnimationsModule,
         NgbDropdownModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        ToastrModule.forRoot()
     ],
     providers: [
         WebsocketService,
@@ -101,8 +101,6 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
         AuthGuard,
         CoreInterceptorService,
         CustomerInformationService,
-        ToastrService,
-        NgxSpinnerService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: CoreInterceptorService,

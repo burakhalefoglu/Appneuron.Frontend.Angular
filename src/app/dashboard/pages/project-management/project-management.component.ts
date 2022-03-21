@@ -9,6 +9,7 @@ import {AuthService} from '@app/auth/services/auth.service';
 import {Feedback} from '@app/dashboard/pages/project-management/Models/Feedback';
 import {ProjectManagementService} from '@app/dashboard/Services/project-management.service';
 import {Rate} from '@app/dashboard/pages/project-management/Models/Rate';
+import {ResponseModel} from '@core/models/response-model';
 
 @Component({
     selector: 'app-project-managment',
@@ -43,7 +44,7 @@ export class ProjectManagementComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.projectPage = 'dashboard/products?projectId=';
+        this.projectPage = 'dashboard/products?projectName=';
         this.activeProjectCount = 0;
         this.terminatedProjectCount = 0;
         this.DeleteProjectId = BigInt(0);
@@ -56,12 +57,11 @@ export class ProjectManagementComponent implements OnInit {
 
         this.profilePicture = this.getProfilePictureName() + '.png';
         this.getProjects();
-        this.setFilterProjectByTag(this.filterTag);
         this.createProjectFormEvent();
         this.createFeedbackFormEvent();
     }
 
-    public getProfilePictureName() {
+    public getProfilePictureName(): string {
         if (this.localStorageService.getItem('profilePictureName') === null) {
             const imageNumb = (Math.floor(Math.random() * 6) + 1).toString();
             this.localStorageService.setItem('profilePictureName', imageNumb);
@@ -70,7 +70,7 @@ export class ProjectManagementComponent implements OnInit {
         return this.localStorageService.getItem('profilePictureName');
     }
 
-    public setFilterProjectByTag(tag: string) {
+    public setFilterProjectByTag(tag: string): void {
         this.filteredProjectModelList = new Array<ProjectModel>();
         this.filterTag = tag;
         if (tag === 'total') {
@@ -90,7 +90,7 @@ export class ProjectManagementComponent implements OnInit {
         }
     }
 
-    public searchFilterByText(text: string) {
+    public searchFilterByText(text: string): void {
         this.filteredProjectModelList = new Array<ProjectModel>();
         if (this.filterTag === 'total') {
             this.projectModelList.forEach(x => {
@@ -113,51 +113,54 @@ export class ProjectManagementComponent implements OnInit {
         }
     }
 
-    public getProjects() {
+    public getProjects(): void {
         this.projectManagementService.getProjects().subscribe((data) => {
             if (data.success) {
                 this.customerInformationService.showSuccess(data.message);
                 this.projectModelList = new Array<ProjectModel>();
                 data.data.forEach(model => {
                     this.projectModelList.push(model);
-                    this.projectModelList.forEach(x => {
-                        x.status ? this.activeProjectCount += 1 : this.terminatedProjectCount += 1;
-                    });
                 });
+                this.projectModelList.forEach(x => {
+                    x.status ? this.activeProjectCount += 1 : this.terminatedProjectCount += 1;
+                });
+                this.setFilterProjectByTag(this.filterTag);
                 return;
             }
             this.customerInformationService.showError(data.message);
         });
     }
 
-    public deleteProject() {
+    public deleteProject(): void {
         this.activeProjectCount = 0;
         this.terminatedProjectCount = 0;
         const project = this.projectModelList.find(x => x.id === this.DeleteProjectId);
         const deleteProjectModel = new DeleteProjectModel();
         deleteProjectModel.name = project.name;
+        console.log(project.name);
         this.projectManagementService.deleteProject(deleteProjectModel).subscribe((data) => {
-            if (data.success) {
-                this.customerInformationService.showSuccess(data.message);
-                this.getProjects();
+            const response = Object.assign(ResponseModel, JSON.parse(data));
+            if (response.success) {
+                this.customerInformationService.showSuccess(response.message);
+                location.reload();
                 return;
             }
-            this.customerInformationService.showError(data.message);
+            this.customerInformationService.showError(response.message);
         });
     }
 
-    setDeleteInputConditionText(value: any) {
+    setDeleteInputConditionText(value: any): void {
         this.deleteInputConditionText = value;
     }
 
     private createProjectFormEvent(): void {
         this.createProjectForm = this.formBuilder.group({
-            ProjectName: new FormControl('', [
+            name: new FormControl('', [
                 Validators.required,
                 Validators.minLength(3),
                 Validators.maxLength(30),
             ]),
-            ProjectBody: new FormControl('', [
+            description: new FormControl('', [
                 Validators.required,
                 Validators.minLength(3),
             ]),
@@ -170,7 +173,7 @@ export class ProjectManagementComponent implements OnInit {
         });
     }
 
-    public createProject() {
+    public createProject(): void {
         const projectModel = Object.assign({}, this.createProjectForm.value);
         this.projectManagementService.createProject(projectModel).subscribe((data) => {
             if (data.success) {
@@ -182,13 +185,13 @@ export class ProjectManagementComponent implements OnInit {
         });
     }
 
-    public setFeedbackRate(r: number) {
+    public setFeedbackRate(r: number): void {
         const rate = new Rate();
         rate.Value = r;
         this.projectManagementService.sendRate(rate);
     }
 
-    public sendFeedback() {
+    public sendFeedback(): void {
         let feedback: Feedback;
         feedback = Object.assign({}, this.feedbackForm.value);
         this.projectManagementService.sendFeedbackDetailed(feedback);
@@ -198,7 +201,7 @@ export class ProjectManagementComponent implements OnInit {
         this.modalService.open(Content);
     }
 
-    public showDeletePopUp(Content: any, id: bigint) {
+    public showDeletePopUp(Content: any, id: bigint): void {
         this.DeleteProjectId = id;
         this.modalService.open(Content, {centered: true})
             .result.then((result) => {

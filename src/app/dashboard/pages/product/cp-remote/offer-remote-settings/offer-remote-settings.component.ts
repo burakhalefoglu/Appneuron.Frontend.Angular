@@ -9,7 +9,6 @@ import {CustomerInformationService} from '@app/core/services/customer-informatio
 import {LocalStorageService} from '@app/core/services/local-storage.service';
 import { OfferModel } from '@app/dashboard/models/offer-model';
 import { OfferProduct } from '@app/dashboard/models/offer-product';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import { ChurnPredictionApiService } from '../../services/churn-prediction-api.service';
@@ -59,7 +58,6 @@ export class OfferRemoteSettingsComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private churnPredictionApiService: ChurnPredictionApiService,
     private route: ActivatedRoute,
-    private spinner: NgxSpinnerService,
     public coreService: CoreService
   ) {
   }
@@ -181,12 +179,10 @@ export class OfferRemoteSettingsComponent implements OnInit {
   }
 
   updateStrategy(): void {
-    this.spinner.show();
     for (const offerModel of this.offerModelList) {
       this.churnPredictionApiService
         .updateOfferRemoteSetting(offerModel)
         .subscribe((response: ResponseModel) => {
-          this.spinner.hide();
           if (response.success) {
             this.customerInformationService.showSuccess(response.message);
           }
@@ -195,7 +191,6 @@ export class OfferRemoteSettingsComponent implements OnInit {
   }
 
   changeStrategyStatuse(i: number, statuse: boolean): void {
-    this.spinner.show();
     const offer = {...this.offerModelList[i]};
     const jsonObj = JSON.stringify(offer);
     const model: OfferModel = JSON.parse(jsonObj);
@@ -206,7 +201,6 @@ export class OfferRemoteSettingsComponent implements OnInit {
     this.churnPredictionApiService
       .updateOfferRemoteSetting(model)
       .subscribe((response: ResponseModel) => {
-        this.spinner.hide();
         if (response.success) {
           this.offerModelList[i].IsActive = statuse;
           this.isActiveOfferList[i] = statuse;
@@ -220,11 +214,9 @@ export class OfferRemoteSettingsComponent implements OnInit {
   }
 
   removeStrategy(i: number): void {
-    this.spinner.show();
     this.churnPredictionApiService
       .deleteOfferRemoteSetting(this.offerModelList[i])
       .subscribe((response) => {
-        this.spinner.hide();
         // ? Because of angular Bug, We have to parse json :(
         const obj = JSON.parse(response.toString());
         if (obj.success) {

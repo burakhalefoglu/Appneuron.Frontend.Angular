@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CoreService} from '@app/core/services/core.service';
 import { OfferModel } from '@app/dashboard/models/offer-model';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import { ChurnPredictionApiService } from '../../services/churn-prediction-api.service';
@@ -32,7 +31,6 @@ export class OfferStrategyEffectivenessAnalysisComponent implements OnInit {
     private churnPredictionApiService: ChurnPredictionApiService,
     private churnPredictionGraphFilterService: ChurnPredictionGraphFilterService,
     private route: ActivatedRoute,
-    private spinner: NgxSpinnerService,
     public coreService: CoreService
   ) {
   }

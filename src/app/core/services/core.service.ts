@@ -10,7 +10,7 @@ import { LocalStorageService } from './local-storage.service';
 export class CoreService {
 
     jwtHelper: JwtHelperService = new JwtHelperService();
-    
+
     constructor(private sanitizer: DomSanitizer,
          private localStorageService: LocalStorageService) {
     }
@@ -97,19 +97,30 @@ export class CoreService {
             const d = new Date();
             return monthNames[d.getMonth()];
         }
-        return monthNames[date.getMonth()];
+        return monthNames[new Date(date).getMonth()];
     }
 
-    public getDay(): any {
-        const d = new Date();
-        return d.getDate();
+    public getDay(date: Date = null): any {
+        if (date === null) {
+            const d = new Date();
+            return d.getDate();
+        }
+        return new Date(date).getDate();
+    }
+
+    public getFullYear(date: Date = null): any {
+        if (date === null) {
+            const d = new Date();
+            return d.getFullYear();
+        }
+        return new Date(date).getFullYear();
     }
 
     public getLeftDay(createdAt: Date): number {
         const date = new Date();
         const oneDay = 24 * 60 * 60 * 1000;
-        const diffDays = Math.abs((date.getTime() - createdAt.getTime()) / (oneDay));
-        return  Math.floor( diffDays );
+        const diffDays = Math.abs((date.getTime() - new Date(createdAt).getTime()) / (oneDay));
+        return  Math.floor( diffDays ) + 1;
     }
 
     loggedIn(): boolean {

@@ -24,13 +24,13 @@ const routes: Routes = [
     {path: 'reset', component: ResetComponent},
 
     {path: 'profile', component: ProfileComponent,
-        // canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
     },
     {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module')
             .then(m => m.DashboardModule),
-        // canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
     },
 
     {path: '**', redirectTo: '/404'},

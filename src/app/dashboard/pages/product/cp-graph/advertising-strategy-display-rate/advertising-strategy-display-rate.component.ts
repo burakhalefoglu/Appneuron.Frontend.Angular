@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { InterstitialAdDtoModel } from '@app/dashboard/models/interstiel-ad-model';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import { ChurnPredictionApiService } from '../../services/churn-prediction-api.service';
@@ -23,7 +22,6 @@ export class AdvertisingStrategyDisplayRateComponent implements OnInit {
   constructor(
     private churnPredictionApiService: ChurnPredictionApiService,
     private route: ActivatedRoute,
-    private spinner: NgxSpinnerService
   ) {
   }
 

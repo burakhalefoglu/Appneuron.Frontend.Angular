@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators,} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {ResponseDataModel} from '@app/core/models/response-data-model';
 import {ResponseModel} from '@app/core/models/response-model';
@@ -7,7 +7,6 @@ import {CustomerInformationService} from '@app/core/services/customer-informatio
 import {LocalStorageService} from '@app/core/services/local-storage.service';
 import { AdvStrategyModel } from '@app/dashboard/models/adv-strategy-model';
 import { InterstitialAdDtoModel } from '@app/dashboard/models/interstiel-ad-model';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import { ChurnPredictionApiService } from '../../services/churn-prediction-api.service';
@@ -43,7 +42,6 @@ export class AdvRemoteSettingsComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private churnPredictionApiService: ChurnPredictionApiService,
     private route: ActivatedRoute,
-    private spinner: NgxSpinnerService
   ) {
   }
 
@@ -145,12 +143,10 @@ export class AdvRemoteSettingsComponent implements OnInit {
   }
 
   updateStrategy(): void {
-    this.spinner.show();
     for (const interstielAdModel of this.interstitialAdModelList) {
       this.churnPredictionApiService
         .updateAdvRemoteSetting(interstielAdModel)
         .subscribe((response: ResponseModel) => {
-          this.spinner.hide();
           if (response.success) {
             this.customerInformationService.showSuccess(response.message);
           }
@@ -159,7 +155,6 @@ export class AdvRemoteSettingsComponent implements OnInit {
   }
 
   changeStrategyStatuse(i: number, statuse: boolean): void {
-    this.spinner.show();
     const adv = {...this.interstitialAdModelList[i]};
     const jsonObj = JSON.stringify(adv);
     const model: InterstitialAdDtoModel = JSON.parse(jsonObj);
@@ -170,7 +165,6 @@ export class AdvRemoteSettingsComponent implements OnInit {
     this.churnPredictionApiService
       .updateAdvRemoteSetting(model)
       .subscribe((response: ResponseModel) => {
-        this.spinner.hide();
         if (response.success) {
           this.interstitialAdModelList[i].IsAdvSettingsActive = statuse;
           this.isActiveStrategyList[i] = statuse;

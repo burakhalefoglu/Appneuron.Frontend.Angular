@@ -2,6 +2,7 @@
 FROM node:16.14.0 AS build
 WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
+
 RUN npm i -g @angular/cli@13.2.3
 
 # Install app dependencies:

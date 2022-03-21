@@ -21,19 +21,19 @@
         <div class="app-header-right">
             <div class="rating">
                 <input (click)="setFeedbackRate(5)" type="radio" name="rating" id="rating-5">
-                <label for="rating-5"></label>
+                <label ></label>
                 <input (click)="setFeedbackRate(4)" checked="checked" type="radio" name="rating" id="rating-4">
-                <label for="rating-4"></label>
+                <label ></label>
                 <input (click)="setFeedbackRate(3)" type="radio" name="rating" id="rating-3">
-                <label for="rating-3"></label>
+                <label ></label>
                 <input (click)="setFeedbackRate(2)" type="radio" name="rating" id="rating-2">
-                <label for="rating-2"></label>
+                <label ></label>
                 <input (click)="setFeedbackRate(1)" type="radio" name="rating" id="rating-1">
-                <label for="rating-1"></label>
+                <label ></label>
 
             </div>
             <a class="tap-space" title="send feedback detail" (click)="showPopup(feedback)">
-                <svg width="24px" height="24px" viewBox="0 0 48 48" version="1" xmlns="http://www.w3.org/2000/svg"
+                <svg width="24px" height="24px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"
                      enable-background="new 0 0 48 48">
                     <path fill="#78909C"
                           d="M40,41H8c-2.2,0-4-1.8-4-4l0-20.9c0-1.3,0.6-2.5,1.7-3.3L24,0l18.3,12.8c1.1,0.7,1.7,2,1.7,3.3V37 C44,39.2,42.2,41,40,41z"/>
@@ -75,10 +75,10 @@
                 </svg>
 
             </a>
-            <div class="profile-btn">
+            <a title="profile" href="/profile" class="profile-btn">
                 <img src="../../../assets/project-management/img/{{profilePicture}}"/>
                 <span>{{profileName}}</span>
-            </div>
+            </a>
         </div>
         <button class="messages-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -138,14 +138,13 @@
             </div>
 
             <div class="project-boxes jsGridView">
-                <!-- Project box started-->
                 <div *ngFor="let project of filteredProjectModelList; index as i;" class="project-box-wrapper">
-                    <div class="project-box" [ngStyle]="{'background-color': project.status? '#c8f7dc' : '#ffd3e2'}">
+                    <div class="project-box" [ngStyle]="{'background-color': project['status']? '#c8f7dc' : '#ffd3e2'}">
                         <div class="project-box-header">
-                            <span>{{coreService.getMonthNameOfWeek(project.createdAt)}} {{project.createdAt.getDate()}}
-                                , {{project.createdAt.getFullYear()}}</span>
+                            <span>{{coreService.getMonthNameOfWeek(project['createdAt'])}}  {{coreService.getDay(project['createdAt'])}}
+                                , {{coreService.getFullYear(project['createdAt'])}}</span>
                             <div class="more-wrapper">
-                                <div *ngIf="project.status" ngbDropdown>
+                                <div *ngIf="project['status']" ngbDropdown>
                                     <button id="dropdownBasic1" class="project-btn-more" ngbDropdownToggle>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                              viewBox="0 0 24 24"
@@ -157,7 +156,7 @@
                                         </svg>
                                     </button>
                                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                        <button ngbDropdownItem (click)="showDeletePopUp(areyousure, project.id)">
+                                        <button ngbDropdownItem (click)="showDeletePopUp(areyousure, project['id'])">
                                             Terminate
                                         </button>
                                     </div>
@@ -165,11 +164,11 @@
                             </div>
                         </div>
                         <div class="project-box-content-header">
-                            <p class="box-content-header">{{project.projectName}}</p>
-                            <p class="box-content-subheader">{{project.projectBody}}</p>
+                            <p class="box-content-header">{{project['name']}}</p>
+                            <p class="box-content-subheader">{{project['description']}}</p>
                         </div>
                         <div class="project-box-footer">
-                            <a *ngIf="project.status" [href]="projectPage + project.id">
+                            <a *ngIf="project['status']" [href]="projectPage + project['name']">
                                 <svg width="24" height="24" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                      viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
@@ -183,7 +182,7 @@
                                 </g>
                                 </svg>
                             </a>
-                            <a *ngIf="project.status" href="javascript:void(0)">
+                            <a *ngIf="project['status']" href="javascript:void(0)">
                                 <svg width="24" height="24" version="1.1" id="Layer_1"
                                      xmlns="http://www.w3.org/2000/svg"
                                      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -205,20 +204,11 @@
                                 </g>
                                 </svg>
                             </a>
-                            <div class="participants">
-                                <!--                                <button class="add-participant" style="color: #ff942e;">-->
-                                <!--                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"-->
-                                <!--                                         fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"-->
-                                <!--                                         stroke-linejoin="round" class="feather feather-plus">-->
-                                <!--                                        <path d="M12 5v14M5 12h14"/>-->
-                                <!--                                    </svg>-->
-                                <!--                                </button>-->
-                            </div>
                             <br>
-                            <div *ngIf="project.status" class="days-left" style="color: #34c471;">
-                                active for {{ coreService.getLeftDay(project.createdAt) }} days
+                            <div *ngIf="project['status']" class="days-left" style="color: #34c471;">
+                                active for {{ coreService.getLeftDay(project['createdAt']) }} days
                             </div>
-                            <div *ngIf="!project.status" class="days-left" style="color: #df3670;">
+                            <div *ngIf="!project['status']" class="days-left" style="color: #df3670;">
                                 terminated
                             </div>
                         </div>
@@ -227,41 +217,6 @@
                 <!-- Project box ended-->
             </div>
         </div>
-        <!-- <div class="messages-section">
-          <button class="messages-close">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="15" y1="9" x2="9" y2="15" />
-              <line x1="9" y1="9" x2="15" y2="15" /></svg>
-          </button>
-          <div class="projects-section-header">
-            <p>Client Messages</p>
-          </div>
-          <div class="messages">
-            <div class="message-box">
-              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="profile image">
-              <div class="message-content">
-                <div class="message-header">
-                  <div class="name">Stephanie</div>
-                  <div class="star-checkbox">
-                    <input type="checkbox" id="star-1">
-                    <label for="star-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                    </label>
-                  </div>
-                </div>
-                <p class="message-line">
-                  I got your first assignment. It was quite good. ğŸ¥³ We can continue with the next assignment.
-                </p>
-                <p class="message-line time">
-                  Dec, 12
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        -->
     </div>
 </div>
 
@@ -311,69 +266,69 @@
                     <label style="color: red">*<input
                         type="text"
                         class="input-field"
-                        name="field1"
+                        name="name"
                         value=""
                         id="forName"
-                        formControlName="ProjectName"
-                        placeholder="Project Name"
+                        formControlName="name"
+                        placeholder="name"
                     /> </label>
                     <div
                         class="alert alert-danger"
                         *ngIf="
-              !createProjectForm.controls.ProjectName?.valid &&
-              (createProjectForm.controls.ProjectName?.dirty ||
-                createProjectForm.controls.ProjectName?.touched)
+              !createProjectForm.controls.name?.valid &&
+              (createProjectForm.controls.name?.dirty ||
+                createProjectForm.controls.name?.touched)
             "
                     >
                         <div
-                            *ngIf="createProjectForm.controls.ProjectName.errors?.required"
+                            *ngIf="createProjectForm.controls.name.errors?.required"
                         >
                             Name is required.
                         </div>
 
                         <div
-                            *ngIf="createProjectForm.controls.ProjectName.errors?.minlength"
+                            *ngIf="createProjectForm.controls.name.errors?.minlength"
                         >
                             Name must be at least 3 characters
                         </div>
 
                         <div
-                            *ngIf="createProjectForm.controls.ProjectName.errors?.maxlength"
+                            *ngIf="createProjectForm.controls.name.errors?.maxlength"
                         >
                             Name must be a maximum 30 characters
                         </div>
                     </div>
                     <label style="color: red">*<textarea
-                        formControlName="ProjectBody"
+                        formControlName="description"
                         name="field5"
                         class="textarea-field"
-                        id="forProjectBody"
-                        placeholder="ProjectBody"
+                        id="description"
+                        placeholder="description"
                     ></textarea></label>
                     <div
                         class="alert alert-danger"
                         *ngIf="
-              !createProjectForm.controls.ProjectBody?.valid &&
-              (createProjectForm.controls.ProjectBody?.dirty ||
-                createProjectForm.controls.ProjectBody?.touched)
+              !createProjectForm.controls.description?.valid &&
+              (createProjectForm.controls.description?.dirty ||
+                createProjectForm.controls.description?.touched)
             "
                     >
                         <div
-                            *ngIf="createProjectForm.controls.ProjectBody.errors?.required"
+                            *ngIf="createProjectForm.controls.description.errors?.required"
                         >
-                            Project body is required.
+                            Description is required.
                         </div>
 
                         <div
-                            *ngIf="createProjectForm.controls.ProjectBody.errors?.minlength"
+                            *ngIf="createProjectForm.controls.description.errors?.minlength"
                         >
-                            Project body must be at least 3 characters
+                            Description must be at least 3 characters
                         </div>
 
                         <div
-                            *ngIf="createProjectForm.controls.ProjectBody.errors?.maxlength"
+                            *ngIf="createProjectForm.controls.description.errors?.maxlength"
                         >
-                            ProjectBody must be a maximum 30 characters
+                            Description must be a maximum 30 characters
                         </div>
                     </div>
                 </div>

@@ -8,6 +8,11 @@ export class ProjectModel {
 
 }
 
+export class CreateProjectModel {
+    name: string;
+    description: string;
+}
+
 export class DeleteProjectModel {
     name: string;
 }

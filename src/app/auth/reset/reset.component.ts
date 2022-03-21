@@ -50,7 +50,7 @@ export class ResetComponent implements OnInit {
   }
   ngOnInit(): void {
     if (this.coreService.loggedIn()) {
-      this.router.navigate(['/customerdashboard']);
+      this.router.navigate(['/dashboard']);
     }
     this.route.queryParams.subscribe((params) => {
       this.token = params.resetpasswordtoken;

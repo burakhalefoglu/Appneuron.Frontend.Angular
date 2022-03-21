@@ -10,7 +10,6 @@ import {PasswordStrengthBarModule} from '@core/components/password-strength-bar/
 import {TimerModule} from '@core/components/timer/timer.module';
 import {EventsModule} from '@core/services/angular-event-service/angular-events.module';
 import {DatepickerModule} from '@core/components/datepicker/datepicker.module';
-import {ToastrModule} from 'ngx-toastr';
 import {ProjectManagementComponent} from '@app/dashboard/pages/project-management/project-management.component';
 import { AdvertisingStrategyDisplayRateComponent } from './pages/product/cp-graph/advertising-strategy-display-rate/advertising-strategy-display-rate.component';
 import { CpGraphComponent } from './pages/product/cp-graph/cp-graph.component';
@@ -52,9 +51,6 @@ import { DashboardNavbarComponent } from './pages/product/layout/dashboard-navba
         TimerModule,
         EventsModule,
         DatepickerModule,
-        ToastrModule.forRoot({
-            positionClass: 'toast-bottom-right'
-        }),
         DashboardRoutingModule,
         NgbDropdownModule
     ]

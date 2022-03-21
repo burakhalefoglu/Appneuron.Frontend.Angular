@@ -10,7 +10,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CustomerInformationService } from '@core/services/customer-information.service';
 import { LocalStorageService } from '../services/local-storage.service';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,7 @@ export class CoreInterceptorService implements HttpInterceptor {
   constructor(
     private customerInformationService: CustomerInformationService,
     private localStorageService: LocalStorageService,
-    private spinner: NgxSpinnerService
+    private router: Router,
   ) {}
   intercept(
     req: HttpRequest<any>,
@@ -49,20 +49,20 @@ export class CoreInterceptorService implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        //TODO:
-        if (error.message == undefined) {
+        if (error.message === undefined) {
           return;
         }
         if (error.status === 401) {
-          window.location.reload();
+            this.router.navigate(['/auth']);
+        }
+        if (error.status === 403) {
+            this.router.navigate(['/dashboard']);
         }
         const message = error.message.slice(
           error.message.indexOf(': ') + 1,
           error.message.length
         );
         const errorMessage = `Error: ${message}`;
-
-        this.spinner.hide();
         this.customerInformationService.showError(errorMessage);
 
         if (error.error instanceof ErrorEvent) {
