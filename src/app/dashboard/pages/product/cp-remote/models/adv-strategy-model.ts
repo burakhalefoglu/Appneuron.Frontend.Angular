@@ -1,4 +1,4 @@
 export class AdvStrategyModel {
   Name: string;
-  Count: number;
+  StrategyValue: number;
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CoreService } from '@app/core/services/core.service';
-import { FilteredOfferBehaviorModel } from '@app/dashboard/models/filtered-offer-behavior-model';
-import { OfferBehaviorDtoModel } from '@app/dashboard/models/offer-behavior-dto-model';
+import { FilteredOfferBehaviorModel } from '@app/dashboard/pages/product/cp-remote/models/filtered-offer-behavior-model';
+import { OfferBehaviorDtoModel } from '@app/dashboard/pages/product/cp-remote/models/offer-behavior-dto-model';
 
 @Injectable({
   providedIn: 'root',

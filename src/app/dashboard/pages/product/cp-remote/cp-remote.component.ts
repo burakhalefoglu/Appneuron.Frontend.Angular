@@ -3,8 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {CustomerInformationService} from '@app/core/services/customer-information.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import { ChurnDateModel } from '@app/dashboard/models/churn-date-model';
-import { ChurnPredictionApiService } from '../services/churn-prediction-api.service';
+import { ChurnDateModel } from '@app/dashboard/pages/product/cp-remote/models/churn-date-model';
+import { ChurnPredictionGraphService } from '../services/churn-prediction-graph.service';
 
 @Component({
     selector: 'app-cp-remote',
@@ -21,7 +21,7 @@ export class CpRemoteComponent implements OnInit {
     projectId: bigint;
 
     constructor(
-        private churnPredictionApiService: ChurnPredictionApiService,
+        private churnPredictionApiService: ChurnPredictionGraphService,
         private route: ActivatedRoute,
         private customerInformationService: CustomerInformationService
     ) {

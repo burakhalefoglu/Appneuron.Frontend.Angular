@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import { InterstitialAdDtoModel } from '@app/dashboard/models/interstiel-ad-model';
+import { InterstitialAdDtoModel } from '@app/dashboard/pages/product/cp-remote/models/interstiel-ad-model';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import { ChurnPredictionApiService } from '../../services/churn-prediction-api.service';
+import { ChurnPredictionGraphService } from '../../services/churn-prediction-graph.service';
 
 @Component({
   selector: 'app-advertising-strategy-display-rate',
@@ -20,7 +20,7 @@ export class AdvertisingStrategyDisplayRateComponent implements OnInit {
   projectID: any;
 
   constructor(
-    private churnPredictionApiService: ChurnPredictionApiService,
+    private churnPredictionApiService: ChurnPredictionGraphService,
     private route: ActivatedRoute,
   ) {
   }

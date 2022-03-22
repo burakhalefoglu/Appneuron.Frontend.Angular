@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CoreService} from '@app/core/services/core.service';
-import { OfferModel } from '@app/dashboard/models/offer-model';
+import { OfferModel } from '@app/dashboard/pages/product/cp-remote/models/offer-model';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import { ChurnPredictionApiService } from '../../services/churn-prediction-api.service';
+import { ChurnPredictionGraphService } from '../../services/churn-prediction-graph.service';
 import {ChurnPredictionGraphFilterService} from '../churn-prediction-graph-filter.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class OfferStrategyEffectivenessAnalysisComponent implements OnInit {
   projectID: any;
 
   constructor(
-    private churnPredictionApiService: ChurnPredictionApiService,
+    private churnPredictionApiService: ChurnPredictionGraphService,
     private churnPredictionGraphFilterService: ChurnPredictionGraphFilterService,
     private route: ActivatedRoute,
     public coreService: CoreService

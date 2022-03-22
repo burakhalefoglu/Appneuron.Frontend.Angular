@@ -15,3 +15,18 @@ export class OfferModel {
   StartTime: number;
   FinishTime: number;
 }
+
+export class OfferModelUpdateDto{
+    ProjectId: bigint;
+    Name: string;
+    IsActive: boolean;
+    Version: string;
+    PlayerPercent: number;
+
+}
+
+export class OfferModelUpdateDeleteDto{
+    ProjectId: bigint;
+    Name: string;
+    Version: string;
+}
