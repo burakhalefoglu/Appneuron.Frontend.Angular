@@ -1,7 +1,7 @@
 import {OfferProduct} from './offer-product';
 
 export class OfferModel {
-  ProjectId: bigint;
+  ProjectId: number;
   IsActive: boolean;
   ProductList: Array<OfferProduct>;
   Name: string;
@@ -17,7 +17,7 @@ export class OfferModel {
 }
 
 export class OfferModelUpdateDto{
-    ProjectId: bigint;
+    ProjectId: number;
     Name: string;
     IsActive: boolean;
     Version: string;
@@ -26,7 +26,7 @@ export class OfferModelUpdateDto{
 }
 
 export class OfferModelUpdateDeleteDto{
-    ProjectId: bigint;
+    ProjectId: number;
     Name: string;
     Version: string;
 }

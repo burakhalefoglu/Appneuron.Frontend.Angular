@@ -51,7 +51,7 @@ export class OfferRemoteSettingsComponent implements OnInit {
 
     productName: string;
     productCount: number;
-    projectId: bigint;
+    projectId: number;
 
     constructor(
         private formBuilder: FormBuilder,

@@ -11,7 +11,7 @@ import {ResponseModel} from '@core/models/response-model';
     encapsulation: ViewEncapsulation.None
 })
 export class ProductComponent implements OnInit, OnDestroy {
-    projectName: string;
+    projectId: string;
 
     constructor(private route: ActivatedRoute,
                 private productService: ProductService,
@@ -21,11 +21,11 @@ export class ProductComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.route.queryParams
             .subscribe(params => {
-                    this.projectName = params.projectName;
+                    this.projectId = params.projectId;
                 }
             );
-        this.productService.getProjectByName(this.projectName).subscribe((data) => {
-            if (data.data === null) {
+        this.productService.customerProjectisValid(this.projectId).subscribe((data) => {
+            if (!data.data) {
                 this.router.navigate(['/dashboard']);
             }
         });

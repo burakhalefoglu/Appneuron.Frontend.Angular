@@ -36,13 +36,13 @@ export class AdvertisingStrategyDisplayRateComponent implements OnInit {
   }
 
   getAdvStrategies(): void {
-    this.churnPredictionApiService
-      .getHistoryAdvRemoteSettings(this.projectID)
-      .subscribe((dataArray) => {
-        if (dataArray.success) {
-          this.advStrategies = dataArray.data;
-        }
-      });
+    // this.churnPredictionApiService
+    //   .getHistoryAdvRemoteSettings(this.projectID)
+    //   .subscribe((dataArray) => {
+    //     if (dataArray.success) {
+    //       this.advStrategies = dataArray.data;
+    //     }
+    //   });
   }
 
   advTypeHandler(

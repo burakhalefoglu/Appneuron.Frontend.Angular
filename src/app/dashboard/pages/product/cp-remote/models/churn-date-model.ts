@@ -1,5 +1,5 @@
 export class ChurnDateModel {
-  ProjectId: bigint;
+  ProjectId: number;
   ChurnDateMinutes: number;
   DateTypeOnGui: string;
 }

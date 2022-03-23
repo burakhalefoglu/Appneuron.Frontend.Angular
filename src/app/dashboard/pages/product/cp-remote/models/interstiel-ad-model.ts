@@ -1,7 +1,7 @@
 import {AdvStrategyModel} from '@app/dashboard/pages/product/cp-remote/models/adv-strategy-model';
 
 export class InterstitialAdModel {
-    ProjectId: bigint;
+    ProjectId: number;
     Name: string;
     Version: number;
     PlayerPercent: number;
@@ -10,16 +10,16 @@ export class InterstitialAdModel {
 }
 
 export class InterstitialAdDtoModel {
-    ProjectId: bigint;
+    ProjectId: number;
     Name: string;
     Version: number;
     PlayerPercent: number;
-    AdvStrategies: Array<AdvStrategyModel>;
+    AdvStrategyDtos: Array<AdvStrategyModel>;
 
 }
 
 export class InterstitialAdUpdateModel {
-    ProjectId: bigint;
+    ProjectId: number;
     Name: string;
     Version: number;
     PlayerPercent: number;
@@ -27,7 +27,7 @@ export class InterstitialAdUpdateModel {
 }
 
 export class InterstitialAdDeleteModel {
-    ProjectId: bigint;
+    ProjectId: number;
     Name: string;
     Version: number;
 }

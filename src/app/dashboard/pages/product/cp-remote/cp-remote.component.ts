@@ -18,7 +18,7 @@ export class CpRemoteComponent implements OnInit {
     selectedChurnDropdownDateType: string;
     churnDateMinute = 0;
     timeout: any = null;
-    projectId: bigint;
+    projectId: number;
 
     constructor(
         private churnPredictionApiService: ChurnPredictionGraphService,
@@ -34,36 +34,36 @@ export class CpRemoteComponent implements OnInit {
                 this.projectId = params.id;
             });
         this.isAdvPageActive = this.isAdvPageActiveValueFromLocalStorage();
-        this.getChurnDate();
+        // this.getChurnDate();
     }
 
-    getChurnDate(): void {
-        this.churnPredictionApiService
-            .getChurnDate(this.projectId)
-            .subscribe((data) => {
-                if (data.data == null) {
-                    this.selectedChurnDropdownDateType = 'Day';
-                    this.churnDateMinute = 1;
-                    const churnDate = new ChurnDateModel();
-                    churnDate.ChurnDateMinutes = 24 * 60;
-                    churnDate.DateTypeOnGui = 'Day';
-                    churnDate.ProjectId = this.projectId;
-                    this.churnPredictionApiService.addChurnDate(churnDate);
-                    return;
-                }
-                // tslint:disable-next-line: no-string-literal
-                this.selectedChurnDropdownDateType = data.data['dateTypeOnGui'];
-
-                // tslint:disable-next-line: no-string-literal
-                const minute = data.data['churnDateMinutes'];
-
-                if (this.selectedChurnDropdownDateType === 'Day') {
-                    this.churnDateMinute = minute / (24 * 60);
-                    return;
-                }
-                this.churnDateMinute = minute / 60;
-            });
-    }
+    // getChurnDate(): void {
+    //     this.churnPredictionApiService
+    //         .getChurnDate(this.projectId)
+    //         .subscribe((data) => {
+    //             if (data.data == null) {
+    //                 this.selectedChurnDropdownDateType = 'Day';
+    //                 this.churnDateMinute = 1;
+    //                 const churnDate = new ChurnDateModel();
+    //                 churnDate.ChurnDateMinutes = 24 * 60;
+    //                 churnDate.DateTypeOnGui = 'Day';
+    //                 churnDate.ProjectId = this.projectId;
+    //                 this.churnPredictionApiService.addChurnDate(churnDate);
+    //                 return;
+    //             }
+    //             // tslint:disable-next-line: no-string-literal
+    //             this.selectedChurnDropdownDateType = data.data['dateTypeOnGui'];
+    //
+    //             // tslint:disable-next-line: no-string-literal
+    //             const minute = data.data['churnDateMinutes'];
+    //
+    //             if (this.selectedChurnDropdownDateType === 'Day') {
+    //                 this.churnDateMinute = minute / (24 * 60);
+    //                 return;
+    //             }
+    //             this.churnDateMinute = minute / 60;
+    //         });
+    // }
 
     churnOnChange(event: any): void {
         clearTimeout(this.timeout);

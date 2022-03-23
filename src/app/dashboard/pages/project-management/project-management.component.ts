@@ -44,7 +44,7 @@ export class ProjectManagementComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.projectPage = 'dashboard/products?projectName=';
+        this.projectPage = 'dashboard/products?projectId=';
         this.activeProjectCount = 0;
         this.terminatedProjectCount = 0;
         this.DeleteProjectId = BigInt(0);

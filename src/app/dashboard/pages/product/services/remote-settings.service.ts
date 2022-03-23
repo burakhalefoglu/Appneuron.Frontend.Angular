@@ -92,7 +92,7 @@ export class RemoteSettingsService {
     }
 
     public getOfferRemoteSettings(
-        projectId: bigint,
+        projectId: number,
     ): Observable<ResponseDataModel<Array<OfferModel>>> {
         this.spinnerService.showSpinner();
         return this.http.get<ResponseDataModel<Array<OfferModel>>>(

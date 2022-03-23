@@ -13,7 +13,6 @@ import {
 } from '@app/dashboard/pages/product/cp-remote/models/interstiel-ad-model';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {ChurnPredictionGraphService} from '../../services/churn-prediction-graph.service';
 import {RemoteSettingsService} from '@app/dashboard/pages/product/services/remote-settings.service';
 
 @Component({
@@ -39,7 +38,7 @@ export class AdvRemoteSettingsComponent implements OnInit {
     count: string;
     name: string;
     version: string;
-    projectID: any;
+    projectId: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -54,7 +53,7 @@ export class AdvRemoteSettingsComponent implements OnInit {
         this.route.queryParams
             .pipe(takeUntil(this.destroy$))
             .subscribe((params) => {
-                this.projectID = params.id;
+                this.projectId = params.projectId;
             });
         if (this.localStorageService.getItem('advStrategy') != null) {
             this.strategyMap = new Map(
@@ -216,8 +215,9 @@ export class AdvRemoteSettingsComponent implements OnInit {
 
     getAdvStrategies(): void {
         this.remoteSettingsService
-            .getAdvRemoteSettings(this.projectID)
+            .getAdvRemoteSettings(this.projectId)
             .subscribe((response: ResponseDataModel<Array<InterstitialAdModel>>) => {
+                console.log(response);
                 for (const key in response.data) {
                     if (Object.prototype.hasOwnProperty.call(response.data, key)) {
                         const element = response.data[key];
@@ -246,14 +246,15 @@ export class AdvRemoteSettingsComponent implements OnInit {
         interstitialAdModel.Name = this.AdvStrategyFormGroup.value.Name;
         interstitialAdModel.Version = this.AdvStrategyFormGroup.value.Version;
         interstitialAdModel.PlayerPercent = 0;
-        interstitialAdModel.ProjectId = this.projectID;
-        interstitialAdModel.AdvStrategies = new Array<AdvStrategyModel>();
+        interstitialAdModel.ProjectId = Number(this.projectId);
+        interstitialAdModel.AdvStrategyDtos = new Array<AdvStrategyModel>();
         for (const obj of this.strategyMap) {
             const advStrategyModel = new AdvStrategyModel();
             advStrategyModel.Name = obj[0];
             advStrategyModel.StrategyValue = obj[1];
-            interstitialAdModel.AdvStrategies.push(advStrategyModel);
+            interstitialAdModel.AdvStrategyDtos.push(advStrategyModel);
         }
+
         this.remoteSettingsService.addAdvRemoteSetting(interstitialAdModel);
         this.name = null;
         this.version = null;

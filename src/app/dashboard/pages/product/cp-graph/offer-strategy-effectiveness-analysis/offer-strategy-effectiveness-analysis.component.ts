@@ -45,13 +45,13 @@ export class OfferStrategyEffectivenessAnalysisComponent implements OnInit {
   }
 
   getOfferStrategies(): void {
-    this.churnPredictionApiService
-      .getOfferRemoteSettingsFromHistory(this.projectID)
-      .subscribe((dataArray) => {
-        if (dataArray.success) {
-          this.offerStrategies = dataArray.data;
-        }
-      });
+    // this.churnPredictionApiService
+    //   .getOfferRemoteSettingsFromHistory(this.projectID)
+    //   .subscribe((dataArray) => {
+    //     if (dataArray.success) {
+    //       this.offerStrategies = dataArray.data;
+    //     }
+    //   });
   }
 
   offerTypeHanler(

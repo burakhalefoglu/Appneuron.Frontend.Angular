@@ -171,10 +171,10 @@
   style="margin: auto; width: 90%; margin-bottom: 20px; display: block"
 >
   <p style="margin-top: 10px; padding: 1%; float: left; margin-left: 10px">
-    Name: {{ interstielAdModel.Name }}
+    Name: {{ interstielAdModel['name'] }}
   </p>
   <p style="margin-top: 10px; padding: 1%; float: left; margin-left: 10px">
-    Version: {{ interstielAdModel.Version }}
+    Version: {{ interstielAdModel['version'] }}
   </p>
 
   <input
@@ -205,8 +205,8 @@
     </thead>
     <tbody>
     <tr *ngFor="let element of interstielAdModel.AdvStrategies">
-      <td class="text-center">{{ element.Name }}</td>
-      <td class="text-center">{{ element.Count }}</td>
+      <td class="text-center">{{ element['name'] }}</td>
+      <td class="text-center">{{ element['strategyValue'] }}</td>
     </tr>
     </tbody>
   </table>

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {ProjectResponse, ProjectsResponse} from '@app/dashboard/models/project-model';
+import {ProjectIsValidResponse, ProjectResponse, ProjectsResponse} from '@app/dashboard/models/project-model';
 import {environment} from '@environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {finalize} from 'rxjs/operators';
@@ -15,6 +15,14 @@ export class ProductService {
                 private spinnerService: SpinnerService) {
     }
 
+    public customerProjectisValid(projectId: string): Observable<ProjectIsValidResponse> {
+        this.spinnerService.showSpinner();
+        return this.httpClient.get<ProjectIsValidResponse>(
+            environment.getProjectApiUrl + '/CustomerProjects/isValid?projectId=' + projectId
+        ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        );
+    }
     public getProjectByName(name: string): Observable<ProjectResponse> {
         this.spinnerService.showSpinner();
         return this.httpClient.get<ProjectResponse>(

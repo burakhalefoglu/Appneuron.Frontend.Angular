@@ -82,18 +82,18 @@ export class ChurnPredictionGraphService {
         );
     }
 
-    public getChurnDate(
-        projectId: bigint
-    ): Observable<ResponseDataModel<ChurnDateModel>> {
-        this.spinnerService.showSpinner();
-        return this.http.get<ResponseDataModel<ChurnDateModel>>(
-            environment.getClientApiUrl +
-            '/ChurnDates/getByProjectId?projectId=' +
-            projectId
-        ).pipe(
-            finalize(() => this.spinnerService.hideSpinner()),
-        );
-    }
+    // public getChurnDate(
+    //     projectId: bigint
+    // ): Observable<ResponseDataModel<ChurnDateModel>> {
+    //     this.spinnerService.showSpinner();
+    //     return this.http.get<ResponseDataModel<ChurnDateModel>>(
+    //         environment.getClientApiUrl +
+    //         '/ChurnDates/getByProjectId?projectId=' +
+    //         projectId
+    //     ).pipe(
+    //         finalize(() => this.spinnerService.hideSpinner()),
+    //     );
+    // }
 
     public getOfferBehaviorDtoList(
         projectId: string,

@@ -15,8 +15,9 @@ export class DashboardNavbarComponent implements OnInit {
     faRightFromBracket = faRightFromBracket;
     faHome = faHome;
     faUser = faUser;
+    projectId: string;
+
     graphLink: string;
-    projectName: string;
     remoteLink: string;
 
     constructor(public authService: AuthService,
@@ -26,11 +27,11 @@ export class DashboardNavbarComponent implements OnInit {
     ngOnInit(): void {
         this.route.queryParams
             .subscribe(params => {
-                    this.projectName = params.projectName;
+                    this.projectId = params.projectId;
                 }
             );
-        this.graphLink = '/dashboard/products/cp/graph' + '?projectName=' + this.projectName;
-        this.remoteLink = '/dashboard/products/cp/remote' + '?projectName=' + this.projectName;
+        this.graphLink = '/dashboard/products/cp/graph' + '?projectId=' + this.projectId;
+        this.remoteLink = '/dashboard/products/cp/remote' + '?projectId=' + this.projectId;
     }
 
 }

@@ -24,6 +24,12 @@ export class ProjectResponse {
    data: ProjectModel;
 }
 
+export class ProjectIsValidResponse {
+    success: boolean;
+    message: string;
+    data: boolean;
+}
+
 
 export class ProjectsResponse {
     success: boolean;
