@@ -1,4 +1,9 @@
-import {OfferProduct} from './offer-product';
+export class OfferProduct {
+    Name: string;
+    Count: number;
+    Image: string;
+    ImageName: string;
+}
 
 export class OfferModel {
   ProjectId: number;
@@ -25,7 +30,7 @@ export class OfferModelUpdateDto{
 
 }
 
-export class OfferModelUpdateDeleteDto{
+export class OfferModelDeleteDto{
     ProjectId: number;
     Name: string;
     Version: string;

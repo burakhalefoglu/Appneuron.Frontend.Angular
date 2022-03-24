@@ -11,7 +11,11 @@ import {Observable} from 'rxjs';
 import {ResponseModel} from '@core/models/response-model';
 import {environment} from '@environments/environment';
 import {finalize} from 'rxjs/operators';
-import {OfferModel, OfferModelUpdateDeleteDto, OfferModelUpdateDto} from '@app/dashboard/pages/product/cp-remote/models/offer-model';
+import {
+    OfferModel,
+    OfferModelDeleteDto,
+    OfferModelUpdateDto
+} from '@app/dashboard/pages/product/cp-remote/models/offer-model';
 import {ResponseDataModel} from '@core/models/response-data-model';
 
 @Injectable({
@@ -105,6 +109,7 @@ export class RemoteSettingsService {
     }
 
     public addOfferRemoteSetting(data: OfferModel): void {
+        this.spinnerService.showSpinner();
         this.http
             .post<ResponseModel>(
                 environment.getRemoteApiUrl + '/RemoteOfferModels',
@@ -134,7 +139,7 @@ export class RemoteSettingsService {
         );
     }
 
-    public deleteOfferRemoteSetting(data: OfferModelUpdateDeleteDto): Observable<ResponseModel> {
+    public deleteOfferRemoteSetting(data: OfferModelDeleteDto): Observable<ResponseModel> {
         this.spinnerService.showSpinner();
         const deleteAdvOptions = {
             headers: new HttpHeaders({

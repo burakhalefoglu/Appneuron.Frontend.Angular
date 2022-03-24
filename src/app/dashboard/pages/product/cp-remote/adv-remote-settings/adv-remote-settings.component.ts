@@ -109,7 +109,7 @@ export class AdvRemoteSettingsComponent implements OnInit {
             this.playerPercentList.push(targetValue);
             totalPercent = targetValue;
             if (totalPercent === 100) {
-                this.interstitialAdModelList[i].PlayerPercent = targetValue;
+                this.interstitialAdModelList[i]['playerPercent'] = targetValue;
                 this.updateStrategy();
                 return;
             }
@@ -134,12 +134,12 @@ export class AdvRemoteSettingsComponent implements OnInit {
         this.playerPercentList[i] = targetValue;
 
         if (totalPercent === 100) {
-            this.interstitialAdModelList[i].PlayerPercent = targetValue;
+            this.interstitialAdModelList[i]['playerPercent'] = targetValue;
             this.updateStrategy();
             return;
         }
 
-        this.interstitialAdModelList[i].PlayerPercent = targetValue;
+        this.interstitialAdModelList[i]['playerPercent'] = targetValue;
         this.customerInformationService.showInfo('Change saved');
         this.customerInformationService.showWarning(
             'Please complete strategies to 100!'
@@ -149,12 +149,11 @@ export class AdvRemoteSettingsComponent implements OnInit {
     updateStrategy(): void {
         for (const interstitialAdModel of this.interstitialAdModelList) {
             const interstitialAdUpdateModel = new InterstitialAdUpdateModel();
-            interstitialAdUpdateModel.Version = interstitialAdModel.Version;
-            interstitialAdUpdateModel.Name = interstitialAdModel.Name;
-            interstitialAdUpdateModel.PlayerPercent = interstitialAdModel.PlayerPercent;
-            interstitialAdUpdateModel.ProjectId = interstitialAdModel.ProjectId;
+            interstitialAdUpdateModel.Version = interstitialAdModel['version'];
+            interstitialAdUpdateModel.Name = interstitialAdModel['name'];
+            interstitialAdUpdateModel.PlayerPercent = interstitialAdModel['playerPercent'];
+            interstitialAdUpdateModel.ProjectId = interstitialAdModel['projectId'];
             interstitialAdUpdateModel.IsActive = true;
-
             this.remoteSettingsService
                 .updateAdvRemoteSetting(interstitialAdUpdateModel)
                 .subscribe((response: ResponseModel) => {
@@ -174,21 +173,20 @@ export class AdvRemoteSettingsComponent implements OnInit {
             model.PlayerPercent = 0;
         }
         const interstitialAdUpdateModel = new InterstitialAdUpdateModel();
-        interstitialAdUpdateModel.Version = model.Version;
-        interstitialAdUpdateModel.Name = model.Name;
-        interstitialAdUpdateModel.PlayerPercent = model.PlayerPercent;
-        interstitialAdUpdateModel.ProjectId = model.ProjectId;
-        interstitialAdUpdateModel.IsActive = model.IsActive;
-
+        interstitialAdUpdateModel.Version = model['version'];
+        interstitialAdUpdateModel.Name = model['name'];
+        interstitialAdUpdateModel.PlayerPercent = model['playerPercent'];
+        interstitialAdUpdateModel.ProjectId = model['projectId'];
+        interstitialAdUpdateModel.IsActive = model['isActive'];
         this.remoteSettingsService
             .updateAdvRemoteSetting(interstitialAdUpdateModel)
             .subscribe((response: ResponseModel) => {
                 if (response.success) {
-                    this.interstitialAdModelList[i].IsActive = statuse;
+                    this.interstitialAdModelList[i]['isActive'] = statuse;
                     this.isActiveStrategyList[i] = statuse;
                     if (statuse === false) {
                         this.playerPercentList[i] = 0;
-                        this.interstitialAdModelList[i].PlayerPercent = 0;
+                        this.interstitialAdModelList[i]['playerPercent'] = 0;
                         return;
                     }
                 }
@@ -197,9 +195,9 @@ export class AdvRemoteSettingsComponent implements OnInit {
 
     removeStrategy(i: number): void {
         const interstitialAdDeleteModel = new InterstitialAdDeleteModel();
-        interstitialAdDeleteModel.Version =  this.interstitialAdModelList[i].Version;
-        interstitialAdDeleteModel.Name =  this.interstitialAdModelList[i].Name;
-        interstitialAdDeleteModel.ProjectId =  this.interstitialAdModelList[i].ProjectId;
+        interstitialAdDeleteModel.Version = this.interstitialAdModelList[i]['version'];
+        interstitialAdDeleteModel.Name = this.interstitialAdModelList[i]['name'];
+        interstitialAdDeleteModel.ProjectId = this.interstitialAdModelList[i]['projectId'];
         this.remoteSettingsService
             .deleteAdvRemoteSetting(interstitialAdDeleteModel)
             .subscribe((response) => {
@@ -217,7 +215,6 @@ export class AdvRemoteSettingsComponent implements OnInit {
         this.remoteSettingsService
             .getAdvRemoteSettings(this.projectId)
             .subscribe((response: ResponseDataModel<Array<InterstitialAdModel>>) => {
-                console.log(response);
                 for (const key in response.data) {
                     if (Object.prototype.hasOwnProperty.call(response.data, key)) {
                         const element = response.data[key];

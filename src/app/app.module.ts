@@ -5,7 +5,6 @@ import {AppComponent} from './app.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthGuard} from '@core/guard/auth.guard';
 import {CoreInterceptorService} from '@core/interceptors/core-interceptor.service';
-import {ConfigService} from '@core/services/config.service';
 import {CoreService} from '@core/services/core.service';
 import {CustomerInformationService} from '@core/services/customer-information.service';
 import {LocalStorageService} from '@core/services/local-storage.service';
@@ -95,7 +94,6 @@ import { ToastrModule } from 'ngx-toastr';
         LocalStorageService,
         GenerateRandomService,
         CoreService,
-        ConfigService,
         AuthService,
         LocalStorageService,
         AuthGuard,

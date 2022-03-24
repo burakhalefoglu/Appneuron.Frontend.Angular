@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import {JwtHelperService} from '@auth0/angular-jwt';
 import * as moment from 'moment';
-import { LocalStorageService } from './local-storage.service';
+import {LocalStorageService} from './local-storage.service';
 
 @Injectable({
     providedIn: 'root',
@@ -12,10 +12,10 @@ export class CoreService {
     jwtHelper: JwtHelperService = new JwtHelperService();
 
     constructor(private sanitizer: DomSanitizer,
-         private localStorageService: LocalStorageService) {
+                private localStorageService: LocalStorageService) {
     }
 
-    formatDateFromNumberDate(numbDate: number): string {
+    public formatDateFromNumberDate(numbDate: number): string {
         const date = new Date(numbDate * 1000);
         const dateStr =
             ('00' + (date.getMonth() + 1)).slice(-2) +
@@ -32,15 +32,15 @@ export class CoreService {
         return dateStr;
     }
 
-    calculatePercentTowNumber(firstNum: number, secontnum: number): number {
+    public calculatePercentTowNumber(firstNum: number, secontnum: number): number {
         return Math.floor(((firstNum - secontnum) * 100) / firstNum);
     }
 
-    calculateRatePercent(firstNum: number, secontnum: number): number {
+    public calculateRatePercent(firstNum: number, secontnum: number): number {
         return Math.floor((secontnum * 100) / firstNum);
     }
 
-    str2img(str: string): SafeResourceUrl {
+    public str2img(str: string): SafeResourceUrl {
         return this.showImage(this.str2ab(str));
     }
 
@@ -48,7 +48,7 @@ export class CoreService {
         return String.fromCharCode.apply(null, new Uint8Array(buf));
     }
 
-    str2ab(str): ArrayBuffer {
+    public str2ab(str): ArrayBuffer {
         const buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
         const bufView = new Uint8Array(buf);
         for (let i = 0, strLen = str.length; i < strLen; i++) {
@@ -57,7 +57,7 @@ export class CoreService {
         return buf;
     }
 
-    showImage(buffer: ArrayBuffer): SafeResourceUrl {
+    public showImage(buffer: ArrayBuffer): SafeResourceUrl {
         const arrayBufferView = new Uint8Array(buffer);
         const blob = new Blob([arrayBufferView], {type: 'image/jpeg'});
         const urlCreator = window.URL || window.webkitURL;
@@ -66,7 +66,7 @@ export class CoreService {
         return image;
     }
 
-    addHours(date, hours): Date {
+    public addHours(date, hours): Date {
         const newDate = new Date(date);
         newDate.setHours(newDate.getHours() + hours);
         return newDate;
@@ -120,13 +120,13 @@ export class CoreService {
         const date = new Date();
         const oneDay = 24 * 60 * 60 * 1000;
         const diffDays = Math.abs((date.getTime() - new Date(createdAt).getTime()) / (oneDay));
-        return  Math.floor( diffDays ) + 1;
+        return Math.floor(diffDays) + 1;
     }
 
-    loggedIn(): boolean {
+    public loggedIn(): boolean {
         const isExpired = this.jwtHelper.isTokenExpired(
-          this.localStorageService.getItem('token')?.toString()
+            this.localStorageService.getItem('token')?.toString()
         );
         return !isExpired;
-      }
+    }
 }

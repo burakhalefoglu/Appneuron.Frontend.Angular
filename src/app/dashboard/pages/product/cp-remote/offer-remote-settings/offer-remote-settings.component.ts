@@ -7,11 +7,13 @@ import {ResponseModel} from '@app/core/models/response-model';
 import {CoreService} from '@app/core/services/core.service';
 import {CustomerInformationService} from '@app/core/services/customer-information.service';
 import {LocalStorageService} from '@app/core/services/local-storage.service';
-import {OfferModel, OfferModelUpdateDeleteDto, OfferModelUpdateDto} from '@app/dashboard/pages/product/cp-remote/models/offer-model';
-import {OfferProduct} from '@app/dashboard/pages/product/cp-remote/models/offer-product';
+import {
+    OfferModel, OfferModelDeleteDto,
+    OfferModelUpdateDto,
+    OfferProduct
+} from '@app/dashboard/pages/product/cp-remote/models/offer-model';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {ChurnPredictionGraphService} from '../../services/churn-prediction-graph.service';
 import {RemoteSettingsService} from '@app/dashboard/pages/product/services/remote-settings.service';
 
 @Component({
@@ -83,7 +85,7 @@ export class OfferRemoteSettingsComponent implements OnInit {
         this.route.queryParams
             .pipe(takeUntil(this.destroy$))
             .subscribe((params) => {
-                this.projectId = params.id;
+                this.projectId = params.projectId;
             });
         this.offerFormEvent();
         this.getOfferStrategies();
@@ -206,7 +208,7 @@ export class OfferRemoteSettingsComponent implements OnInit {
         if (statuse === false) {
             model.PlayerPercent = 0;
         }
-        const offerModelUpdateDto =  new OfferModelUpdateDto();
+        const offerModelUpdateDto = new OfferModelUpdateDto();
         offerModelUpdateDto.Name = model.Name;
         offerModelUpdateDto.ProjectId = model.ProjectId;
         offerModelUpdateDto.Version = model.Version;
@@ -229,14 +231,13 @@ export class OfferRemoteSettingsComponent implements OnInit {
     }
 
     removeStrategy(i: number): void {
-        const offerModelUpdateDeleteDto = new OfferModelUpdateDeleteDto();
-        offerModelUpdateDeleteDto.ProjectId = this.offerModelList[i].ProjectId;
-        offerModelUpdateDeleteDto.Name = this.offerModelList[i].Name;
-        offerModelUpdateDeleteDto.Version = this.offerModelList[i].Version;
+        const offerModelDeleteDto = new OfferModelDeleteDto();
+        offerModelDeleteDto.ProjectId = this.offerModelList[i]['projectId'];
+        offerModelDeleteDto.Name = this.offerModelList[i]['name'];
+        offerModelDeleteDto.Version = this.offerModelList[i]['version'];
         this.remoteSettingsService
-            .deleteOfferRemoteSetting(offerModelUpdateDeleteDto)
+            .deleteOfferRemoteSetting(offerModelDeleteDto)
             .subscribe((response) => {
-                // ? Because of angular Bug, We have to parse json :(
                 const obj = JSON.parse(response.toString());
                 if (obj.success) {
                     this.customerInformationService.showSuccess(response.message);
@@ -252,9 +253,7 @@ export class OfferRemoteSettingsComponent implements OnInit {
             .subscribe((response: ResponseDataModel<Array<OfferModel>>) => {
                 for (const element of response.data) {
                     this.offerModelList.push(element);
-                    // tslint:disable-next-line: no-string-literal
                     this.isActiveOfferList.push(element['isActive']);
-                    // tslint:disable-next-line: no-string-literal
                     this.playerPercentList.push(element['playerPercent']);
                 }
             });
@@ -304,10 +303,10 @@ export class OfferRemoteSettingsComponent implements OnInit {
             this.OfferStrategyFormGroup.value.IsGift === false
         ) {
             offerModel.IsGift = false;
-            offerModel.GiftTexture = '';
+            offerModel.GiftTexture = window.btoa(String.fromCharCode.apply(null, new Uint8Array(0)));
         } else {
             offerModel.IsGift = true;
-            offerModel.GiftTexture = this.coreService.ab2str(this.giftImage);
+            offerModel.GiftTexture = window.btoa(String.fromCharCode.apply(null, new Uint8Array(this.giftImage)));
         }
         offerModel.StartTime = Date.now();
         offerModel.FinishTime = Number(
@@ -317,7 +316,8 @@ export class OfferRemoteSettingsComponent implements OnInit {
         this.offerProductList.forEach((v, i) => {
             offerModel.ProductList.push(v);
         });
-
+        console.log(offerModel);
+        return;
         this.remoteSettingsService.addOfferRemoteSetting(offerModel);
         this.name = null;
         this.version = null;
@@ -409,7 +409,7 @@ export class OfferRemoteSettingsComponent implements OnInit {
             this.customerInformationService.showError('Please add product image!');
             return;
         }
-        offerProduct.Image = this.coreService.ab2str(this.productImage);
+        offerProduct.Image = window.btoa(String.fromCharCode.apply(null, new Uint8Array(this.productImage)));
         offerProduct.Name = this.OfferStrategyFormGroup.value.ProductName;
         offerProduct.Count = this.OfferStrategyFormGroup.value.ProductCount;
         offerProduct.ImageName = this.PoductImageName;

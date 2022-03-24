@@ -176,7 +176,6 @@
   <p style="margin-top: 10px; padding: 1%; float: left; margin-left: 10px">
     Version: {{ interstielAdModel['version'] }}
   </p>
-
   <input
     (keyup)="percentOnChange($event, i)"
     *ngIf="isActiveStrategyList[i]"
@@ -204,7 +203,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let element of interstielAdModel.AdvStrategies">
+    <tr *ngFor="let element of interstielAdModel['advStrategies']">
       <td class="text-center">{{ element['name'] }}</td>
       <td class="text-center">{{ element['strategyValue'] }}</td>
     </tr>
