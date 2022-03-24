@@ -184,11 +184,11 @@ export class OfferRemoteSettingsComponent implements OnInit {
     updateStrategy(): void {
         for (const offerModel of this.offerModelList) {
             const offerModelUpdateDto = new OfferModelUpdateDto();
-            offerModelUpdateDto.Name = offerModel.Name;
-            offerModelUpdateDto.IsActive = offerModel.IsActive;
-            offerModelUpdateDto.PlayerPercent = offerModel.PlayerPercent;
-            offerModelUpdateDto.Version = offerModel.Version;
-            offerModelUpdateDto.ProjectId = offerModel.ProjectId;
+            offerModelUpdateDto.Name = offerModel['name'];
+            offerModelUpdateDto.IsActive = offerModel['isActive'];
+            offerModelUpdateDto.PlayerPercent = offerModel['playerPercent'];
+            offerModelUpdateDto.Version = offerModel['version'];
+            offerModelUpdateDto.ProjectId = offerModel['projectId'];
 
             this.remoteSettingsService
                 .updateOfferRemoteSetting(offerModelUpdateDto)
@@ -209,12 +209,11 @@ export class OfferRemoteSettingsComponent implements OnInit {
             model.PlayerPercent = 0;
         }
         const offerModelUpdateDto = new OfferModelUpdateDto();
-        offerModelUpdateDto.Name = model.Name;
-        offerModelUpdateDto.ProjectId = model.ProjectId;
-        offerModelUpdateDto.Version = model.Version;
-        offerModelUpdateDto.IsActive = model.IsActive;
-        offerModelUpdateDto.PlayerPercent = model.PlayerPercent;
-
+        offerModelUpdateDto.Name = model['name'];
+        offerModelUpdateDto.ProjectId = model['projectId'];
+        offerModelUpdateDto.Version = model['version'];
+        offerModelUpdateDto.IsActive = model['isActive'];
+        offerModelUpdateDto.PlayerPercent = model['playerPercent'];
         this.remoteSettingsService
             .updateOfferRemoteSetting(offerModelUpdateDto)
             .subscribe((response: ResponseModel) => {
@@ -248,6 +247,7 @@ export class OfferRemoteSettingsComponent implements OnInit {
     }
 
     getOfferStrategies(): void {
+        this.customerInformationService.showInfo('getting offers');
         this.remoteSettingsService
             .getOfferRemoteSettings(this.projectId)
             .subscribe((response: ResponseDataModel<Array<OfferModel>>) => {
@@ -256,10 +256,11 @@ export class OfferRemoteSettingsComponent implements OnInit {
                     this.isActiveOfferList.push(element['isActive']);
                     this.playerPercentList.push(element['playerPercent']);
                 }
+                this.customerInformationService.showSuccess('ok');
             });
     }
 
-    sendOfferStrategyToServer(): void {
+    sendOfferStrategyToServer(): void{
         if (this.offerProductList.length <= 0) {
             this.customerInformationService.showError(
                 'Please Add at least one product'
@@ -303,21 +304,19 @@ export class OfferRemoteSettingsComponent implements OnInit {
             this.OfferStrategyFormGroup.value.IsGift === false
         ) {
             offerModel.IsGift = false;
-            offerModel.GiftTexture = window.btoa(String.fromCharCode.apply(null, new Uint8Array(0)));
+            offerModel.GiftTexture = '';
         } else {
             offerModel.IsGift = true;
-            offerModel.GiftTexture = window.btoa(String.fromCharCode.apply(null, new Uint8Array(this.giftImage)));
+            offerModel.GiftTexture = this.coreService.ab2str(this.giftImage);
         }
         offerModel.StartTime = Date.now();
         offerModel.FinishTime = Number(
             this.coreService.addHours(Date.now(), offerModel.ValidityPeriod)
         );
-        offerModel.ProductList = new Array<OfferProduct>();
+        offerModel.ProductDtos = new Array<OfferProduct>();
         this.offerProductList.forEach((v, i) => {
-            offerModel.ProductList.push(v);
+            offerModel.ProductDtos.push(v);
         });
-        console.log(offerModel);
-        return;
         this.remoteSettingsService.addOfferRemoteSetting(offerModel);
         this.name = null;
         this.version = null;
@@ -409,7 +408,7 @@ export class OfferRemoteSettingsComponent implements OnInit {
             this.customerInformationService.showError('Please add product image!');
             return;
         }
-        offerProduct.Image = window.btoa(String.fromCharCode.apply(null, new Uint8Array(this.productImage)));
+        offerProduct.Image = this.coreService.ab2str(this.productImage);
         offerProduct.Name = this.OfferStrategyFormGroup.value.ProductName;
         offerProduct.Count = this.OfferStrategyFormGroup.value.ProductCount;
         offerProduct.ImageName = this.PoductImageName;

@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import * as moment from 'moment';
 import {LocalStorageService} from './local-storage.service';
 
 @Injectable({

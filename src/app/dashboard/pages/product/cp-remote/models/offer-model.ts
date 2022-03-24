@@ -8,7 +8,7 @@ export class OfferProduct {
 export class OfferModel {
   ProjectId: number;
   IsActive: boolean;
-  ProductList: Array<OfferProduct>;
+  ProductDtos: Array<OfferProduct>;
   Name: string;
   FirstPrice: number;
   LastPrice: number;

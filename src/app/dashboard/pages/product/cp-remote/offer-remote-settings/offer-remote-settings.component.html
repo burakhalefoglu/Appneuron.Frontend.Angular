@@ -372,37 +372,37 @@
   class="widget"
 >
   <p style="padding: 1%; float: left; margin-left: 10px">
-    <b>Name: </b> {{ offerModel.name }}
+    <b>Name: </b> {{ offerModel['name'] }}
   </p>
   <p style="padding: 1%; float: left; margin-left: 10px">
-    <b>Version: </b>{{ offerModel.version }}
+    <b>Version: </b>{{ offerModel['version'] }}
   </p>
   <p style="padding: 1%; float: left; margin-left: 10px">
-    <b>First Price: </b>{{ offerModel.firstPrice }}
+    <b>First Price: </b>{{ offerModel['firstPrice'] }}
   </p>
   <p style="padding: 1%; float: left; margin-left: 10px">
-    <b>Last Price: </b>{{ offerModel.lastPrice }}
+    <b>Last Price: </b>{{ offerModel['lastPrice'] }}
   </p>
   <p style="padding: 1%; float: left; margin-left: 10px">
-    <b>Validity period (hours): </b> {{ offerModel.validityPeriod }}
+    <b>Validity period (hours): </b> {{ offerModel['validityPeriod'] }}
   </p>
   <p style="padding: 1%; float: left; margin-left: 10px">
     <b>Discount(%): </b>
     {{
       coreService.calculatePercentTowNumber(
-        offerModel.firstPrice,
-        offerModel.lastPrice
+        offerModel['firstPrice'],
+        offerModel['lastPrice']
       )
     }}
   </p>
   <p
-    *ngIf="offerModel.isGift"
+    *ngIf="offerModel['isGift']"
     style="padding: 1%; float: left; margin-left: 10px"
   >
     <b> Its Gift: </b>
   </p>
   <img
-    *ngIf="offerModel.isGift"
+    *ngIf="offerModel['isGift']"
     style="
       width: 50px;
       height: 50px;
@@ -410,7 +410,7 @@
       margin-left: 10px;
       margin-top: 30px;
     "
-    [src]="coreService.str2img(offerModel.giftTexture)"
+    [src]="coreService.str2img(offerModel['giftTexture'])"
   />
   <input
     *ngIf="isActiveOfferList[offerModelIndex]"
@@ -437,15 +437,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of offerModel.productList; let i = index">
+      <tr *ngFor="let product of offerModel['remoteOfferProductModels']; let i = index">
         <td class="text-center">{{ i }}</td>
-        <td class="text-center">{{ product.name }}</td>
-        <td class="text-center">{{ product.count }}</td>
-        <td class="text-center">{{ product.imageName }}</td>
+        <td class="text-center">{{ product['name'] }}</td>
+        <td class="text-center">{{ product['count'] }}</td>
+        <td class="text-center">{{ product['imageName'] }}</td>
         <td class="text-center">
           <img
             style="width: 50px; height: 50px"
-            [src]="coreService.str2img(product.image)"
+            [src]="coreService.str2img(product['image'])"
           />
         </td>
       </tr>
