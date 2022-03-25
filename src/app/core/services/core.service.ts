@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {LocalStorageService} from './local-storage.service';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -9,9 +11,16 @@ import {LocalStorageService} from './local-storage.service';
 export class CoreService {
 
     jwtHelper: JwtHelperService = new JwtHelperService();
+    clientIP: string;
 
     constructor(private sanitizer: DomSanitizer,
-                private localStorageService: LocalStorageService) {
+                private localStorageService: LocalStorageService,
+                private http: HttpClient) {
+    }
+
+    public getClientIPAddress(): any
+    {
+        return this.http.get('http://api.ipify.org/?format=json');
     }
 
     public formatDateFromNumberDate(numbDate: number): string {
@@ -122,10 +131,18 @@ export class CoreService {
         return Math.floor(diffDays) + 1;
     }
 
+    public getClientIP(): void {
+        this.getClientIPAddress().subscribe((res: any) => {
+            this.clientIP = res.ip;
+        });
+    }
+
     public loggedIn(): boolean {
-        const isExpired = this.jwtHelper.isTokenExpired(
+        this.getClientIP();
+
+        const isNotValid = this.jwtHelper.isTokenExpired(
             this.localStorageService.getItem('token')?.toString()
-        );
-        return !isExpired;
+        ) || ;
+        return !isNotValid;
     }
 }

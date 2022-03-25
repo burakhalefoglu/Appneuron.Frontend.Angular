@@ -1,11 +1,7 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {ChurnDateModel} from '@app/dashboard/pages/product/cp-remote/models/churn-date-model';
-import {InterstitialAdDtoModel} from '@app/dashboard/pages/product/cp-remote/models/interstiel-ad-model';
 import {OfferBehaviorDtoModel} from '@app/dashboard/pages/product/cp-remote/models/offer-behavior-dto-model';
-import {OfferModel} from '@app/dashboard/pages/product/cp-remote/models/offer-model';
 import {ResponseDataModel} from '@core/models/response-data-model';
-import {ResponseModel} from '@core/models/response-model';
 import {CustomerInformationService} from '@core/services/customer-information.service';
 import {LocalStorageService} from '@core/services/local-storage.service';
 import {environment} from '@environments/environment';
@@ -23,16 +19,6 @@ export class ChurnPredictionGraphService {
         private localStorageService: LocalStorageService,
         private spinnerService: SpinnerService
     ) {
-    }
-
-    public updateChurnDate(data: ChurnDateModel): Observable<ResponseModel> {
-        this.spinnerService.showSpinner();
-        return this.http.put<ResponseModel>(
-            environment.getClientApiUrl + '/ChurnDates',
-            data
-        ).pipe(
-            finalize(() => this.spinnerService.hideSpinner()),
-        );
     }
 
     public getChurnPredictionCountByOfferDate(
@@ -82,19 +68,6 @@ export class ChurnPredictionGraphService {
         );
     }
 
-    // public getChurnDate(
-    //     projectId: bigint
-    // ): Observable<ResponseDataModel<ChurnDateModel>> {
-    //     this.spinnerService.showSpinner();
-    //     return this.http.get<ResponseDataModel<ChurnDateModel>>(
-    //         environment.getClientApiUrl +
-    //         '/ChurnDates/getByProjectId?projectId=' +
-    //         projectId
-    //     ).pipe(
-    //         finalize(() => this.spinnerService.hideSpinner()),
-    //     );
-    // }
-
     public getOfferBehaviorDtoList(
         projectId: string,
         name: string,
@@ -137,17 +110,4 @@ export class ChurnPredictionGraphService {
             finalize(() => this.spinnerService.hideSpinner()),
         );
     }
-
-    public addChurnDate(data: ChurnDateModel): void {
-        this.http
-            .post<ResponseModel>(environment.getClientApiUrl + '/ChurnDates', data)
-            .pipe(
-                finalize(() => this.spinnerService.hideSpinner()),
-            ).subscribe((response: ResponseModel) => {
-            if (response.success) {
-                this.customerInformationService.showSuccess(response.message);
-            }
-        });
-    }
-
 }

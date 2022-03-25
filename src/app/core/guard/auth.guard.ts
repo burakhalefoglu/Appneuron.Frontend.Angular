@@ -17,7 +17,6 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private storageService: LocalStorageService
   ) {}
-
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
