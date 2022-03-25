@@ -18,8 +18,7 @@ export class CoreService {
                 private http: HttpClient) {
     }
 
-    public getClientIPAddress(): any
-    {
+    public getClientIPAddress(): any {
         return this.http.get('http://api.ipify.org/?format=json');
     }
 
@@ -139,10 +138,16 @@ export class CoreService {
 
     public loggedIn(): boolean {
         this.getClientIP();
-
         const isNotValid = this.jwtHelper.isTokenExpired(
             this.localStorageService.getItem('token')?.toString()
-        ) || ;
+        ) || this.getIpFromToken() !== this.clientIP;
         return !isNotValid;
+    }
+
+    private getIpFromToken(): string {
+        const token = localStorage.getItem('token');;
+        const decode = this.jwtHelper.decodeToken(token);
+        const ip = Object.keys(decode).filter(x => x.endsWith('/serialnumber'))[0];
+        return decode[ip];
     }
 }
