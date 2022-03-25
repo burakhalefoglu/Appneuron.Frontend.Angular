@@ -20,45 +20,17 @@
                     </button>
                     <div style="float: right; margin-top: 5px">
                         <button
-                            class="btn btn-success"
+                            class="btn btn-success  btn-lg"
                             type="button"
                             data-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="false"
+                            (click)="sendStrategy()"
                         >
-                            {{ selectedChurnDropdownDateType }}
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="feather feather-chevron-down"
-                            >
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
+                            Send {{selectedName}} to client
                         </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" (click)="selectChurnDateType(1)">Hour</a>
-                            <div role="separator" class="dropdown-divider"></div>
-                            <a class="dropdown-item" (click)="selectChurnDateType(2)">Day</a>
-                        </div>
+
                     </div>
-                    <input
-                        style="float: right; width: 10%; margin-right: 10px"
-                        type="number"
-                        class="form-control"
-                        placeholder="{{ churnDateMinute }}"
-                        aria-label="dropdown"
-                        (keyup)="churnOnChange($event)"
-                    />
-                    <span style="float: right; margin-top: 10px; margin-right: 10px">
-            Set players churn date:
-          </span>
                 </div>
             </div>
         </div>

@@ -212,6 +212,7 @@ export class AdvRemoteSettingsComponent implements OnInit {
     }
 
     getAdvStrategies(): void {
+        this.customerInformationService.showInfo('getting strategies');
         this.remoteSettingsService
             .getAdvRemoteSettings(this.projectId)
             .subscribe((response: ResponseDataModel<Array<InterstitialAdModel>>) => {
@@ -219,14 +220,11 @@ export class AdvRemoteSettingsComponent implements OnInit {
                     if (Object.prototype.hasOwnProperty.call(response.data, key)) {
                         const element = response.data[key];
                         this.interstitialAdModelList.push(element);
-
-                        // tslint:disable-next-line: no-string-literal
                         this.isActiveStrategyList.push(element['isAdvSettingsActive']);
-
-                        // tslint:disable-next-line: no-string-literal
                         this.playerPercentList.push(element['playerPercent']);
                     }
                 }
+                this.customerInformationService.showSuccess('ok');
             });
     }
 

@@ -155,4 +155,33 @@ export class RemoteSettingsService {
         );
     }
 
+    sendAdvStrategies(projectId: number): void {
+        this.spinnerService.showSpinner();
+        this.http.get<ResponseModel>(
+            environment.getRemoteApiUrl + '/InterstitialAdModelEvents?projectId=' + projectId
+        ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        ).subscribe((response) => {
+            if (response.success){
+                this.customerInformationService.showSuccess('sent successfully');
+                return;
+            }
+            this.customerInformationService.showError(response.message);
+        });
+    }
+
+    sendOfferStrategies(projectId: number): void {
+        this.spinnerService.showSpinner();
+        this.http.get<ResponseModel>(
+            environment.getRemoteApiUrl + '/RemoteOfferModelEvents?projectId=' + projectId
+        ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        ).subscribe((response) => {
+            if (response.success){
+                this.customerInformationService.showSuccess('sent successfully');
+                return;
+            }
+            this.customerInformationService.showError(response.message);
+        });
+    }
 }
