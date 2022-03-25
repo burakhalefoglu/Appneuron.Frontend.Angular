@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CustomerInformationService} from '@core/services/customer-information.service';
-import {LocalStorageService} from '@core/services/local-storage.service';
 import {SpinnerService} from '@core/services/spinner.service';
 import {
     InterstitialAdDeleteModel, InterstitialAdDtoModel, InterstitialAdModel,
@@ -17,6 +16,7 @@ import {
     OfferModelUpdateDto
 } from '@app/dashboard/pages/product/cp-remote/models/offer-model';
 import {ResponseDataModel} from '@core/models/response-data-model';
+import {OurCookieService} from '@core/services/our-cookie.service';
 
 @Injectable({
     providedIn: 'root'
@@ -26,7 +26,7 @@ export class RemoteSettingsService {
     constructor(
         private http: HttpClient,
         private customerInformationService: CustomerInformationService,
-        private localStorageService: LocalStorageService,
+        private ourCookieService: OurCookieService,
         private spinnerService: SpinnerService
     ) {
     }
@@ -56,7 +56,7 @@ export class RemoteSettingsService {
             .subscribe((response: ResponseModel) => {
                 if (response.success) {
                     this.customerInformationService.showSuccess(response.message);
-                    this.localStorageService.removeItem('advStrategy');
+                    this.ourCookieService.removeItem('advStrategy');
                     setTimeout(() => {
                         window.location.reload();
                     }, 500);
@@ -120,7 +120,7 @@ export class RemoteSettingsService {
             .subscribe((response: ResponseModel) => {
                 if (response.success) {
                     this.customerInformationService.showSuccess(response.message);
-                    this.localStorageService.removeItem('productStrategy');
+                    this.ourCookieService.removeItem('productStrategy');
                     setTimeout(() => {
                         window.location.reload();
                     }, 500);

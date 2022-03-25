@@ -16,11 +16,12 @@ export class OurCookieService {
     setItem(key: string, data: any): void {
         this.cookieService.put(key, data, {
             httpOnly: true,
-            secure: true
+            secure: true,
+            sameSite: 'strict'
         });
     }
 
-    getItem(key: string): void {
-        this.cookieService.get(key);
+    getItem(key: string): string {
+        return this.cookieService.get(key);
     }
 }

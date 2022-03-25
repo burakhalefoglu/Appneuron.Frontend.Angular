@@ -3,7 +3,6 @@ import {EventsService} from '@core/services/angular-event-service/angular-events
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {CustomerInformationService} from '@core/services/customer-information.service';
-import {LocalStorageService} from '@core/services/local-storage.service';
 import {environment} from '@environments/environment';
 import {Feedback} from '@app/dashboard/pages/project-management/Models/Feedback';
 import {ResponseModel} from '@core/models/response-model';
@@ -12,6 +11,7 @@ import {Observable} from 'rxjs';
 import {CreateProjectModel, DeleteProjectModel, ProjectModel, ProjectsResponse} from '@app/dashboard/models/project-model';
 import {finalize} from 'rxjs/operators';
 import {SpinnerService} from '@core/services/spinner.service';
+import {OurCookieService} from '@core/services/our-cookie.service';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +23,7 @@ export class ProjectManagementService {
         private httpClient: HttpClient,
         private router: Router,
         private customerInformationService: CustomerInformationService,
-        private storageService: LocalStorageService,
+        private ourCookieService: OurCookieService,
         private spinnerService: SpinnerService
     ) {
     }

@@ -4,7 +4,6 @@ import {ActivatedRoute} from '@angular/router';
 import {ResponseDataModel} from '@app/core/models/response-data-model';
 import {ResponseModel} from '@app/core/models/response-model';
 import {CustomerInformationService} from '@app/core/services/customer-information.service';
-import {LocalStorageService} from '@app/core/services/local-storage.service';
 import {AdvStrategyModel} from '@app/dashboard/pages/product/cp-remote/models/adv-strategy-model';
 import {
     InterstitialAdDeleteModel,
@@ -14,6 +13,7 @@ import {
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {RemoteSettingsService} from '@app/dashboard/pages/product/services/remote-settings.service';
+import {OurCookieService} from '@core/services/our-cookie.service';
 
 @Component({
     selector: 'app-adv-remote-settings',
@@ -43,7 +43,7 @@ export class AdvRemoteSettingsComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private customerInformationService: CustomerInformationService,
-        private localStorageService: LocalStorageService,
+        private ourCookieService: OurCookieService,
         private remoteSettingsService: RemoteSettingsService,
         private route: ActivatedRoute,
     ) {
@@ -55,9 +55,9 @@ export class AdvRemoteSettingsComponent implements OnInit {
             .subscribe((params) => {
                 this.projectId = params.projectId;
             });
-        if (this.localStorageService.getItem('advStrategy') != null) {
+        if (this.ourCookieService.getItem('advStrategy') != null) {
             this.strategyMap = new Map(
-                JSON.parse(this.localStorageService.getItem('advStrategy'))
+                JSON.parse(this.ourCookieService.getItem('advStrategy'))
             );
         }
         this.advFormEvent();
@@ -282,7 +282,7 @@ export class AdvRemoteSettingsComponent implements OnInit {
             this.AdvStrategyFormGroup.value.Count
         );
 
-        this.localStorageService.setItem(
+        this.ourCookieService.setItem(
             'advStrategy',
             JSON.stringify(Array.from(this.strategyMap.entries()))
         );
@@ -295,7 +295,7 @@ export class AdvRemoteSettingsComponent implements OnInit {
 
     removeStrategyFromForm(key: string): void {
         this.strategyMap.delete(key);
-        this.localStorageService.setItem(
+        this.ourCookieService.setItem(
             'advStrategy',
             JSON.stringify(Array.from(this.strategyMap.entries()))
         );

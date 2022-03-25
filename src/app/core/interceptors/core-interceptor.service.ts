@@ -9,9 +9,9 @@ import {
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {CustomerInformationService} from '@core/services/customer-information.service';
-import {LocalStorageService} from '../services/local-storage.service';
 import {Router} from '@angular/router';
 import {CoreService} from '@core/services/core.service';
+import {OurCookieService} from '@core/services/our-cookie.service';
 
 @Injectable({
     providedIn: 'root',
@@ -19,7 +19,7 @@ import {CoreService} from '@core/services/core.service';
 export class CoreInterceptorService implements HttpInterceptor {
     constructor(
         private customerInformationService: CustomerInformationService,
-        private localStorageService: LocalStorageService,
+        private ourCookieService: OurCookieService,
         private router: Router,
         private coreService: CoreService
     ) {
@@ -39,7 +39,7 @@ export class CoreInterceptorService implements HttpInterceptor {
     ): Observable<HttpEvent<any>> {
         this.getClientIP();
         if (!req.url.endsWith('api/Auth/login')) {
-            const token = this.localStorageService.getItem('token');
+            const token = this.ourCookieService.getItem('token');
 
             req = req.clone({
                 // url: req.url.replace('http://', 'https://'),

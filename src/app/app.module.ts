@@ -7,7 +7,6 @@ import {AuthGuard} from '@core/guard/auth.guard';
 import {CoreInterceptorService} from '@core/interceptors/core-interceptor.service';
 import {CoreService} from '@core/services/core.service';
 import {CustomerInformationService} from '@core/services/customer-information.service';
-import {LocalStorageService} from '@core/services/local-storage.service';
 import {WebsocketService} from '@core/services/websocket.service';
 import {CommonModule} from '@angular/common';
 import {ProgressBarModule} from '@app/core/components/progress-bar/progress-bar.module';
@@ -94,11 +93,9 @@ import {CookieModule} from 'ngx-cookie';
     ],
     providers: [
         WebsocketService,
-        LocalStorageService,
         GenerateRandomService,
         CoreService,
         AuthService,
-        LocalStorageService,
         OurCookieService,
         AuthGuard,
         CoreInterceptorService,

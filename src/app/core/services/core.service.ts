@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {LocalStorageService} from './local-storage.service';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {OurCookieService} from '@core/services/our-cookie.service';
 
 @Injectable({
     providedIn: 'root',
@@ -14,7 +13,7 @@ export class CoreService {
     clientIP: string;
 
     constructor(private sanitizer: DomSanitizer,
-                private localStorageService: LocalStorageService,
+                private ourCookieService: OurCookieService,
                 private http: HttpClient) {
     }
 
@@ -139,13 +138,13 @@ export class CoreService {
     public loggedIn(): boolean {
         this.getClientIP();
         const isNotValid = this.jwtHelper.isTokenExpired(
-            this.localStorageService.getItem('token')?.toString()
+            this.ourCookieService.getItem('token')?.toString()
         ) || this.getIpFromToken() !== this.clientIP;
         return !isNotValid;
     }
 
     private getIpFromToken(): string {
-        const token = localStorage.getItem('token');;
+        const token = localStorage.getItem('token');
         const decode = this.jwtHelper.decodeToken(token);
         const ip = Object.keys(decode).filter(x => x.endsWith('/serialnumber'))[0];
         return decode[ip];

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerInformationService } from '@app/core/services/customer-information.service';
-import { LocalStorageService } from '@app/core/services/local-storage.service';
 import { EventsService } from '@app/core/services/angular-event-service/angular-events.service';
 import { interval, Subscription } from 'rxjs';
+import {OurCookieService} from '@core/services/our-cookie.service';
 
 @Component({
   selector: 'app-timer',
@@ -16,13 +16,13 @@ export class TimerComponent implements OnInit {
 
   constructor(
     private events: EventsService,
-    private localStorageService: LocalStorageService,
+    private ourCookieService: OurCookieService,
     private customerInformationService: CustomerInformationService
   ) {}
 
-  selectTimer($event: any) {
+  selectTimer($event: any): void {
     this.selectedTimer = Number($event.target.value);
-    this.localStorageService.setItem('timer', this.selectedTimer);
+    this.ourCookieService.setItem('timer', this.selectedTimer);
     this.setUnsubscribeTimer();
     this.setObserverTimer(this.selectedTimer);
 
@@ -41,7 +41,7 @@ export class TimerComponent implements OnInit {
         ' it will be reflected in the graphs.'
     );
 
-    const timer = this.localStorageService.getItem('timer');
+    const timer = this.ourCookieService.getItem('timer');
     if (timer == null) {
       this.selectedMessage = '1 Minute';
       return;
@@ -54,7 +54,7 @@ export class TimerComponent implements OnInit {
     this.selectedMessage = timer + ' Minutes';
   }
 
-  setObserverTimer(timer: number) {
+  setObserverTimer(timer: number): void {
     const minutesTimer = timer * 60000;
     this.timerSubscription = interval(minutesTimer).subscribe(() => {
       this.events.publish('timeToGetData');
@@ -65,7 +65,7 @@ export class TimerComponent implements OnInit {
     });
   }
 
-  setUnsubscribeTimer() {
+  setUnsubscribeTimer(): void {
     this.timerSubscription.unsubscribe();
   }
 }

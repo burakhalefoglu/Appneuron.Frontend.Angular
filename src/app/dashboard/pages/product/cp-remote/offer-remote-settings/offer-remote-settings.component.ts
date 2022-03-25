@@ -6,7 +6,6 @@ import {ResponseDataModel} from '@app/core/models/response-data-model';
 import {ResponseModel} from '@app/core/models/response-model';
 import {CoreService} from '@app/core/services/core.service';
 import {CustomerInformationService} from '@app/core/services/customer-information.service';
-import {LocalStorageService} from '@app/core/services/local-storage.service';
 import {
     OfferModel, OfferModelDeleteDto,
     OfferModelUpdateDto,
@@ -15,6 +14,7 @@ import {
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {RemoteSettingsService} from '@app/dashboard/pages/product/services/remote-settings.service';
+import {OurCookieService} from '@core/services/our-cookie.service';
 
 @Component({
     selector: 'app-offer-remote-settings',
@@ -58,7 +58,7 @@ export class OfferRemoteSettingsComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private customerInformationService: CustomerInformationService,
-        private localStorageService: LocalStorageService,
+        private ourCookieService: OurCookieService,
         private remoteSettingsService: RemoteSettingsService,
         private route: ActivatedRoute,
         public coreService: CoreService
@@ -67,11 +67,11 @@ export class OfferRemoteSettingsComponent implements OnInit {
 
     ngOnInit(): void {
         if (
-            this.localStorageService.getItem('productStrategy') != null &&
-            this.localStorageService.getItem('productImageList') != null
+            this.ourCookieService.getItem('productStrategy') != null &&
+            this.ourCookieService.getItem('productImageList') != null
         ) {
             this.offerProductList = JSON.parse(
-                this.localStorageService.getItem('productStrategy')
+                this.ourCookieService.getItem('productStrategy')
             );
             this.offerProductList.forEach((_, i) => {
                 this.offerImageLinkList.push(
@@ -416,7 +416,7 @@ export class OfferRemoteSettingsComponent implements OnInit {
         this.offerProductList.push(offerProduct);
         this.offerImageLinkList.push(this.coreService.showImage(this.productImage));
 
-        this.localStorageService.setItem(
+        this.ourCookieService.setItem(
             'productStrategy',
             JSON.stringify(this.offerProductList)
         );
@@ -434,7 +434,7 @@ export class OfferRemoteSettingsComponent implements OnInit {
         this.offerProductList.splice(i, 1);
         this.offerImageLinkList.splice(i, 1);
 
-        this.localStorageService.setItem(
+        this.ourCookieService.setItem(
             'productStrategy',
             JSON.stringify(this.offerProductList)
         );

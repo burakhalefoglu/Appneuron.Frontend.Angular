@@ -3,7 +3,6 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {CustomerInformationService} from '@core/services/customer-information.service';
-import {LocalStorageService} from '@core/services/local-storage.service';
 import {environment} from '@environments/environment';
 import {MessageModel, TokenDataModel} from '../models/response-model';
 import {ForgotModel} from '../models/forgot-model';
@@ -14,6 +13,7 @@ import {User} from '@app/profile/models/user';
 import {UpdatePassword} from '@app/profile/models/update-password';
 import {SpinnerService} from '@core/services/spinner.service';
 import {finalize, tap} from 'rxjs/operators';
+import {OurCookieService} from '@core/services/our-cookie.service';
 
 @Injectable({
     providedIn: 'root',
@@ -27,7 +27,7 @@ export class AuthService {
         private httpClient: HttpClient,
         private router: Router,
         private customerInformationService: CustomerInformationService,
-        private storageService: LocalStorageService,
+        private ourCookieService: OurCookieService,
         private spinnerService: SpinnerService
     ) {
     }
@@ -97,7 +97,7 @@ export class AuthService {
 
 
     private tokenFieldWork(data: TokenDataModel): void {
-        this.storageService.setItem('token', data.data.token);
+        this.ourCookieService.setItem('token', data.data.token);
         this.claims = data.data.claims;
         const token = data.data.token;
         const decode = this.jwtHelper.decodeToken(token);
@@ -105,17 +105,17 @@ export class AuthService {
         const UserId = Object.keys(decode).filter((x) =>
             x.endsWith('/nameidentifier')
         )[0];
-        this.storageService.setItem('userId', UserId);
+        this.ourCookieService.setItem('userId', UserId);
 
         const propUserName = Object.keys(decode).filter((x) =>
             x.endsWith('/name')
         )[0];
-        this.storageService.setItem('name', propUserName);
+        this.ourCookieService.setItem('name', propUserName);
 
         const propEmail = Object.keys(decode).filter((x) =>
             x.endsWith('/emailaddress')
         )[0];
-        this.storageService.setItem('email', propEmail);
+        this.ourCookieService.setItem('email', propEmail);
     }
 
     forgot(forgotModel: ForgotModel): void {
@@ -175,15 +175,15 @@ export class AuthService {
     }
 
     logOut(): void {
-        this.storageService.removeItem('token');
-        this.storageService.removeItem('lang');
+        this.ourCookieService.removeItem('token');
+        this.ourCookieService.removeItem('lang');
         this.claims = [];
         this.router.navigate(['/']);
     }
 
     getCurrentUserId(): void {
         return this.jwtHelper.decodeToken(
-            this.storageService.getItem('token')?.toString()
+            this.ourCookieService.getItem('token')?.toString()
         ).userId;
     }
 

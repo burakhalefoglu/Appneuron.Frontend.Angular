@@ -6,7 +6,7 @@
         class="form-control"
         id="name"
         [formControl]="name"
-        [placeholder]="this.localStorageService.getItem('name')"
+        [placeholder]="this.ourCookieService.getItem('name')"
     />
         <button class="btn" (click)="setUsername()">update</button></p>
 
@@ -16,7 +16,7 @@
         class="form-control"
         id="email"
         [formControl]="email"
-        [placeholder]="this.localStorageService.getItem('email')"
+        [placeholder]="this.ourCookieService.getItem('email')"
 
     />
         <button class="btn" (click)="setEmail()">update</button></p>
