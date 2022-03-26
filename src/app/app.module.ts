@@ -43,8 +43,8 @@ import { SettingsInfoComponent } from './profile/settings-info/settings-info.com
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SpinnerComponent} from '@core/components/spinner/spinner.component';
 import { ToastrModule } from 'ngx-toastr';
-import {OurCookieService} from '@core/services/our-cookie.service';
 import {CookieModule} from 'ngx-cookie';
+import {OurCookieService} from '@core/services/our-cookie.service';
 
 @NgModule({
     declarations: [

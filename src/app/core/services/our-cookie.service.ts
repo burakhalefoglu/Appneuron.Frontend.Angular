@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import { CookieService } from 'ngx-cookie';
+import {CookieService} from 'ngx-cookie';
 
 @Injectable({
     providedIn: 'root'
@@ -15,13 +15,20 @@ export class OurCookieService {
 
     setItem(key: string, data: any): void {
         this.cookieService.put(key, data, {
-            httpOnly: true,
             secure: true,
             sameSite: 'strict'
         });
     }
 
-    getItem(key: string): string {
+    setToken(data: any): void {
+        this.cookieService.put('jwt', data, {
+            secure: true,
+            sameSite: 'strict',
+            httpOnly: true
+        });
+    }
+
+    getItem(key: string): any {
         return this.cookieService.get(key);
     }
 }

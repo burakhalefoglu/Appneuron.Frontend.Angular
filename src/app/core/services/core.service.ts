@@ -1,10 +1,7 @@
 import {Injectable} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {HttpClient} from '@angular/common/http';
 import {OurCookieService} from '@core/services/our-cookie.service';
-import {Observable} from 'rxjs';
-import {IpModel} from '@core/models/IpModel';
 
 @Injectable({
     providedIn: 'root',
@@ -12,13 +9,10 @@ import {IpModel} from '@core/models/IpModel';
 export class CoreService {
 
     jwtHelper: JwtHelperService = new JwtHelperService();
+
     constructor(private sanitizer: DomSanitizer,
                 private ourCookieService: OurCookieService,
-                private http: HttpClient) {
-    }
-
-    public getClientIPAddress(): Observable<IpModel> {
-        return this.http.get<IpModel>('http://api.ipify.org/?format=json');
+    ) {
     }
 
     public formatDateFromNumberDate(numbDate: number): string {
@@ -130,16 +124,32 @@ export class CoreService {
     }
 
     public loggedIn(): boolean {
-        const isNotValid = this.jwtHelper.isTokenExpired(
-            this.ourCookieService.getItem('token')?.toString()
-        );
-        return !isNotValid;
+        const date: Date = this.ourCookieService.getItem('expiration');
+        const result = this.CompareDate(date, new Date());
+        // const isNotValid = this.jwtHelper.isTokenExpired(
+        //     // cache.get('token')
+        // );
+        return result === 1;
     }
 
-    private getIpFromToken(): string {
-        const token = localStorage.getItem('token');
-        const decode = this.jwtHelper.decodeToken(token);
-        const ip = Object.keys(decode).filter(x => x.endsWith('/serialnumber'))[0];
-        return decode[ip];
+    public CompareDate(DateA, DateB): number {
+        const a = new Date(DateA);
+        const b = new Date(DateB);
+
+        const msDateA = Date.UTC(a.getFullYear(), a.getMonth() + 1, a.getDate(), a.getHours(), a.getMinutes(), a.getSeconds());
+        const msDateB = Date.UTC(b.getFullYear(), b.getMonth() + 1, b.getDate(), b.getHours(), b.getMinutes(), b.getSeconds());
+        if (parseFloat(msDateA.toString()) < parseFloat(msDateB.toString())) {
+            return -1;
+        }// less than
+        else if (parseFloat(msDateA.toString()) === parseFloat(msDateB.toString())) {
+            return 0;
+        }// equal
+        else if (parseFloat(msDateA.toString()) > parseFloat(msDateB.toString())) {
+            return 1;
+        }// greater than
+        else {
+            return null;
+        }  // error
     }
+
 }

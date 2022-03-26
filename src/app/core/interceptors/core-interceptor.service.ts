@@ -10,9 +10,7 @@ import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {CustomerInformationService} from '@core/services/customer-information.service';
 import {Router} from '@angular/router';
-import {CoreService} from '@core/services/core.service';
 import {OurCookieService} from '@core/services/our-cookie.service';
-import {IpModel} from '@core/models/IpModel';
 
 @Injectable({
     providedIn: 'root',
@@ -22,16 +20,15 @@ export class CoreInterceptorService implements HttpInterceptor {
         private customerInformationService: CustomerInformationService,
         private ourCookieService: OurCookieService,
         private router: Router,
-        private coreService: CoreService
     ) {
     }
 
-    intercept(
+   intercept(
         req: HttpRequest<any>,
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
         if (!req.url.endsWith('api/Auth/login')) {
-            const token = this.ourCookieService.getItem('token');
+            // const token = cache.get('token');
 
             req = req.clone({
                 // url: req.url.replace('http://', 'https://'),
@@ -40,7 +37,7 @@ export class CoreInterceptorService implements HttpInterceptor {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Methods': '*',
-                    Authorization: `Bearer ${token}`,
+                    // Authorization: `Bearer ${token}`
                 },
                 responseType: req.method === 'DELETE' ? 'text' : req.responseType,
             });
@@ -57,6 +54,7 @@ export class CoreInterceptorService implements HttpInterceptor {
                 }
                 if (error.status === 401) {
                     this.router.navigate(['/auth']);
+                    this.ourCookieService.setItem('expiration', new Date(-8640000000000000));
                 }
                 if (error.status === 403) {
                     this.router.navigate(['/dashboard']);
