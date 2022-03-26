@@ -24,7 +24,7 @@ export class MessageWithProjectDataModel {
 }
 
 export class Data {
-  expiration: string;
+  expiration: Date;
   token: string;
   claims: string[];
 }

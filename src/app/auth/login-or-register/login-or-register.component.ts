@@ -1,6 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {CoreService} from '@core/services/core.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-login-or-register',
@@ -9,12 +7,9 @@ import {Router} from '@angular/router';
   providers: [],
 })
 export class LoginOrRegisterComponent implements OnInit {
-    constructor(private coreService: CoreService, private router: Router) {
+    constructor() {
     }
     ngOnInit(): void {
-        if (this.coreService.loggedIn()) {
-            this.router.navigate(['/dashboard']);
-        }
     }
 
 }

@@ -46,7 +46,7 @@ export class AuthComponent implements OnInit {
 
     private redirectionDashboard(): void {
         if (this.coreService.loggedIn()) {
-            this.router.navigate(['/customerdashboard']);
+            this.router.navigate(['/dashboard']);
         }
     }
 

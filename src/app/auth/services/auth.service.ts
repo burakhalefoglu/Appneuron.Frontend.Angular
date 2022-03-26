@@ -28,7 +28,7 @@ export class AuthService {
         private router: Router,
         private customerInformationService: CustomerInformationService,
         private ourCookieService: OurCookieService,
-        private spinnerService: SpinnerService
+        private spinnerService: SpinnerService,
     ) {
     }
 
@@ -45,7 +45,6 @@ export class AuthService {
             if (data.success) {
                 this.customerInformationService.showSuccess(data.message);
                 this.tokenFieldWork(data);
-
                 this.router.navigateByUrl('/dashboard');
                 return;
             }
@@ -97,25 +96,25 @@ export class AuthService {
 
 
     private tokenFieldWork(data: TokenDataModel): void {
-        this.ourCookieService.setItem('token', data.data.token);
         this.claims = data.data.claims;
         const token = data.data.token;
-        const decode = this.jwtHelper.decodeToken(token);
+        this.ourCookieService.setItem('expiration', data.data.expiration);
 
+        const decode = this.jwtHelper.decodeToken(token);
         const UserId = Object.keys(decode).filter((x) =>
             x.endsWith('/nameidentifier')
         )[0];
-        this.ourCookieService.setItem('userId', UserId);
+        this.ourCookieService.setItem('userId', decode[UserId]);
 
         const propUserName = Object.keys(decode).filter((x) =>
             x.endsWith('/name')
         )[0];
-        this.ourCookieService.setItem('name', propUserName);
+        this.ourCookieService.setItem('name', decode[propUserName]);
 
         const propEmail = Object.keys(decode).filter((x) =>
             x.endsWith('/emailaddress')
         )[0];
-        this.ourCookieService.setItem('email', propEmail);
+        this.ourCookieService.setItem('email', decode[propEmail]);
     }
 
     forgot(forgotModel: ForgotModel): void {
@@ -175,8 +174,8 @@ export class AuthService {
     }
 
     logOut(): void {
-        this.ourCookieService.removeItem('token');
         this.ourCookieService.removeItem('lang');
+        this.ourCookieService.setItem('expiration', new Date(-8640000000000000));
         this.claims = [];
         this.router.navigate(['/']);
     }
