@@ -12,6 +12,7 @@ import {CustomerInformationService} from '@core/services/customer-information.se
 import {Router} from '@angular/router';
 import {CoreService} from '@core/services/core.service';
 import {OurCookieService} from '@core/services/our-cookie.service';
+import {IpModel} from '@core/models/IpModel';
 
 @Injectable({
     providedIn: 'root',
@@ -25,19 +26,10 @@ export class CoreInterceptorService implements HttpInterceptor {
     ) {
     }
 
-    clientIP: string;
-
-    public getClientIP(): void {
-        this.coreService.getClientIPAddress().subscribe((res: any) => {
-            this.clientIP = res.ip;
-        });
-    }
-
     intercept(
         req: HttpRequest<any>,
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
-        this.getClientIP();
         if (!req.url.endsWith('api/Auth/login')) {
             const token = this.ourCookieService.getItem('token');
 
@@ -49,7 +41,6 @@ export class CoreInterceptorService implements HttpInterceptor {
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Methods': '*',
                     Authorization: `Bearer ${token}`,
-                    ip: this.clientIP
                 },
                 responseType: req.method === 'DELETE' ? 'text' : req.responseType,
             });

@@ -3,6 +3,8 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient} from '@angular/common/http';
 import {OurCookieService} from '@core/services/our-cookie.service';
+import {Observable} from 'rxjs';
+import {IpModel} from '@core/models/IpModel';
 
 @Injectable({
     providedIn: 'root',
@@ -10,15 +12,13 @@ import {OurCookieService} from '@core/services/our-cookie.service';
 export class CoreService {
 
     jwtHelper: JwtHelperService = new JwtHelperService();
-    clientIP: string;
-
     constructor(private sanitizer: DomSanitizer,
                 private ourCookieService: OurCookieService,
                 private http: HttpClient) {
     }
 
-    public getClientIPAddress(): any {
-        return this.http.get('http://api.ipify.org/?format=json');
+    public getClientIPAddress(): Observable<IpModel> {
+        return this.http.get<IpModel>('http://api.ipify.org/?format=json');
     }
 
     public formatDateFromNumberDate(numbDate: number): string {
@@ -129,17 +129,10 @@ export class CoreService {
         return Math.floor(diffDays) + 1;
     }
 
-    public getClientIP(): void {
-        this.getClientIPAddress().subscribe((res: any) => {
-            this.clientIP = res.ip;
-        });
-    }
-
     public loggedIn(): boolean {
-        this.getClientIP();
         const isNotValid = this.jwtHelper.isTokenExpired(
             this.ourCookieService.getItem('token')?.toString()
-        ) || this.getIpFromToken() !== this.clientIP;
+        );
         return !isNotValid;
     }
 
