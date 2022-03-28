@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomerInformationService } from '@app/core/services/customer-information.service';
 import { EventsService } from '@app/core/services/angular-event-service/angular-events.service';
 import { interval, Subscription } from 'rxjs';
-import {OurCookieService} from '@core/services/our-cookie.service';
+import {LocalStorageService} from '@core/services/local-storage.service';
 
 @Component({
   selector: 'app-timer',
@@ -16,13 +16,13 @@ export class TimerComponent implements OnInit {
 
   constructor(
     private events: EventsService,
-    private ourCookieService: OurCookieService,
+    private localStorageService: LocalStorageService,
     private customerInformationService: CustomerInformationService
   ) {}
 
   selectTimer($event: any): void {
     this.selectedTimer = Number($event.target.value);
-    this.ourCookieService.setItem('timer', this.selectedTimer);
+    this.localStorageService.setItem('timer', this.selectedTimer);
     this.setUnsubscribeTimer();
     this.setObserverTimer(this.selectedTimer);
 
@@ -41,7 +41,7 @@ export class TimerComponent implements OnInit {
         ' it will be reflected in the graphs.'
     );
 
-    const timer = this.ourCookieService.getItem('timer');
+    const timer = this.localStorageService.getItem('timer');
     if (timer == null) {
       this.selectedMessage = '1 Minute';
       return;

@@ -3,7 +3,7 @@ import {User} from '@app/profile/models/user';
 import {FormControl} from '@angular/forms';
 import {AuthService} from '@auth/services/auth.service';
 import {UpdatePassword} from '@app/profile/models/update-password';
-import {OurCookieService} from '@core/services/our-cookie.service';
+import {LocalStorageService} from '@core/services/local-storage.service';
 
 @Component({
     selector: 'app-personal-info',
@@ -20,7 +20,7 @@ export class PersonalInfoComponent implements OnInit {
     validPassword = new FormControl('');
     password = new FormControl('');
 
-    constructor(public ourCookieService: OurCookieService,
+    constructor(public localStorageService: LocalStorageService,
                 private authService: AuthService) {
     }
 
@@ -28,8 +28,8 @@ export class PersonalInfoComponent implements OnInit {
         this.user = new User();
         this.updatePassword = new UpdatePassword();
 
-        this.user.name =  this.ourCookieService.getItem('name');
-        this.user.email =  this.ourCookieService.getItem('email');
+        this.user.name =  this.localStorageService.getItem('name');
+        this.user.email =  this.localStorageService.getItem('email');
     }
 
     public setUsername(): void {

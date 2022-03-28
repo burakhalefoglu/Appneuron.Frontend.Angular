@@ -10,7 +10,7 @@ import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {CustomerInformationService} from '@core/services/customer-information.service';
 import {Router} from '@angular/router';
-import {OurCookieService} from '@core/services/our-cookie.service';
+import {LocalStorageService} from '@core/services/local-storage.service';
 
 @Injectable({
     providedIn: 'root',
@@ -18,7 +18,7 @@ import {OurCookieService} from '@core/services/our-cookie.service';
 export class CoreInterceptorService implements HttpInterceptor {
     constructor(
         private customerInformationService: CustomerInformationService,
-        private ourCookieService: OurCookieService,
+        private localStorageService: LocalStorageService,
         private router: Router,
     ) {
     }
@@ -28,7 +28,6 @@ export class CoreInterceptorService implements HttpInterceptor {
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
         if (!req.url.endsWith('api/Auth/login')) {
-            // const token = cache.get('token');
 
             req = req.clone({
                 // url: req.url.replace('http://', 'https://'),
@@ -37,7 +36,8 @@ export class CoreInterceptorService implements HttpInterceptor {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Methods': '*',
-                    // Authorization: `Bearer ${token}`
+                    'Access-Control-Allow-Credentials': '*',
+                    Authorization: `Bearer ${this.localStorageService.getToken()}`
                 },
                 responseType: req.method === 'DELETE' ? 'text' : req.responseType,
             });
@@ -54,7 +54,8 @@ export class CoreInterceptorService implements HttpInterceptor {
                 }
                 if (error.status === 401) {
                     this.router.navigate(['/auth']);
-                    this.ourCookieService.setItem('expiration', new Date(-8640000000000000));
+                    this.localStorageService.removeItem('expiration');
+                    this.localStorageService.removeToken();
                 }
                 if (error.status === 403) {
                     this.router.navigate(['/dashboard']);

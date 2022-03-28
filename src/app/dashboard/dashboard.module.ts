@@ -22,6 +22,7 @@ import { DashboardFooterComponent } from './pages/product/layout/dashboard-foote
 import { ProductComponent } from './pages/product/product.component';
 import { DashboardHeaderComponent } from './pages/product/layout/dashboard-header/dashboard-header.component';
 import { DashboardNavbarComponent } from './pages/product/layout/dashboard-navbar/dashboard-navbar.component';
+import {RefreshTokenComponent} from '@app/dashboard/pages/refresh-token/refresh-token.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { DashboardNavbarComponent } from './pages/product/layout/dashboard-navba
         TotalChurnRateComponent,
         AdvRemoteSettingsComponent,
         OfferRemoteSettingsComponent,
-        ProjectManagementComponent
+        ProjectManagementComponent,
+        RefreshTokenComponent
     ],
     imports: [
         CommonModule,
@@ -52,7 +54,7 @@ import { DashboardNavbarComponent } from './pages/product/layout/dashboard-navba
         EventsModule,
         DatepickerModule,
         DashboardRoutingModule,
-        NgbDropdownModule
+        NgbDropdownModule,
     ]
 })
 export class DashboardModule {

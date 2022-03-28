@@ -13,7 +13,7 @@ import {User} from '@app/profile/models/user';
 import {UpdatePassword} from '@app/profile/models/update-password';
 import {SpinnerService} from '@core/services/spinner.service';
 import {finalize, tap} from 'rxjs/operators';
-import {OurCookieService} from '@core/services/our-cookie.service';
+import {LocalStorageService} from '@core/services/local-storage.service';
 
 @Injectable({
     providedIn: 'root',
@@ -27,7 +27,7 @@ export class AuthService {
         private httpClient: HttpClient,
         private router: Router,
         private customerInformationService: CustomerInformationService,
-        private ourCookieService: OurCookieService,
+        private localStorageService: LocalStorageService,
         private spinnerService: SpinnerService,
     ) {
     }
@@ -37,7 +37,8 @@ export class AuthService {
         this.httpClient
             .post<TokenDataModel>(
                 environment.getAuthApiUrl + '/Auth/loginorregister',
-                authModel
+                authModel,
+                { withCredentials: true }
             ).pipe(
             finalize(() => this.spinnerService.hideSpinner()),
         ).subscribe((data) => {
@@ -51,6 +52,20 @@ export class AuthService {
             this.customerInformationService.showError(data.message);
         });
     }
+
+    refreshToken(): void {
+        this.httpClient
+            .get<TokenDataModel>(
+                environment.getAuthApiUrl + '/Auth/refreshToken',
+                { withCredentials: true }
+            ).subscribe((data) => {
+            if (data.success) {
+                this.localStorageService.setItem('expiration', data.data.expiration);
+                this.localStorageService.setToken(data.data.token);
+            }
+        });
+    }
+
 
     changeUsernameOrEmail(user: User): void {
         this.spinnerService.showSpinner();
@@ -98,23 +113,24 @@ export class AuthService {
     private tokenFieldWork(data: TokenDataModel): void {
         this.claims = data.data.claims;
         const token = data.data.token;
-        this.ourCookieService.setItem('expiration', data.data.expiration);
+        this.localStorageService.setItem('expiration', data.data.expiration);
+        this.localStorageService.setToken(token);
 
         const decode = this.jwtHelper.decodeToken(token);
         const UserId = Object.keys(decode).filter((x) =>
             x.endsWith('/nameidentifier')
         )[0];
-        this.ourCookieService.setItem('userId', decode[UserId]);
+        this.localStorageService.setItem('userId', decode[UserId]);
 
         const propUserName = Object.keys(decode).filter((x) =>
             x.endsWith('/name')
         )[0];
-        this.ourCookieService.setItem('name', decode[propUserName]);
+        this.localStorageService.setItem('name', decode[propUserName]);
 
         const propEmail = Object.keys(decode).filter((x) =>
             x.endsWith('/emailaddress')
         )[0];
-        this.ourCookieService.setItem('email', decode[propEmail]);
+        this.localStorageService.setItem('email', decode[propEmail]);
     }
 
     forgot(forgotModel: ForgotModel): void {
@@ -174,15 +190,15 @@ export class AuthService {
     }
 
     logOut(): void {
-        this.ourCookieService.removeItem('lang');
-        this.ourCookieService.setItem('expiration', new Date(-8640000000000000));
+        this.localStorageService.removeItem('lang');
+        this.localStorageService.setItem('expiration', new Date(-8640000000000000));
         this.claims = [];
         this.router.navigate(['/']);
     }
 
     getCurrentUserId(): void {
         return this.jwtHelper.decodeToken(
-            this.ourCookieService.getItem('token')?.toString()
+            this.localStorageService.getItem('token')?.toString()
         ).userId;
     }
 

@@ -12,9 +12,9 @@ import {CommonModule} from '@angular/common';
 import {ProgressBarModule} from '@app/core/components/progress-bar/progress-bar.module';
 import {TimerModule} from '@core/components/timer/timer.module';
 import {EventsModule} from '@core/services/angular-event-service/angular-events.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '@auth/services/auth.service';
-import { PasswordStrengthBarModule } from '@core/components/password-strength-bar/password-strength-bar.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AuthService} from '@auth/services/auth.service';
+import {PasswordStrengthBarModule} from '@core/components/password-strength-bar/password-strength-bar.module';
 import {ComingSoonComponent} from '@landing-pages/pages/coming-soon/coming-soon.component';
 import {NotFoundComponent} from '@landing-pages/pages/not-found/not-found.component';
 import {SidebarComponent} from '@landing-pages/layout/sidebar/sidebar.component';
@@ -30,21 +30,20 @@ import {LoginOrRegisterComponent} from '@auth/login-or-register/login-or-registe
 import {ResetComponent} from '@app/auth/reset/reset.component';
 import {ForgotComponent} from '@app/auth/forgot/forgot.component';
 import {DatepickerModule} from '@core/components/datepicker/datepicker.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {DashboardModule} from '@app/dashboard/dashboard.module';
-import { AuthComponent } from '@auth/login-or-register/auth/auth.component';
-import { ProfileComponent } from './profile/profile.component';
-import { PersonalInfoComponent } from './profile/personal-info/personal-info.component';
-import { PaymentInfoComponent } from './profile/payment-info/payment-info.component';
-import { SubscriptionInfoComponent } from './profile/subscription-info/subscription-info.component';
-import { PrivacyInfoComponent } from './profile/privacy-info/privacy-info.component';
-import { SettingsInfoComponent } from './profile/settings-info/settings-info.component';
+import {AuthComponent} from '@auth/login-or-register/auth/auth.component';
+import {ProfileComponent} from './profile/profile.component';
+import {PersonalInfoComponent} from './profile/personal-info/personal-info.component';
+import {PaymentInfoComponent} from './profile/payment-info/payment-info.component';
+import {SubscriptionInfoComponent} from './profile/subscription-info/subscription-info.component';
+import {PrivacyInfoComponent} from './profile/privacy-info/privacy-info.component';
+import {SettingsInfoComponent} from './profile/settings-info/settings-info.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SpinnerComponent} from '@core/components/spinner/spinner.component';
-import { ToastrModule } from 'ngx-toastr';
+import {ToastrModule} from 'ngx-toastr';
 import {CookieModule} from 'ngx-cookie';
-import {OurCookieService} from '@core/services/our-cookie.service';
 
 @NgModule({
     declarations: [
@@ -96,7 +95,6 @@ import {OurCookieService} from '@core/services/our-cookie.service';
         GenerateRandomService,
         CoreService,
         AuthService,
-        OurCookieService,
         AuthGuard,
         CoreInterceptorService,
         CustomerInformationService,
@@ -109,7 +107,7 @@ import {OurCookieService} from '@core/services/our-cookie.service';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        HeaderComponent
+        HeaderComponent,
     ],
     bootstrap: [AppComponent]
 })

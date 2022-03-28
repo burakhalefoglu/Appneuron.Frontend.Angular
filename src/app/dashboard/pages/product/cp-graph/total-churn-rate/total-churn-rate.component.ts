@@ -3,7 +3,7 @@ import {EventsService} from '@app/core/services/angular-event-service/angular-ev
 import {Subject} from 'rxjs';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GenerateRandomService} from '@app/core/services/generate-random.service';
-import {OurCookieService} from '@core/services/our-cookie.service';
+import {LocalStorageService} from '@core/services/local-storage.service';
 
 @Component({
     selector: 'app-total-churn-rate',
@@ -27,7 +27,7 @@ export class TotalChurnRateComponent implements OnInit, OnDestroy {
     projectID!: string;
 
     constructor(
-        private ourCookieService: OurCookieService,
+        private localStorageService: LocalStorageService,
         private generateRandom: GenerateRandomService,
         private events: EventsService,
         private route: ActivatedRoute

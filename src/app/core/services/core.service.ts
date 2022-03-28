@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {OurCookieService} from '@core/services/our-cookie.service';
+import {LocalStorageService} from '@core/services/local-storage.service';
 
 @Injectable({
     providedIn: 'root',
@@ -11,7 +11,7 @@ export class CoreService {
     jwtHelper: JwtHelperService = new JwtHelperService();
 
     constructor(private sanitizer: DomSanitizer,
-                private ourCookieService: OurCookieService,
+                private localStorageService: LocalStorageService,
     ) {
     }
 
@@ -124,7 +124,7 @@ export class CoreService {
     }
 
     public loggedIn(): boolean {
-        const date: Date = this.ourCookieService.getItem('expiration');
+        const date: Date = new Date(this.localStorageService.getItem('expiration'));
         const result = this.CompareDate(date, new Date());
         // const isNotValid = this.jwtHelper.isTokenExpired(
         //     // cache.get('token')

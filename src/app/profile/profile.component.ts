@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
         this.faChartPie = faChartPie;
     }
 
-    setSection(n: number) {
+    setSection(n: number): void {
         this.selector = n;
     }
 }

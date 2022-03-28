@@ -13,7 +13,7 @@ import {
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {RemoteSettingsService} from '@app/dashboard/pages/product/services/remote-settings.service';
-import {OurCookieService} from '@core/services/our-cookie.service';
+import {LocalStorageService} from '@core/services/local-storage.service';
 
 @Component({
     selector: 'app-adv-remote-settings',
@@ -43,7 +43,7 @@ export class AdvRemoteSettingsComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private customerInformationService: CustomerInformationService,
-        private ourCookieService: OurCookieService,
+        private localStorageService: LocalStorageService,
         private remoteSettingsService: RemoteSettingsService,
         private route: ActivatedRoute,
     ) {
@@ -55,9 +55,9 @@ export class AdvRemoteSettingsComponent implements OnInit {
             .subscribe((params) => {
                 this.projectId = params.projectId;
             });
-        if (this.ourCookieService.getItem('advStrategy') != null) {
+        if (this.localStorageService.getItem('advStrategy') != null) {
             this.strategyMap = new Map(
-                JSON.parse(this.ourCookieService.getItem('advStrategy'))
+                JSON.parse(this.localStorageService.getItem('advStrategy'))
             );
         }
         this.advFormEvent();
@@ -282,7 +282,7 @@ export class AdvRemoteSettingsComponent implements OnInit {
             this.AdvStrategyFormGroup.value.Count
         );
 
-        this.ourCookieService.setItem(
+        this.localStorageService.setItem(
             'advStrategy',
             JSON.stringify(Array.from(this.strategyMap.entries()))
         );
@@ -295,7 +295,7 @@ export class AdvRemoteSettingsComponent implements OnInit {
 
     removeStrategyFromForm(key: string): void {
         this.strategyMap.delete(key);
-        this.ourCookieService.setItem(
+        this.localStorageService.setItem(
             'advStrategy',
             JSON.stringify(Array.from(this.strategyMap.entries()))
         );

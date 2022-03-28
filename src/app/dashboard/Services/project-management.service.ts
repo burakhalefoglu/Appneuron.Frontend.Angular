@@ -11,7 +11,7 @@ import {Observable} from 'rxjs';
 import {CreateProjectModel, DeleteProjectModel, ProjectModel, ProjectsResponse} from '@app/dashboard/models/project-model';
 import {finalize} from 'rxjs/operators';
 import {SpinnerService} from '@core/services/spinner.service';
-import {OurCookieService} from '@core/services/our-cookie.service';
+import {LocalStorageService} from '@core/services/local-storage.service';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +23,7 @@ export class ProjectManagementService {
         private httpClient: HttpClient,
         private router: Router,
         private customerInformationService: CustomerInformationService,
-        private ourCookieService: OurCookieService,
+        private localStorageService: LocalStorageService,
         private spinnerService: SpinnerService
     ) {
     }

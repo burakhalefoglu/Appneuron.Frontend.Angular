@@ -9,7 +9,7 @@ import {Feedback} from '@app/dashboard/pages/project-management/Models/Feedback'
 import {ProjectManagementService} from '@app/dashboard/Services/project-management.service';
 import {Rate} from '@app/dashboard/pages/project-management/Models/Rate';
 import {ResponseModel} from '@core/models/response-model';
-import {OurCookieService} from '@core/services/our-cookie.service';
+import {LocalStorageService} from '@core/services/local-storage.service';
 
 @Component({
     selector: 'app-project-managment',
@@ -34,7 +34,7 @@ export class ProjectManagementComponent implements OnInit {
     projectPage: string;
 
     constructor(public coreService: CoreService,
-                private ourCookieService: OurCookieService,
+                private localStorageService: LocalStorageService,
                 private modalService: NgbModal,
                 private formBuilder: FormBuilder,
                 public authService: AuthService,
@@ -62,12 +62,12 @@ export class ProjectManagementComponent implements OnInit {
     }
 
     public getProfilePictureName(): string {
-        if (this.ourCookieService.getItem('profilePictureName') === null) {
+        if (this.localStorageService.getItem('profilePictureName') === null) {
             const imageNumb = (Math.floor(Math.random() * 6) + 1).toString();
-            this.ourCookieService.setItem('profilePictureName', imageNumb);
+            this.localStorageService.setItem('profilePictureName', imageNumb);
             return imageNumb;
         }
-        return this.ourCookieService.getItem('profilePictureName');
+        return this.localStorageService.getItem('profilePictureName');
     }
 
     public setFilterProjectByTag(tag: string): void {
