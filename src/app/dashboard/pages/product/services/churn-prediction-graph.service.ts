@@ -1,6 +1,5 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {OfferBehaviorDtoModel} from '@app/dashboard/pages/product/cp-remote/models/offer-behavior-dto-model';
 import {ResponseDataModel} from '@core/models/response-data-model';
 import {CustomerInformationService} from '@core/services/customer-information.service';
 import {environment} from '@environments/environment';
@@ -21,4 +20,17 @@ export class ChurnPredictionGraphService {
     ) {
     }
 
+    public getChurnPredictionResult(
+        projectId: string
+    ): Observable<ResponseDataModel<number>> {
+        this.spinnerService.showSpinner();
+        return this.http.get <ResponseDataModel<number>>(
+            environment.getClientApiUrl +
+            '/ChurnPredictionMlResults' +
+            '?projectId=' +
+            projectId
+        ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        );
+    }
 }
