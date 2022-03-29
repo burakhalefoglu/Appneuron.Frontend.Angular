@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {DashboardRoutingModule} from './dashboard-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownModule, NgbProgressbarModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
 import {ProgressBarModule} from '@core/components/progress-bar/progress-bar.module';
 import {PasswordStrengthBarModule} from '@core/components/password-strength-bar/password-strength-bar.module';
@@ -14,7 +14,6 @@ import {ProjectManagementComponent} from '@app/dashboard/pages/project-managemen
 import { AdvertisingStrategyDisplayRateComponent } from './pages/product/cp-graph/advertising-strategy-display-rate/advertising-strategy-display-rate.component';
 import { CpGraphComponent } from './pages/product/cp-graph/cp-graph.component';
 import { OfferStrategyEffectivenessAnalysisComponent } from './pages/product/cp-graph/offer-strategy-effectiveness-analysis/offer-strategy-effectiveness-analysis.component';
-import { TotalChurnRateComponent } from './pages/product/cp-graph/total-churn-rate/total-churn-rate.component';
 import { AdvRemoteSettingsComponent } from './pages/product/cp-remote/adv-remote-settings/adv-remote-settings.component';
 import { CpRemoteComponent } from './pages/product/cp-remote/cp-remote.component';
 import { OfferRemoteSettingsComponent } from './pages/product/cp-remote/offer-remote-settings/offer-remote-settings.component';
@@ -23,6 +22,11 @@ import { ProductComponent } from './pages/product/product.component';
 import { DashboardHeaderComponent } from './pages/product/layout/dashboard-header/dashboard-header.component';
 import { DashboardNavbarComponent } from './pages/product/layout/dashboard-navbar/dashboard-navbar.component';
 import {RefreshTokenComponent} from '@app/dashboard/pages/refresh-token/refresh-token.component';
+import { ChurnPredictionResultRateComponent } from './pages/product/cp-graph/churn-prediction-result-rate/churn-prediction-result-rate.component';
+import { RetentionGraphComponent } from './pages/product/cp-graph/retention-graph/retention-graph.component';
+import { SessionGraphComponent } from './pages/product/cp-graph/session-graph/session-graph.component';
+import { OfferStrategySuccessGraphComponent } from './pages/product/cp-graph/offer-strategy-success-graph/offer-strategy-success-graph.component';
+import { AdvStrategySuccessGraphComponent } from './pages/product/cp-graph/adv-strategy-success-graph/adv-strategy-success-graph.component';
 
 
 @NgModule({
@@ -35,11 +39,15 @@ import {RefreshTokenComponent} from '@app/dashboard/pages/refresh-token/refresh-
         CpRemoteComponent,
         OfferStrategyEffectivenessAnalysisComponent,
         AdvertisingStrategyDisplayRateComponent,
-        TotalChurnRateComponent,
         AdvRemoteSettingsComponent,
         OfferRemoteSettingsComponent,
         ProjectManagementComponent,
-        RefreshTokenComponent
+        RefreshTokenComponent,
+        ChurnPredictionResultRateComponent,
+        RetentionGraphComponent,
+        SessionGraphComponent,
+        OfferStrategySuccessGraphComponent,
+        AdvStrategySuccessGraphComponent
     ],
     imports: [
         CommonModule,
@@ -55,6 +63,7 @@ import {RefreshTokenComponent} from '@app/dashboard/pages/refresh-token/refresh-
         DatepickerModule,
         DashboardRoutingModule,
         NgbDropdownModule,
+        NgbProgressbarModule,
     ]
 })
 export class DashboardModule {

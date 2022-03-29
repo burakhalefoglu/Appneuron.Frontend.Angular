@@ -132,6 +132,13 @@ export class CoreService {
         return result === 1;
     }
 
+    dynamicColors(): string{
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        return 'rgb(' + r + ',' + g + ',' + b + ')';
+    }
+
     public CompareDate(DateA, DateB): number {
         const a = new Date(DateA);
         const b = new Date(DateB);

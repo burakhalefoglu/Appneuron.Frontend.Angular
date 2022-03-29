@@ -1,27 +1,46 @@
-
-        <div class="row layout-top-spacing">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-                <div class="widget widget-card-four">
-                    <app-offer-strategy-effectiveness-analysis></app-offer-strategy-effectiveness-analysis>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 layout-spacing">
-                <div class="widget widget-card-four">
-                    <app-advertising-strategy-display-rate></app-advertising-strategy-display-rate>
-                </div>
-            </div>
-
-            <div
-                class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing"
-            >
-                <h4 class="graph-title">Churn Graph</h4>
-            </div>
-
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-                <div class="widget widget-chart-three">
-                    <app-total-churn-rate></app-total-churn-rate>
-                </div>
-            </div>
-
-
+<div class="row layout-top-spacing">
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
+        <div class="widget widget-card-four">
+            <app-churn-prediction-result-rate
+                [churnPredictionResultRate]="churnPredictionResultRate"></app-churn-prediction-result-rate>
         </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
+        <div class="widget widget-card-four">
+            <app-offer-strategy-effectiveness-analysis
+                [offerStrategyPercent]="offerStrategyPercent"></app-offer-strategy-effectiveness-analysis>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
+        <div class="widget widget-card-four">
+            <app-advertising-strategy-display-rate
+                [advStrategyPercent]="advStrategyPercent"></app-advertising-strategy-display-rate>
+        </div>
+    </div>
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+        <div class="widget widget-chart-three">
+            <app-retention-graph></app-retention-graph>
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+        <div class="widget widget-chart-three">
+           <app-adv-strategy-success-graph></app-adv-strategy-success-graph>
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+        <div class="widget widget-chart-three">
+            <app-offer-strategy-success-graph></app-offer-strategy-success-graph>
+        </div>
+    </div>
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+        <div class="widget widget-chart-three">
+            <app-session-graph></app-session-graph>
+        </div>
+    </div>
+
+</div>

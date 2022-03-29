@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CpGraphComponent implements OnInit {
 
+    churnPredictionResultRate: number;
+    offerStrategyPercent: number;
+    advStrategyPercent: number;
+
   constructor() { }
 
   ngOnInit(): void {
+      this.churnPredictionResultRate = 85;
+      this.offerStrategyPercent = 65;
+      this.advStrategyPercent = 55;
   }
 
 }

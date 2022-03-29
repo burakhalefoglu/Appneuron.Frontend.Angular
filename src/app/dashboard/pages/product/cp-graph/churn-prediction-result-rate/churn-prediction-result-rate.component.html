@@ -1,0 +1,14 @@
+<div class="widget-content">
+    <div class="w-header">
+        <div class="task-info">
+            <div class="w-title">
+                <h5>Churn Prediction Rate</h5>
+            </div>
+        </div>
+    </div>
+    <div class="progress br-30">
+        <div class="progress-bar bg-success" role="progressbar" [style.width.%]="churnPredictionResultRate" aria-valuenow="100"
+             aria-valuemin="0" aria-valuemax="100">{{churnPredictionResultRate}}%
+        </div>
+    </div>
+</div>
