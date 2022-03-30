@@ -11,9 +11,7 @@ import {TimerModule} from '@core/components/timer/timer.module';
 import {EventsModule} from '@core/services/angular-event-service/angular-events.module';
 import {DatepickerModule} from '@core/components/datepicker/datepicker.module';
 import {ProjectManagementComponent} from '@app/dashboard/pages/project-management/project-management.component';
-import { AdvertisingStrategyDisplayRateComponent } from './pages/product/cp-graph/advertising-strategy-display-rate/advertising-strategy-display-rate.component';
 import { CpGraphComponent } from './pages/product/cp-graph/cp-graph.component';
-import { OfferStrategyEffectivenessAnalysisComponent } from './pages/product/cp-graph/offer-strategy-effectiveness-analysis/offer-strategy-effectiveness-analysis.component';
 import { AdvRemoteSettingsComponent } from './pages/product/cp-remote/adv-remote-settings/adv-remote-settings.component';
 import { CpRemoteComponent } from './pages/product/cp-remote/cp-remote.component';
 import { OfferRemoteSettingsComponent } from './pages/product/cp-remote/offer-remote-settings/offer-remote-settings.component';
@@ -22,11 +20,13 @@ import { ProductComponent } from './pages/product/product.component';
 import { DashboardHeaderComponent } from './pages/product/layout/dashboard-header/dashboard-header.component';
 import { DashboardNavbarComponent } from './pages/product/layout/dashboard-navbar/dashboard-navbar.component';
 import {RefreshTokenComponent} from '@app/dashboard/pages/refresh-token/refresh-token.component';
-import { ChurnPredictionResultRateComponent } from './pages/product/cp-graph/churn-prediction-result-rate/churn-prediction-result-rate.component';
 import { RetentionGraphComponent } from './pages/product/cp-graph/retention-graph/retention-graph.component';
 import { SessionGraphComponent } from './pages/product/cp-graph/session-graph/session-graph.component';
 import { OfferStrategySuccessGraphComponent } from './pages/product/cp-graph/offer-strategy-success-graph/offer-strategy-success-graph.component';
 import { AdvStrategySuccessGraphComponent } from './pages/product/cp-graph/adv-strategy-success-graph/adv-strategy-success-graph.component';
+import { PaidVisitsGraphComponent } from './pages/product/cp-graph/paid-visits-graph/paid-visits-graph.component';
+import { TotalVisitsGraphComponent } from './pages/product/cp-graph/total-visits-graph/total-visits-graph.component';
+import { DailySessionGraphComponent } from './pages/product/cp-graph/daily-session-graph/daily-session-graph.component';
 
 
 @NgModule({
@@ -37,17 +37,17 @@ import { AdvStrategySuccessGraphComponent } from './pages/product/cp-graph/adv-s
         ProductComponent,
         CpGraphComponent,
         CpRemoteComponent,
-        OfferStrategyEffectivenessAnalysisComponent,
-        AdvertisingStrategyDisplayRateComponent,
         AdvRemoteSettingsComponent,
         OfferRemoteSettingsComponent,
         ProjectManagementComponent,
         RefreshTokenComponent,
-        ChurnPredictionResultRateComponent,
         RetentionGraphComponent,
         SessionGraphComponent,
         OfferStrategySuccessGraphComponent,
-        AdvStrategySuccessGraphComponent
+        AdvStrategySuccessGraphComponent,
+        PaidVisitsGraphComponent,
+        TotalVisitsGraphComponent,
+        DailySessionGraphComponent
     ],
     imports: [
         CommonModule,

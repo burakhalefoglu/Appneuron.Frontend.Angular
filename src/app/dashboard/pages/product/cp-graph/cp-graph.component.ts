@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ChurnPredictionGraphService} from '@app/dashboard/pages/product/services/churn-prediction-graph.service';
 import {ActivatedRoute} from '@angular/router';
+import {faMobileAndroid} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-cp-graph',
@@ -13,6 +14,7 @@ export class CpGraphComponent implements OnInit {
     offerStrategyPercent: number;
     advStrategyPercent: number;
     projectId: string;
+    faMobileAndroid = faMobileAndroid;
 
     constructor(private churnPredictionGraphService: ChurnPredictionGraphService,
                 private route: ActivatedRoute) {

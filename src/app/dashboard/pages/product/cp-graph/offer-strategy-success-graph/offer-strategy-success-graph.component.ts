@@ -25,14 +25,17 @@ export class OfferStrategySuccessGraphComponent implements AfterViewInit {
                 datasets: [{
                     label: '% of Rate',
                     data: [44, 77, 64],
-                    borderWidth: 1,
+                    borderWidth: .5,
+                    borderRadius: 6,
+                    barPercentage: .4,
+                    borderSkipped: false,
                     borderColor: randomColor({
-                        luminosity: 'light',
+                        luminosity: 'bright',
                         format: 'rgba',
                         alpha: 0.5
                     }),
                     backgroundColor: randomColor({
-                        luminosity: 'light',
+                        luminosity: 'bright',
                         format: 'rgba',
                         alpha: 0.5
                     }),

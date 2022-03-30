@@ -25,14 +25,17 @@ export class AdvStrategySuccessGraphComponent implements AfterViewInit {
                 datasets: [{
                     label: '% of Rate',
                     data: [44, 77, 64],
-                    borderWidth: 1,
+                    borderWidth: .5,
+                    barPercentage: .4,
+                    borderRadius: 6,
+                    borderSkipped: false,
                     borderColor: randomColor({
-                        luminosity: 'light',
+                        luminosity: 'bright',
                         format: 'rgba',
                         alpha: 0.5
                     }),
                     backgroundColor: randomColor({
-                        luminosity: 'light',
+                        luminosity: 'bright',
                         format: 'rgba',
                         alpha: 0.5
                     }),
