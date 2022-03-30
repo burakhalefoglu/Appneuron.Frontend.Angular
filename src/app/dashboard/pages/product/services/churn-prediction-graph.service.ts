@@ -33,4 +33,52 @@ export class ChurnPredictionGraphService {
             finalize(() => this.spinnerService.hideSpinner()),
         );
     }
+
+    getTotalClientCount(projectId: string): Observable<ResponseDataModel<number>> {
+        this.spinnerService.showSpinner();
+        return this.http.get <ResponseDataModel<number>>(
+            environment.getClientApiUrl +
+            '/Clients/GetTotalClient' +
+            '?projectId=' +
+            projectId
+        ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        );
+    }
+
+    getPaidClientCount(projectId: string): Observable<ResponseDataModel<number>> {
+        this.spinnerService.showSpinner();
+        return this.http.get <ResponseDataModel<number>>(
+            environment.getClientApiUrl +
+            '/Clients/GetPaidClient' +
+            '?projectId=' +
+            projectId
+        ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        );
+    }
+
+    getLastSevenTotalClientCount(projectId: string): Observable<ResponseDataModel<number[]>> {
+        this.spinnerService.showSpinner();
+        return this.http.get <ResponseDataModel<number[]>>(
+            environment.getClientApiUrl +
+            '/Clients/GetTotalClientLastSevenDayCount' +
+            '?projectId=' +
+            projectId
+        ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        );
+    }
+
+    getLastSevenPaidClientCount(projectId: string): Observable<ResponseDataModel<number[]>> {
+        this.spinnerService.showSpinner();
+        return this.http.get <ResponseDataModel<number[]>>(
+            environment.getClientApiUrl +
+            '/Clients/GetPaidClientLastSevenDayCount' +
+            '?projectId=' +
+            projectId
+        ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        );
+    }
 }

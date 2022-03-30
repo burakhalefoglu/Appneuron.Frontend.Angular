@@ -1,15 +1,22 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Appneuron</title>
-        <base href="/">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+<head>
+    <meta charset="utf-8">
+    <title>Appneuron</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'none';
+  frame-src 'self';
+  script-src 'self';
+  style-src 'self' 'unsafe-inline';
+  font-src 'self';
+  img-src 'self' data:;
+ connect-src * data: blob: 'unsafe-inline'; ">
 </head>
 <!--    class="mat-typography"-->
-    <body>
-        <app-root></app-root>
-    </body>
+<body>
+<app-root></app-root>
+</body>
 </html>

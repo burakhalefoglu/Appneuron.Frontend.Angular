@@ -24,8 +24,8 @@ import { RetentionGraphComponent } from './pages/product/cp-graph/retention-grap
 import { SessionGraphComponent } from './pages/product/cp-graph/session-graph/session-graph.component';
 import { OfferStrategySuccessGraphComponent } from './pages/product/cp-graph/offer-strategy-success-graph/offer-strategy-success-graph.component';
 import { AdvStrategySuccessGraphComponent } from './pages/product/cp-graph/adv-strategy-success-graph/adv-strategy-success-graph.component';
-import { PaidVisitsGraphComponent } from './pages/product/cp-graph/paid-visits-graph/paid-visits-graph.component';
-import { TotalVisitsGraphComponent } from './pages/product/cp-graph/total-visits-graph/total-visits-graph.component';
+import { PaidGraphComponent } from './pages/product/cp-graph/paid-graph/paid-graph.component';
+import { TotalGraphComponent } from './pages/product/cp-graph/total-graph/total-graph.component';
 import { DailySessionGraphComponent } from './pages/product/cp-graph/daily-session-graph/daily-session-graph.component';
 
 
@@ -45,8 +45,8 @@ import { DailySessionGraphComponent } from './pages/product/cp-graph/daily-sessi
         SessionGraphComponent,
         OfferStrategySuccessGraphComponent,
         AdvStrategySuccessGraphComponent,
-        PaidVisitsGraphComponent,
-        TotalVisitsGraphComponent,
+        PaidGraphComponent,
+        TotalGraphComponent,
         DailySessionGraphComponent
     ],
     imports: [

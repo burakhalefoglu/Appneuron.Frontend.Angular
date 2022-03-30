@@ -5,16 +5,18 @@ import Chart from 'chart.js/auto';
 import * as randomColor from 'randomcolor';
 
 @Component({
-    selector: 'app-paid-visits-graph',
-    templateUrl: './paid-visits-graph.component.html',
-    styleUrls: ['./paid-visits-graph.component.scss']
+    selector: 'app-total-graph',
+    templateUrl: './total-graph.component.html',
+    styleUrls: ['./total-graph.component.scss']
 })
-export class PaidVisitsGraphComponent implements OnInit, AfterViewInit {
+export class TotalGraphComponent implements OnInit, AfterViewInit {
 
     projectId: string;
     canvas: any;
     ctx: any;
     color1: any;
+    totalVisit: number;
+    myChart: Chart;
 
     constructor(private churnPredictionGraphService: ChurnPredictionGraphService,
                 private route: ActivatedRoute) {
@@ -26,19 +28,27 @@ export class PaidVisitsGraphComponent implements OnInit, AfterViewInit {
             format: 'rgba',
             alpha: 0.4
         });
-
-        this.canvas = document.getElementById('paid-visits');
+        this.canvas = document.getElementById('total-visits');
         this.ctx = this.canvas.getContext('2d');
-        const myChart = new Chart(this.ctx, {
+        this.churnPredictionGraphService.getLastSevenTotalClientCount(this.projectId)
+            .subscribe((data) => {
+                if (data.success) {
+                    this.initChart(data.data.reverse());
+                }
+            });
+    }
+
+    private initChart(d: number[]): void {
+        this.myChart = new Chart(this.ctx, {
             type: 'line',
             data: {
-                labels: ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
+                labels: ['6 days ago', '5 days ago', '4 days ago', '3 days ago', '2 days ago', 'yesterday', 'today'],
                 datasets: [
                     {
-                        data: [1, 12, 33, 23, 12, 33, 23],
+                        data: d,
                         fill: true,
-                        backgroundColor:  this.color1,
-                        pointBackgroundColor:  this.color1,
+                        backgroundColor: this.color1,
+                        pointBackgroundColor: this.color1,
                         borderColor: this.color1,
                         pointRadius: 0,
                         spanGaps: true,
@@ -77,6 +87,13 @@ export class PaidVisitsGraphComponent implements OnInit, AfterViewInit {
                     this.projectId = params.projectId;
                 }
             );
+        this.churnPredictionGraphService.getTotalClientCount(this.projectId)
+            .subscribe((data) => {
+                if (data.success) {
+                    console.log(data);
+                    this.totalVisit = data.data;
+                }
+            });
     }
 
 }
