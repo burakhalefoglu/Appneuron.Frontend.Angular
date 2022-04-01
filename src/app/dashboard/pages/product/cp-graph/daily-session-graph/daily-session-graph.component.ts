@@ -25,7 +25,7 @@ export class DailySessionGraphComponent implements  OnInit, AfterViewInit {
         const myChart = new Chart(this.ctx, {
             type: 'bar',
             data: {
-                labels: ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
+                labels: ['6 days ago', '5 days ago', '4 days ago', '3 days ago', '2 days ago', 'yesterday', 'today'],
                 datasets: [{
                     label: '# of Session',
                     data: [1, 12, 33, 23, 12, 33, 23],
