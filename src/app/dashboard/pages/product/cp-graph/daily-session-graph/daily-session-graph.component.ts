@@ -22,20 +22,30 @@ export class DailySessionGraphComponent implements  OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         this.canvas = document.getElementById('daily-session');
         this.ctx = this.canvas.getContext('2d');
+        this.churnPredictionGraphService.getLastSevenSessionCount(this.projectId)
+            .subscribe((data) => {
+                if (data.success) {
+                    console.log(data);
+                    this.initChart(data.data.reverse());
+                }
+            });
+    }
+
+    private initChart(d: number[]): void {
         const myChart = new Chart(this.ctx, {
             type: 'bar',
             data: {
                 labels: ['6 days ago', '5 days ago', '4 days ago', '3 days ago', '2 days ago', 'yesterday', 'today'],
                 datasets: [{
                     label: '# of Session',
-                    data: [1, 12, 33, 23, 12, 33, 23],
+                    data: d,
                     barPercentage: .4,
                     backgroundColor: randomColor({
                         luminosity: 'bright',
                         format: 'rgba',
                         alpha: 0.4
                     }),
-                    borderColor:  randomColor({
+                    borderColor: randomColor({
                         luminosity: 'bright',
                         format: 'rgba',
                         alpha: 0.4

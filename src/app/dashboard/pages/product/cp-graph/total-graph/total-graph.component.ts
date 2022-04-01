@@ -90,7 +90,6 @@ export class TotalGraphComponent implements OnInit, AfterViewInit {
         this.churnPredictionGraphService.getTotalClientCount(this.projectId)
             .subscribe((data) => {
                 if (data.success) {
-                    console.log(data);
                     this.totalVisit = data.data;
                 }
             });

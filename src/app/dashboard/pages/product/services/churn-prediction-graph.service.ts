@@ -81,4 +81,16 @@ export class ChurnPredictionGraphService {
             finalize(() => this.spinnerService.hideSpinner()),
         );
     }
+
+    getLastSevenSessionCount(projectId: string): Observable<ResponseDataModel<number[]>> {
+        this.spinnerService.showSpinner();
+        return this.http.get <ResponseDataModel<number[]>>(
+            environment.getClientApiUrl +
+            '/GameSessions/GetDailySession' +
+            '?projectId=' +
+            projectId
+        ).pipe(
+            finalize(() => this.spinnerService.hideSpinner()),
+        );
+    }
 }

@@ -33,7 +33,6 @@ export class PaidGraphComponent implements OnInit, AfterViewInit {
         this.churnPredictionGraphService.getLastSevenPaidClientCount(this.projectId)
             .subscribe((data) => {
                 if (data.success) {
-                    console.log(data);
                     this.initChart(data.data.reverse());
                 }
             });
@@ -91,7 +90,6 @@ export class PaidGraphComponent implements OnInit, AfterViewInit {
         this.churnPredictionGraphService.getPaidClientCount(this.projectId)
             .subscribe((data) => {
                 if (data.success) {
-                    console.log(data);
                     this.paidVisit = data.data;
                 }
             });
