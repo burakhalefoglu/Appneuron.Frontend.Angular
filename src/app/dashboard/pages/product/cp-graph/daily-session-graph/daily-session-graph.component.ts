@@ -25,7 +25,6 @@ export class DailySessionGraphComponent implements  OnInit, AfterViewInit {
         this.churnPredictionGraphService.getLastSevenSessionCount(this.projectId)
             .subscribe((data) => {
                 if (data.success) {
-                    console.log(data);
                     this.initChart(data.data.reverse());
                 }
             });
