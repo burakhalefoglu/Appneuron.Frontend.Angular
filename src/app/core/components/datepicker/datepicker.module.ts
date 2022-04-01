@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DatepickerComponent} from '../datepicker/datepicker.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DateTimePickerModule} from 'ngx-datetime-picker';
 
 @NgModule({
     declarations: [
@@ -10,12 +11,13 @@ import {FormsModule} from '@angular/forms';
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
+        DateTimePickerModule
     ],
     exports: [
         DatepickerComponent
     ],
-    providers: [
-    ]
+    providers: []
 })
 export class DatepickerModule {
 }

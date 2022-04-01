@@ -132,11 +132,15 @@ export class CoreService {
         return result === 1;
     }
 
-    dynamicColors(): string{
+    dynamicColors(): string {
         const r = Math.floor(Math.random() * 255);
         const g = Math.floor(Math.random() * 255);
         const b = Math.floor(Math.random() * 255);
         return 'rgb(' + r + ',' + g + ',' + b + ')';
+    }
+
+    public formatDate(date: Date): string {
+        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     }
 
     public CompareDate(DateA, DateB): number {

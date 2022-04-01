@@ -27,6 +27,7 @@ import { AdvStrategySuccessGraphComponent } from './pages/product/cp-graph/adv-s
 import { PaidGraphComponent } from './pages/product/cp-graph/paid-graph/paid-graph.component';
 import { TotalGraphComponent } from './pages/product/cp-graph/total-graph/total-graph.component';
 import { DailySessionGraphComponent } from './pages/product/cp-graph/daily-session-graph/daily-session-graph.component';
+import {DateTimePickerModule} from 'ngx-datetime-picker';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { DailySessionGraphComponent } from './pages/product/cp-graph/daily-sessi
         DashboardRoutingModule,
         NgbDropdownModule,
         NgbProgressbarModule,
+        DateTimePickerModule,
     ]
 })
 export class DashboardModule {

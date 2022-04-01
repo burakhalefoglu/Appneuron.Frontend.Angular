@@ -14,8 +14,14 @@ export class RetentionGraphComponent implements AfterViewInit {
     canvas: any;
     ctx: any;
     color1: any;
+    selectedDate = new Date();
 
     constructor() {
+    }
+
+    onDateChange(e: Date): void {
+        // get retention data
+        console.log(e);
     }
 
     ngAfterViewInit(): void {
