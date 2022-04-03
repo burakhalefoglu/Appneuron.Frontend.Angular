@@ -1,6 +1,7 @@
 import {AdvStrategyModel} from '@app/dashboard/pages/product/cp-remote/models/adv-strategy-model';
 
 export class InterstitialAdModel {
+    Id: number;
     ProjectId: number;
     Name: string;
     Version: number;

@@ -53,7 +53,7 @@ export class OfferRemoteSettingsComponent implements OnInit {
 
     productName: string;
     productCount: number;
-    projectId: number;
+    projectId: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -289,7 +289,7 @@ export class OfferRemoteSettingsComponent implements OnInit {
         }
 
         const offerModel = new OfferModel();
-        offerModel.ProjectId = this.projectId;
+        offerModel.ProjectId = Number(this.projectId);
         offerModel.IsActive = false;
         offerModel.Name = this.OfferStrategyFormGroup.value.Name;
         offerModel.FirstPrice = this.OfferStrategyFormGroup.value.FirstPrice;

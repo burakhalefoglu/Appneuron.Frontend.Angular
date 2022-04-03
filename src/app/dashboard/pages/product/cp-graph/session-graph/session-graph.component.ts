@@ -4,6 +4,9 @@ import autocolors from 'chartjs-plugin-autocolors';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import 'chartjs-adapter-luxon';
 import ChartStreaming from 'chartjs-plugin-streaming';
+import {ChurnPredictionGraphService} from '@app/dashboard/pages/product/services/churn-prediction-graph.service';
+import {RemoteSettingsService} from '@app/dashboard/pages/product/services/remote-settings.service';
+import {ActivatedRoute} from '@angular/router';
 
 Chart.register(autocolors);
 Chart.register(zoomPlugin);
@@ -14,10 +17,21 @@ Chart.register(ChartStreaming);
     templateUrl: './session-graph.component.html',
     styleUrls: ['./session-graph.component.scss']
 })
-export class SessionGraphComponent implements AfterViewInit {
+export class SessionGraphComponent implements AfterViewInit, OnInit {
     canvas: any;
     ctx: any;
-    constructor() {
+    public projectId: string;
+
+    constructor(private churnPredictionService: ChurnPredictionGraphService,
+                private route: ActivatedRoute) {
+    }
+
+    ngOnInit(): void {
+        this.route.queryParams
+            .subscribe(params => {
+                    this.projectId = params.projectId;
+                }
+            );
     }
 
     ngAfterViewInit(): void {
@@ -72,14 +86,14 @@ export class SessionGraphComponent implements AfterViewInit {
     }
 
     onRefresh(chart): void {
-        // get data from server
-        const session = Math.random() * 100;
-        const now = Date.now();
-        chart.data.datasets.forEach( (dataset) => {
-            dataset.data.push({
-                x: now,
-                y: session
+        this.churnPredictionService.getTotalSessionByDate(this.projectId, new Date())
+            .subscribe((data) => {
+                chart.data.datasets.forEach((dataset) => {
+                    dataset.data.push({
+                        x: Date.now(),
+                        y: data.data
+                    });
+                });
             });
-        });
     }
 }

@@ -96,7 +96,7 @@ export class RemoteSettingsService {
     }
 
     public getOfferRemoteSettings(
-        projectId: number,
+        projectId: string,
     ): Observable<ResponseDataModel<Array<OfferModel>>> {
         this.spinnerService.showSpinner();
         return this.http.get<ResponseDataModel<Array<OfferModel>>>(

@@ -6,22 +6,23 @@ export class OfferProduct {
 }
 
 export class OfferModel {
-  ProjectId: number;
-  IsActive: boolean;
-  ProductDtos: Array<OfferProduct>;
-  Name: string;
-  FirstPrice: number;
-  LastPrice: number;
-  Version: string;
-  PlayerPercent: number;
-  IsGift: boolean;
-  GiftTexture: string;
-  ValidityPeriod: number;
-  StartTime: number;
-  FinishTime: number;
+    Id: number;
+    ProjectId: number;
+    IsActive: boolean;
+    ProductDtos: Array<OfferProduct>;
+    Name: string;
+    FirstPrice: number;
+    LastPrice: number;
+    Version: string;
+    PlayerPercent: number;
+    IsGift: boolean;
+    GiftTexture: string;
+    ValidityPeriod: number;
+    StartTime: number;
+    FinishTime: number;
 }
 
-export class OfferModelUpdateDto{
+export class OfferModelUpdateDto {
     ProjectId: number;
     Name: string;
     IsActive: boolean;
@@ -30,7 +31,7 @@ export class OfferModelUpdateDto{
 
 }
 
-export class OfferModelDeleteDto{
+export class OfferModelDeleteDto {
     ProjectId: number;
     Name: string;
     Version: string;

@@ -22,12 +22,14 @@ import { DashboardNavbarComponent } from './pages/product/layout/dashboard-navba
 import {RefreshTokenComponent} from '@app/dashboard/pages/refresh-token/refresh-token.component';
 import { RetentionGraphComponent } from './pages/product/cp-graph/retention-graph/retention-graph.component';
 import { SessionGraphComponent } from './pages/product/cp-graph/session-graph/session-graph.component';
-import { OfferStrategySuccessGraphComponent } from './pages/product/cp-graph/offer-strategy-success-graph/offer-strategy-success-graph.component';
-import { AdvStrategySuccessGraphComponent } from './pages/product/cp-graph/adv-strategy-success-graph/adv-strategy-success-graph.component';
+import { AdvStrategyShownGraphComponent } from './pages/product/cp-graph/adv-strategy-shown-graph/adv-strategy-shown-graph.component';
 import { PaidGraphComponent } from './pages/product/cp-graph/paid-graph/paid-graph.component';
 import { TotalGraphComponent } from './pages/product/cp-graph/total-graph/total-graph.component';
 import { DailySessionGraphComponent } from './pages/product/cp-graph/daily-session-graph/daily-session-graph.component';
 import {DateTimePickerModule} from 'ngx-datetime-picker';
+import {
+    OfferStrategySuccessGraphComponent
+} from '@app/dashboard/pages/product/cp-graph/offer-strategy-success-graph/offer-strategy-success-graph.component';
 
 
 @NgModule({
@@ -45,7 +47,7 @@ import {DateTimePickerModule} from 'ngx-datetime-picker';
         RetentionGraphComponent,
         SessionGraphComponent,
         OfferStrategySuccessGraphComponent,
-        AdvStrategySuccessGraphComponent,
+        AdvStrategyShownGraphComponent,
         PaidGraphComponent,
         TotalGraphComponent,
         DailySessionGraphComponent
